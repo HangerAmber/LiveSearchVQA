@@ -1,10 +1,11 @@
 {
- "generated": 500,
- "drop_closed_book": 292,
- "drop_oracle": 7,
- "accepted": 201,
- "articles_used": 125,
- "elapsed_sec": 970,
+ "generated": 21,
+ "drop_closed_book": 12,
+ "drop_oracle": 0,
+ "accepted": 9,
+ "articles_used": 7,
+ "drop_category_quota": 1,
+ "elapsed_sec": 72,
  "final_size": 200,
- "build_date": "2026-07-15"
+ "build_date": "2026-07-17"
 }

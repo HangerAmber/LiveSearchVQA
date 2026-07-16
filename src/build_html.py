@@ -134,11 +134,19 @@ TEMPLATE = r"""<!DOCTYPE html>
 <div class="count-line" id="count-line"></div>
 <div class="grid" id="grid"></div>
 
+<div class="chart" id="archive-box" style="margin-top:28px; display:none;">
+  <h3>Past daily splits (JSON)</h3>
+  <div id="archive-list" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+</div>
+
 <footer>
   LiveSearchVQA · fully automated pipeline: crawl fresh news (RSS, &lt;48 h) → VLM question
-  generation → closed-book anti-memorization filter → oracle answerability filter.
+  generation → closed-book anti-memorization filter → oracle answerability filter →
+  perceptual-hash image dedup + per-category quota for diversity.
   Each item ships with gold answer, verbatim evidence and source URL, enabling the
   closed-book / with-search / oracle three-way diagnostic evaluation.
+  Rebuilt daily by GitHub Actions ·
+  <a href="https://github.com/HangerAmber/LiveSearchVQA" style="color:var(--accent)">GitHub</a>
 </footer>
 </div>
 
@@ -148,6 +156,7 @@ TEMPLATE = r"""<!DOCTYPE html>
 const DATA = __DATA__;
 const STATS = __STATS__;
 const QTYPE_LABEL = __QTYPE_LABEL__;
+const ARCHIVES = __ARCHIVES__;
 
 const $ = s => document.querySelector(s);
 let revealAll = false;
@@ -269,6 +278,11 @@ $("#reveal-all").addEventListener("click", () => {
   render();
 });
 $("#lightbox").addEventListener("click", () => $("#lightbox").style.display = "none");
+if (ARCHIVES.length) {
+  $("#archive-box").style.display = "block";
+  $("#archive-list").innerHTML = ARCHIVES.map(a =>
+    `<a class="badge" style="text-decoration:none" href="data/archive/${a}">${a.replace(".json","")}</a>`).join("");
+}
 render();
 </script>
 </body>
@@ -284,11 +298,15 @@ def main():
     if os.path.exists(stats_path):
         with open(stats_path, encoding="utf-8") as f:
             stats = json.load(f)
+    archive_dir = os.path.join(DATA_DIR, "archive")
+    archives = sorted(os.listdir(archive_dir), reverse=True) \
+        if os.path.isdir(archive_dir) else []
 
     html = (TEMPLATE
             .replace("__DATA__", json.dumps(bench, ensure_ascii=False))
             .replace("__STATS__", json.dumps(stats))
             .replace("__QTYPE_LABEL__", json.dumps(QTYPE_LABEL))
+            .replace("__ARCHIVES__", json.dumps(archives))
             .replace("__BUILD_DATE__", stats.get("build_date", "")))
     out = os.path.join(_ROOT, "index.html")
     with open(out, "w", encoding="utf-8") as f:

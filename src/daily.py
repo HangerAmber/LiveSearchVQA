@@ -35,6 +35,27 @@ def archive_previous():
             os.remove(p)
 
 
+def prune_images():
+    """Keep only images referenced by the current benchmark; archives keep
+    question metadata + original image URLs but not the image files, so the
+    repository does not grow unboundedly (~40 MB/day otherwise)."""
+    bench_path = os.path.join(DATA_DIR, "benchmark.json")
+    img_dir = os.path.join(DATA_DIR, "images")
+    if not os.path.exists(bench_path) or not os.path.isdir(img_dir):
+        return
+    with open(bench_path, encoding="utf-8") as f:
+        bench = json.load(f)
+    keep = {os.path.basename(b["image"]) for b in bench}
+    removed = 0
+    for name in os.listdir(img_dir):
+        if name not in keep:
+            os.remove(os.path.join(img_dir, name))
+            removed += 1
+    # drop pruned images from the dedup registry as well? No: keeping their
+    # hashes prevents the same press photo from re-entering on later days.
+    print(f"[prune] removed {removed} unreferenced images, kept {len(keep)}")
+
+
 def run(script, *args):
     cmd = [sys.executable, "-u", "-X", "utf8",
            os.path.join(_ROOT, "src", script), *args]
@@ -46,5 +67,6 @@ if __name__ == "__main__":
     archive_previous()
     run("crawler.py")
     run("generate.py", "200")
+    prune_images()
     run("build_html.py")
     print("[daily] done")

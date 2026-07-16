@@ -233,12 +233,36 @@ def process_article(article, stats):
     return kept
 
 
+# diversity knobs
+MAX_Q_PER_CATEGORY = 40   # cap questions per news category per day
+MAX_Q_PER_ARTICLE = 1     # unique image per question; extras used as top-up
+
+
+def _interleave_by_category(articles):
+    """Round-robin across categories so no single domain dominates the
+    front of the processing queue."""
+    rng = random.Random(42)
+    buckets = {}
+    for a in articles:
+        buckets.setdefault(a["category"], []).append(a)
+    for b in buckets.values():
+        rng.shuffle(b)
+    order = sorted(buckets, key=lambda c: -len(buckets[c]))
+    out, i = [], 0
+    while any(buckets.values()):
+        for c in order:
+            if i < len(buckets[c]):
+                out.append(buckets[c][i])
+        i += 1
+        if i > max(len(b) for b in buckets.values()):
+            break
+    return out
+
+
 def main(target=200, workers=5):
     with open(os.path.join(DATA_DIR, "articles.json"), encoding="utf-8") as f:
         articles = json.load(f)
-    # interleave sources for topical diversity
-    random.seed(42)
-    random.shuffle(articles)
+    articles = _interleave_by_category(articles)
 
     # top-up mode: keep previously accepted items, skip their articles
     bench_path = os.path.join(DATA_DIR, "benchmark.json")
@@ -255,32 +279,73 @@ def main(target=200, workers=5):
         return
 
     stats = {"generated": 0, "drop_closed_book": 0,
-             "drop_oracle": 0, "accepted": 0, "articles_used": 0}
+             "drop_oracle": 0, "accepted": 0, "articles_used": 0,
+             "drop_category_quota": 0}
     stop = threading.Event()
+    cat_counts = {}
+    for b in bench:
+        cat_counts[b["category"]] = cat_counts.get(b["category"], 0) + 1
+    cat_lock = threading.Lock()
 
-    def worker(article):
+    quota_skipped = []
+
+    def worker(article, enforce_quota=True):
         if stop.is_set():
             return []
+        if enforce_quota:
+            with cat_lock:
+                if cat_counts.get(article["category"], 0) >= MAX_Q_PER_CATEGORY:
+                    stats["drop_category_quota"] += 1
+                    quota_skipped.append(article)
+                    return []
         return process_article(article, stats)
 
     t0 = time.time()
-    with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs = {ex.submit(worker, a): a for a in articles}
-        for f in as_completed(futs):
-            try:
-                items = f.result()
-            except Exception as e:
-                with _print_lock:
-                    print("[worker err]", str(e)[:150])
+    extras = []  # 2nd question per article, used only if supply runs short
+
+    def run_pass(pool, enforce_quota=True):
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            futs = {ex.submit(worker, a, enforce_quota): a for a in pool}
+            for f in as_completed(futs):
+                try:
+                    items = f.result()
+                except Exception as e:
+                    with _print_lock:
+                        print("[worker err]", str(e)[:150])
+                    continue
+                if items:
+                    stats["articles_used"] += 1
+                    kept = items[:MAX_Q_PER_ARTICLE]
+                    extras.extend(items[MAX_Q_PER_ARTICLE:])
+                    bench.extend(kept)
+                    with cat_lock:
+                        cat = futs[f]["category"]
+                        cat_counts[cat] = cat_counts.get(cat, 0) + len(kept)
+                    with _print_lock:
+                        print(f"[{len(bench):>3}/{target}] +{len(kept)} "
+                              f"({futs[f]['source']}/{futs[f]['category']}) "
+                              f"{futs[f]['title'][:40]}")
+                if len(bench) >= target and not stop.is_set():
+                    stop.set()
+
+    run_pass(articles, enforce_quota=True)
+
+    if len(bench) < target and extras:
+        # top-up with second questions per article, still under quota
+        for q in extras:
+            if len(bench) >= target:
+                break
+            if cat_counts.get(q["category"], 0) >= MAX_Q_PER_CATEGORY:
                 continue
-            if items:
-                stats["articles_used"] += 1
-                bench.extend(items)
-                with _print_lock:
-                    print(f"[{len(bench):>3}/{target}] +{len(items)} "
-                          f"({futs[f]['source']}) {futs[f]['title'][:40]}")
-            if len(bench) >= target and not stop.is_set():
-                stop.set()
+            bench.append(q)
+            cat_counts[q["category"]] = cat_counts.get(q["category"], 0) + 1
+        print(f"[top-up] {len(bench)} after adding spare questions")
+
+    if len(bench) < target and quota_skipped:
+        # supply ran short: relax the category quota rather than under-fill
+        print(f"[relax] quota relaxed, reprocessing "
+              f"{len(quota_skipped)} skipped articles")
+        run_pass(list(quota_skipped), enforce_quota=False)
 
     bench = bench[:target]
     out = bench_path

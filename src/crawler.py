@@ -15,12 +15,15 @@ import html as htmllib
 from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+import threading
+
 import requests
 from PIL import Image
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(_ROOT, "data")
 IMG_DIR = os.path.join(DATA_DIR, "images")
+HASH_REG_PATH = os.path.join(DATA_DIR, "image_hashes.json")
 os.makedirs(IMG_DIR, exist_ok=True)
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -230,6 +233,52 @@ def _candidate_images(page, base_url, source):
     return cands[:6]
 
 
+# ---------- perceptual dedup (dHash) ----------
+# Registry persists across days so the benchmark never repeats an image,
+# even when different outlets reuse the same press photo.
+DEDUP_HAMMING_MAX = 6
+_hash_lock = threading.Lock()
+
+
+def _load_hash_registry():
+    if os.path.exists(HASH_REG_PATH):
+        with open(HASH_REG_PATH, encoding="utf-8") as f:
+            return {k: int(v, 16) for k, v in json.load(f).items()}
+    return {}
+
+
+_hash_registry = _load_hash_registry()
+
+
+def _save_hash_registry():
+    with _hash_lock:
+        with open(HASH_REG_PATH, "w", encoding="utf-8") as f:
+            json.dump({k: format(v, "x") for k, v in _hash_registry.items()},
+                      f, indent=0)
+
+
+def _dhash(im, size=8):
+    g = im.convert("L").resize((size + 1, size), Image.LANCZOS)
+    px = list(g.getdata())
+    bits = 0
+    for y in range(size):
+        row = y * (size + 1)
+        for x in range(size):
+            bits = (bits << 1) | (px[row + x + 1] > px[row + x])
+    return bits
+
+
+def _is_duplicate_image(im, item_id):
+    h = _dhash(im)
+    with _hash_lock:
+        for other_id, other_h in _hash_registry.items():
+            if other_id != item_id and \
+                    bin(h ^ other_h).count("1") <= DEDUP_HAMMING_MAX:
+                return True
+        _hash_registry[item_id] = h
+    return False
+
+
 def _looks_like_image(raw):
     try:
         Image.open(io.BytesIO(raw)).verify()
@@ -248,6 +297,8 @@ def _download_image(img_url, item_id, referer=None):
             return None
         if im.mode != "RGB":
             im = im.convert("RGB")
+        if _is_duplicate_image(im, item_id):
+            return None
         if max(im.size) > 1024:
             ratio = 1024 / max(im.size)
             im = im.resize((int(im.width * ratio), int(im.height * ratio)))
@@ -357,6 +408,7 @@ def crawl(max_articles=400):
                 break
     with open(out, "w", encoding="utf-8") as fp:
         json.dump(articles, fp, ensure_ascii=False, indent=1)
+    _save_hash_registry()
     print(f"[done] +{new_count} new, {len(articles)} total -> {out}")
     return articles
 

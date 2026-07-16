@@ -3264,30 +3264,6 @@
   "oracle_pred": "A"
  },
  {
-  "id": "805167429b3f-0",
-  "article_id": "805167429b3f",
-  "source": "cnbeta",
-  "category": "tech",
-  "article_url": "https://www.cnbeta.com.tw/articles/tech/1568890.htm",
-  "article_title": "SK海力士到2028年可能仅能实现其计划新增内存产能的六分之一",
-  "pub_date": "2026-07-14T08:25:36+08:00",
-  "crawl_time": "2026-07-14T23:30:35.287040+08:00",
-  "image": "images/805167429b3f.jpg",
-  "question": "The company that produces the memory chips shown in the image was collectively sued together with two other memory giants for alleged price collusion on what date?",
-  "options": [
-   "June 25, 2026",
-   "July 14, 2026",
-   "May 18, 2026",
-   "July 2, 2026"
-  ],
-  "answer": "A",
-  "evidence": "这三家内存巨头于今年6月25日在加州联邦法院遭到集体诉讼，被控共谋操纵价格",
-  "qtype": "temporal",
-  "why_search_needed": "The date of this 2026 price collusion lawsuit against SK hynix and other memory firms is a recent event not present in pre-2026 public knowledge.",
-  "closed_book_pred": "D",
-  "oracle_pred": "A"
- },
- {
   "id": "797066765bb7-0",
   "article_id": "797066765bb7",
   "source": "mydrivers",
@@ -3478,30 +3454,6 @@
   "why_search_needed": "The prior modem supplier for the tested device's chip line is part of the July 2026 announcement, not known from pre-2026 information.",
   "closed_book_pred": "C",
   "oracle_pred": "A"
- },
- {
-  "id": "f5b53cd30978-0",
-  "article_id": "f5b53cd30978",
-  "source": "mydrivers",
-  "category": "tech",
-  "article_url": "https://news.mydrivers.com/1/1136/1136368.htm",
-  "article_title": "比亚迪回应唐车型后电机总成脱落：底盘发生严重磕碰 非产品质量问题",
-  "pub_date": "2026-07-14T20:13:02+08:00",
-  "crawl_time": "2026-07-14T23:09:40.703577+08:00",
-  "image": "images/f5b53cd30978.jpg",
-  "question": "What is the identity of the component shown dragged under the vehicle in the image?",
-  "options": [
-   "The vehicle's gearbox unit",
-   "The vehicle's exhaust system",
-   "The vehicle's traction battery pack",
-   "The vehicle's rear motor assembly"
-  ],
-  "answer": "D",
-  "evidence": "后电机总成从车辆底部脱落，由橙色高压线束与车身相连，在积水中被拖行",
-  "qtype": "identification",
-  "why_search_needed": "The identity of this component from this 2026 incident is only stated in the recent report, and cannot be confirmed from the image alone or pre-existing knowledge.",
-  "closed_book_pred": "C",
-  "oracle_pred": "D"
  },
  {
   "id": "a4cd46fc3168-0",
@@ -4798,5 +4750,53 @@
   "why_search_needed": "The launch schedule of this newly unveiled vehicle is exclusive to the recent news release and not available in pre-2026 knowledge.",
   "closed_book_pred": "C",
   "oracle_pred": "B"
+ },
+ {
+  "id": "e95186674df1-0",
+  "article_id": "e95186674df1",
+  "source": "bing-news",
+  "category": "science",
+  "article_url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6a5654faec3e4811997604a0e5812378&url=https%3a%2f%2fwww.nationalgeographic.com%2fhealth%2farticle%2fcold-plunge-claims-scientific-evidence&c=10832721404218078116&mkt=en-sg",
+  "article_title": "Science is pushing back on the hype over cold plunges",
+  "pub_date": "2026-07-13T04:18:00+08:00",
+  "crawl_time": "2026-07-14T23:26:52.452833+08:00",
+  "image": "images/e95186674df1.jpg",
+  "question": "The cold plunge feature shown in the image is part of a trend that first had Denis Blondin participate in cold water immersion in which year for a research study?",
+  "options": [
+   "1999",
+   "2015",
+   "2004",
+   "2010"
+  ],
+  "answer": "C",
+  "evidence": "He still vividly remembers the first time he immersed himself in near-freezing water in 2004—not as part of a wellness routine, but as a volunteer in a study examining how cold-water immersion could safely bring someone suffering from hyperthermia back to a normal body temperature.",
+  "qtype": "temporal",
+  "why_search_needed": "The year of Denis Blondin's first cold water immersion for research is specific new information tied to the 2026 article.",
+  "closed_book_pred": "A",
+  "oracle_pred": "C"
+ },
+ {
+  "id": "8dbe8b012484-0",
+  "article_id": "8dbe8b012484",
+  "source": "bing-news",
+  "category": "movies",
+  "article_url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6a565648560641cba3e4bfb10ab18df9&url=https%3a%2f%2fsg.news.yahoo.com%2fmoana-live-action-remake-tops-151957552.html&c=7107405302625465798&mkt=en-sg",
+  "article_title": "“Moana” Live-Action Remake Tops the Box Office but Underperforms as It Opens Behind Expectations with $43M Debut",
+  "pub_date": "2026-07-13T09:00:00+08:00",
+  "crawl_time": "2026-07-14T23:33:08.073187+08:00",
+  "image": "images/8dbe8b012484.jpg",
+  "question": "What is the Rotten Tomatoes critics score for the movie this character appears in?",
+  "options": [
+   "72%",
+   "90%",
+   "33%",
+   "56%"
+  ],
+  "answer": "C",
+  "evidence": "The live-action Moana received largely negative reviews from critics — it holds a 33% score on Rotten Tomatoes",
+  "qtype": "factual_detail",
+  "why_search_needed": "The Rotten Tomatoes critics score for the 2026 live-action Moana is newly published review data that does not exist in pre-2026 knowledge.",
+  "closed_book_pred": "D",
+  "oracle_pred": "C"
  }
 ]

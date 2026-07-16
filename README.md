@@ -39,14 +39,33 @@ utilization error using the agent's retrieval trace.
 ```
 RSS feeds (20+ channels, CN + EN)          src/crawler.py
   └─ fresh articles (<48 h) + images        data/articles.json, data/images/
+      │   · perceptual-hash (dHash) image dedup, persistent across days
       └─ VLM question generation            src/generate.py  (Stage A)
           └─ closed-book filter             (Stage B: drop if solvable w/o search)
               └─ oracle filter              (Stage C: drop if unsolvable w/ evidence)
+                  │   · 1 question per image · per-category quota (40/day)
+                  │   · category round-robin scheduling
                   └─ benchmark              data/benchmark.json (200 items)
                       └─ visualization      src/build_html.py → index.html
 ```
 
 VLM: Doubao Seed 2.0 Pro via Volcano Engine ARK (`src/ark_api.py`).
+
+## Daily automation
+
+`.github/workflows/daily.yml` runs `src/daily.py` every day at 08:30 Beijing
+time: it archives the previous split to `data/archive/<date>.json`, rebuilds
+the benchmark from scratch from that day's news, prunes unreferenced images,
+regenerates `index.html`, and pushes -- GitHub Pages then redeploys the site
+automatically. Requires the `ARK_API_KEY` repository secret.
+
+Diversity guarantees:
+- **No repeated images, ever**: a persistent dHash registry
+  (`data/image_hashes.json`) rejects any image within Hamming distance 6 of
+  a previously used one, including re-published press photos.
+- **Domain balance**: articles are scheduled round-robin across categories,
+  each category is capped at 40 questions/day (relaxed only if supply runs
+  short), and each image contributes at most one question.
 
 ## Run
 
