@@ -1,0 +1,314 @@
+% LiveSearchVQA -- paper draft v0.1
+% Compiles standalone; if the official ACL style files (acl.sty) are present
+% (https://github.com/acl-org/acl-style-files), it uses them automatically.
+\documentclass[11pt]{article}
+\IfFileExists{acl.sty}{
+  \usepackage[review]{acl}
+}{
+  \usepackage[margin=1in]{geometry}
+  \usepackage{times}
+  \usepackage[hidelinks]{hyperref}
+}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{xcolor}
+\newcommand{\bench}{\textsc{LiveSearchVQA}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{\bench: A Self-Refreshing Daily VQA Benchmark for Diagnosing\\
+the Web-Search Capability of Multimodal Agents}
+
+\author{Anonymous \\ \texttt{anonymous@example.com}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Web search has become a load-bearing capability of vision--language agents,
+yet existing visual question answering (VQA) benchmarks cannot measure it
+faithfully: static benchmarks leak into training corpora within months, and
+end-to-end accuracy conflates three distinct failure sources---retrieving the
+wrong evidence, being distracted by superfluous retrieved content, and
+failing to exploit correctly retrieved evidence.
+We present \bench, a fully automated benchmark that regenerates itself every
+day from news published within the preceding 48 hours, making it
+contamination-free \emph{by construction}: no model checkpoint can contain
+the answers.
+Each item couples a news image with a four-way multiple-choice question, a
+gold answer, a verbatim evidence snippet, the source URL, and crawl
+timestamps.
+A three-stage construction pipeline---VLM question generation, a closed-book
+anti-memorization filter, and an oracle answerability filter---guarantees
+that every retained question is unanswerable without search yet answerable
+with the gold evidence.
+On top of the data we define a three-way diagnostic protocol
+(\emph{closed-book} / \emph{with-search} / \emph{oracle-evidence}) whose
+score gaps, combined with the agent's retrieval trace, decompose end-to-end
+error into \emph{retrieval}, \emph{distraction}, and \emph{utilization}
+failures.
+A pilot build of 200 questions from 126 articles across 7 news sources shows
+the necessity of our filters: 58\% of fluent, well-formed generated questions
+were answerable by a strong VLM without any search and had to be discarded.
+We release the pipeline, daily splits, and a public leaderboard.
+\todo{headline numbers for evaluated agents}
+\end{abstract}
+
+\section{Introduction}
+
+Multimodal agents increasingly answer questions by \emph{searching the web}:
+recognizing what is depicted, formulating queries, reading retrieved pages,
+and grounding an answer in fresh evidence. This loop is now central to
+consumer assistants and agentic frameworks alike, but the community lacks a
+way to measure it. The difficulty is twofold.
+
+\paragraph{Contamination.}
+Any static benchmark built from web content is eventually absorbed into
+pretraining corpora; reported gains then conflate memorization with genuine
+search competence. Periodically ``refreshed'' benchmarks mitigate but do not
+eliminate the problem, because refresh cycles (months) are far slower than
+crawl-to-train cycles of frontier labs.
+
+\paragraph{Attribution.}
+A single end-to-end accuracy number cannot tell a developer \emph{where} an
+agent fails. The failure may occur at \emph{retrieval} (the crawl never
+surfaces the evidence---imprecise queries, incomplete coverage), at
+\emph{robustness} (the evidence is retrieved but drowned in irrelevant
+context that misleads the model), or at \emph{utilization} (the model cannot
+exploit evidence that is right in front of it). These call for entirely
+different fixes---better query planning, better re-ranking and context
+management, and better grounding, respectively.
+
+We address both problems with \bench, a benchmark that is rebuilt from
+scratch every day. Freshly published news (48-hour window) is crawled from
+20+ RSS channels; a VLM converts each (image, article) pair into
+image-grounded multiple-choice questions; and two self-verifying filters
+enforce the defining property of the benchmark: a \emph{closed-book filter}
+discards any question a strong VLM can answer without search (these
+questions, 58\% of fluent candidates in our pilot, are precisely the
+contamination that plagues static benchmarks), and an \emph{oracle filter}
+discards any question the same VLM cannot answer even when handed the gold
+evidence (malformed or under-specified items). Every retained item therefore
+satisfies: \emph{unanswerable without search, answerable with the gold
+evidence}.
+
+Because each item carries its gold evidence and source URL, we can evaluate
+any agent under three settings: closed-book (lower bound, $\approx$ chance by
+construction), with-search (the headline score), and oracle-evidence (upper
+bound). Combined with the agent's retrieval trace, the gaps between the three
+scores decompose end-to-end error into retrieval, distraction, and
+utilization failures (\S\ref{sec:protocol}). A distraction stress test
+further injects $k$ topically related but irrelevant passages to chart
+robustness as a function of retrieval noise.
+
+Our contributions are:
+\begin{enumerate}
+  \item \bench, to our knowledge the first \emph{daily} self-refreshing VQA
+  benchmark, contamination-free by construction, with a fully automated
+  pipeline costing $\sim$\$2/day and no human in the loop;
+  \item a three-way diagnostic protocol that attributes agent error to
+  retrieval, distraction, or utilization, aligned with the actionable levers
+  of agent development;
+  \item a longitudinal resource: daily splits accumulate into a time series
+  that supports novel analyses (accuracy vs.\ event recency, decay of
+  ``liveness'' as events enter training data);
+  \item an evaluation of \todo{N} agents/models, with error decomposition
+  and analyses. \todo{summary of findings}
+\end{enumerate}
+
+\section{Related Work}
+
+\paragraph{Knowledge-seeking VQA.}
+OK-VQA, A-OKVQA and InfoSeek pose questions whose answers require knowledge
+beyond the image; MMSearch and related suites evaluate multimodal search
+engines. All are static: once released, they enter pretraining corpora and
+lose their ability to measure search. \todo{cite}
+
+\paragraph{Freshness-oriented benchmarks.}
+FreshQA (text-only) and Dyn-VQA target questions whose answers change over
+time, but rely on manual curation and infrequent refreshes. LiveVQA
+constructs VQA from recent news, and LiveBench refreshes text tasks monthly;
+neither refreshes daily, ships gold evidence for oracle evaluation, nor
+attributes search failures. \bench{} differs on all three axes.
+\todo{cite; expand comparison table}
+
+\paragraph{Agent evaluation with search tools.}
+Recent agent benchmarks (e.g., GAIA, BrowseComp-style suites) measure
+tool-use trajectories but are text-centric, static, and expensive to curate.
+Our work is complementary: a cheap, automatic, visual, and perpetually fresh
+signal specialized to the search loop. \todo{cite}
+
+\section{The \bench{} Benchmark}
+\label{sec:benchmark}
+
+\subsection{Design goals}
+(i) \emph{Contamination-free by construction}: answers must postdate any
+model's training cutoff, enforced by a 48-hour freshness window rather than
+by trust; (ii) \emph{search-necessary}: closed-book accuracy $\approx$
+chance, enforced by filtering; (iii) \emph{verifiable}: every item ships
+evidence and provenance; (iv) \emph{sustainable}: fully automatic and cheap
+enough to run daily forever.
+
+\subsection{Construction pipeline}
+\label{sec:pipeline}
+
+\paragraph{Stage 0: fresh-news crawling.}
+We poll 20+ RSS channels (Chinese and English; technology, world news,
+politics, sports, finance, entertainment) and retain items published within
+48 hours, enforcing freshness from RSS metadata or dates embedded in article
+URLs. For each article we extract main text and the lead news image
+(\texttt{og:image} plus per-site content-region heuristics), discarding
+articles with short text ($<$300 chars) or small/decorative images. On
+2026-07-14 this yielded 292 usable (image, article) pairs from $\sim$550
+candidates.
+
+\paragraph{Stage A: question generation.}
+A VLM (Doubao Seed 2.0 Pro) receives the image and article and writes up to
+three English MCQs under constraints: the question must be grounded in the
+image (the image is needed to identify the entity/event under discussion);
+the answer must come from the article's fresh content, not from the image or
+world knowledge; the answer must not be readable as text in the image; the
+four options must be mutually exclusive and of matched type and granularity;
+each item must include a verbatim evidence quote. Questions are typed into
+six categories (identification, factual detail, numerical, temporal, causal,
+cross-modal).
+
+\paragraph{Stage B: closed-book anti-memorization filter.}
+The VLM answers each candidate given only the image and options. Items
+answered correctly are discarded: they are solvable from parametric knowledge
+or guessable from option design, and would contaminate the search
+measurement. In the pilot, this removed \textbf{58.4\%} (292/500) of fluent,
+well-formed candidates---a striking measurement of how much ``fresh'' news
+content is in fact predictable---and simultaneously bounds MCQ guessability.
+
+\paragraph{Stage C: oracle answerability filter.}
+The VLM answers again with the gold evidence snippet appended. Items it still
+fails are discarded as malformed or under-specified (1.4\% in the pilot).
+Retained items are thus certified end-to-end: \emph{a model that retrieves
+the evidence can answer; a model that cannot search cannot}.
+
+\paragraph{Debiasing.}
+Option positions are reshuffled post hoc to remove generator position bias
+(the raw generator placed 45\% of correct answers at position B; after
+reshuffling the distribution is near-uniform).
+
+\subsection{Pilot build statistics}
+\label{sec:stats}
+
+Table~\ref{tab:pilot} summarizes the first build (2026-07-14): 200 questions
+from 126 articles across 7 sources, 6 question types (numerical 83, factual
+detail 45, temporal 28, identification 15, cross-modal 15, causal 14).
+End-to-end acceptance was 40\% of generated candidates; wall-clock build time
+was 16 minutes with 5 parallel workers and $\sim$850 VLM calls
+($\approx$\$2).
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{lr}
+\toprule
+Statistic & Value \\
+\midrule
+RSS channels polled & 22 \\
+Fresh articles with usable image+text & 292 \\
+Articles contributing questions & 126 \\
+Candidate questions generated & 500 \\
+\quad dropped by closed-book filter & 292 (58.4\%) \\
+\quad dropped by oracle filter & 7 (1.4\%) \\
+Final daily split & 200 \\
+Build cost / time & $\sim$\$2 / 16 min \\
+\bottomrule
+\end{tabular}
+\caption{Pilot build statistics (2026-07-14).}
+\label{tab:pilot}
+\end{table}
+
+\section{Diagnostic Evaluation Protocol}
+\label{sec:protocol}
+
+Let $q$ be a question with gold answer $a^\ast$ and evidence $e^\ast$. Each
+agent is evaluated under three settings:
+\begin{itemize}
+  \item \textbf{Closed-book} $\mathrm{Acc}_{\mathrm{cb}}$: image + question
+  only. By construction $\approx$ chance for the filter model; deviations for
+  other models measure knowledge overlap and option-prior exploitation.
+  \item \textbf{With-search} $\mathrm{Acc}_{\mathrm{ws}}$: the agent may
+  issue web queries and read results. Headline score.
+  \item \textbf{Oracle-evidence} $\mathrm{Acc}_{\mathrm{or}}$: $e^\ast$ (and
+  the source title) is provided. Upper bound; isolates grounding ability.
+\end{itemize}
+
+\paragraph{Error decomposition.}
+For items failed under with-search but solved under oracle, we inspect the
+agent's retrieval trace $R(q)$ (retrieved pages/snippets):
+\begin{align*}
+\text{retrieval failure:} &\quad e^\ast \notin R(q), \\
+\text{distraction failure:} &\quad e^\ast \in R(q)\ \text{yet}\ \hat a \neq a^\ast, \\
+\text{utilization failure:} &\quad \hat a \neq a^\ast\ \text{under oracle}.
+\end{align*}
+Evidence membership $e^\ast \in R(q)$ is checked by fuzzy matching the
+evidence string (and its translation) against retrieved content, with a VLM
+adjudicator for borderline cases. \todo{describe matcher validation}
+
+\paragraph{Distraction stress test.}
+We additionally re-run the oracle setting with $k \in \{0,2,4,8,16\}$
+injected hard negatives---passages from same-day articles on related topics
+---to chart $\mathrm{Acc}(k)$, a direct measurement of the ``lost in
+retrieved context'' effect.
+
+\section{Experiments}
+\label{sec:experiments}
+
+\paragraph{Setup.}
+\todo{Agents: GPT-5.x + browsing, Gemini + grounding, Claude + search,
+Qwen-VL-Agent, open frameworks (search API + open VLMs). Decoding configs,
+budgets, one table.}
+
+\paragraph{Main results.}
+\todo{Three-way accuracies + error decomposition per agent. Expected
+qualitative story: large oracle--search gaps dominated by retrieval failures
+for image-first questions; distraction failures grow with retrieval breadth;
+utilization near ceiling for frontier models, not for open ones.}
+
+\paragraph{Distraction curve.}
+\todo{Acc vs. $k$ injected passages.}
+
+\paragraph{Recency and longitudinal analysis.}
+\todo{Accuracy vs. article age at evaluation time (6--48 h); re-evaluation of
+frozen agents on historical splits to measure liveness decay as events enter
+training corpora.}
+
+\paragraph{Cross-generator robustness.}
+\todo{Regenerate one split with a different generator VLM; show agent
+rankings are stable (Kendall $\tau$), countering generator-circularity
+concerns.}
+
+\paragraph{Human audit.}
+\todo{100-item audit: answer correctness, image grounding, option fairness;
+target agreement $\geq$95\%.}
+
+\section{Analysis}
+\todo{Case studies of the three failure modes; per-question-type and
+per-language breakdowns; what queries good agents issue (image-to-query
+strategies).}
+
+\section{Limitations}
+Topic skew follows the RSS mix (tech-heavy in the pilot; mitigated by
+stratified sampling as channels are added). MCQ format bounds but does not
+eliminate guessing; an open-ended track using the same items is natural
+future work. The generator-as-filter design could in principle bias item
+difficulty toward the filter model's blind spots; the cross-generator
+experiment and human audit quantify this risk.
+
+\section{Ethics Statement}
+All content is publicly published news; we store snippets and links with
+full provenance and respect robots.txt. Images are redistributed at reduced
+resolution for research use; takedown requests are honored. The benchmark
+measures--and thus may accelerate--agents' ability to consume news; we
+release with a research-only license.
+
+\bibliography{references}
+\bibliographystyle{plain}
+
+\end{document}
