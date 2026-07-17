@@ -64,13 +64,16 @@ def _post_requests(body: dict) -> dict:
     return r.json()
 
 
+CURL_BIN = "curl.exe" if os.name == "nt" else "curl"
+
+
 def _post_curl(body: dict) -> dict:
     fd, tmp = tempfile.mkstemp(suffix=".json")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
             json.dump(body, f, ensure_ascii=False)
         r = subprocess.run(
-            ["curl.exe", "-s", "--max-time", "180", "-X", "POST", ARK_URL,
+            [CURL_BIN, "-s", "--max-time", "180", "-X", "POST", ARK_URL,
              "-H", f"Authorization: Bearer {ARK_KEY}",
              "-H", "Content-Type: application/json",
              "-d", f"@{tmp}"],

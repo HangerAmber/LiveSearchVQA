@@ -13,6 +13,11 @@ import sys
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(_ROOT, "data")
 ARCHIVE_DIR = os.path.join(DATA_DIR, "archive")
+BACKUP_PATH = os.path.join(DATA_DIR, "benchmark.backup.json")
+
+# a build that yields fewer items than this is considered failed and must
+# NOT replace the currently published split
+MIN_ITEMS = 60
 
 
 def archive_previous():
@@ -63,10 +68,32 @@ def run(script, *args):
     subprocess.run(cmd, check=True)
 
 
+def check_result(min_items=50):
+    """Abort (non-zero exit) if the new build is empty or tiny, BEFORE
+    pruning images or rebuilding the page. This keeps yesterday's site
+    intact when the API key is missing or the generator fails."""
+    bench_path = os.path.join(DATA_DIR, "benchmark.json")
+    n = 0
+    if os.path.exists(bench_path):
+        with open(bench_path, encoding="utf-8") as f:
+            n = len(json.load(f))
+    if n < min_items:
+        print(f"[daily] FATAL: only {n} items generated (<{min_items}); "
+              "leaving previous site untouched. Check ARK_API_KEY secret "
+              "and generator logs.")
+        sys.exit(1)
+
+
 if __name__ == "__main__":
+    if not os.environ.get("ARK_API_KEY", "") and \
+            not os.path.exists(os.path.join(_ROOT, ".env")):
+        print("[daily] FATAL: ARK_API_KEY is not set; aborting before "
+              "touching any data.")
+        sys.exit(1)
     archive_previous()
     run("crawler.py")
     run("generate.py", "200")
+    check_result()
     prune_images()
     run("build_html.py")
     print("[daily] done")

@@ -67,8 +67,6 @@ FEEDS = [
     ("sspai",      "tech",          "https://sspai.com/feed"),
     ("huxiu",      "business",      "https://www.huxiu.com/rss/0.xml"),
     ("mydrivers",  "tech",          "https://rss.mydrivers.com/rss.aspx?Tid=1"),
-    ("zaobao",     "world",         "https://www.zaobao.com.sg/rss/realtime/world"),
-    ("zaobao",     "china",         "https://www.zaobao.com.sg/rss/realtime/china"),
 ]
 
 MAX_AGE_HOURS = 48
