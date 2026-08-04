@@ -1,0 +1,5002 @@
+[
+ {
+  "id": "a5dce5f401c1-0",
+  "article_id": "a5dce5f401c1",
+  "image": "images/a5dce5f401c1.jpg",
+  "question": "In which location is the pictured service currently available for beta testing?",
+  "answer": "United States",
+  "answer_type": "location",
+  "evidence": "目前该服务已面向美国用户提供 Beta 测试，未来覆盖地区暂不明确。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/534.htm",
+  "article_title": "号称首款全面集成 AI 的个人健康助手，三星推出 Health Assistant",
+  "pub_date": "2026-07-25T07:44:29+08:00",
+  "crawl_time": "2026-07-26T00:08:08.414934+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The United States.",
+   "The United States (the US)."
+  ]
+ },
+ {
+  "id": "231949a9097e-0",
+  "article_id": "231949a9097e",
+  "image": "images/231949a9097e.jpg",
+  "question": "What is the total number of the Xiaopeng X9 vehicles that are subject to the recall shown in this image?",
+  "answer": "33473",
+  "answer_type": "numeric",
+  "evidence": "肇庆小鹏新能源投资有限公司召回信息显示，自2026年8月28日起，召回2023年8月8日至2025年8月11日期间生产的小鹏X9汽车，共计33473辆，召回编号S2026M0082V。",
+  "category": "politics",
+  "source_category": "important",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/cj/2026/07-25/10666331.shtml",
+  "article_title": "因存在安全问题，8.3万辆路虎卫士、3.3万辆小鹏X9将被召回",
+  "pub_date": "2026-07-25T13:31:14+08:00",
+  "crawl_time": "2026-07-26T00:08:11.006698+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "33473",
+   "33473"
+  ]
+ },
+ {
+  "id": "1516ff96034c-0",
+  "article_id": "1516ff96034c",
+  "image": "images/1516ff96034c.jpg",
+  "question": "What is the maximum wind level of the ≥10级 severe convective weather shown in this warning map?",
+  "answer": "Level 11 or above",
+  "answer_type": "numeric",
+  "evidence": "其中，河南东部、四川中东部、重庆西部等地的部分地区将有10级以上雷暴大风，最大风力可达11级以上，局地不排除出现龙卷的可能性",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666876.shtml",
+  "article_title": "强对流黄色预警：河南四川重庆等地部分地区有10级以上雷暴大风",
+  "pub_date": "2026-07-26T19:06:01+08:00",
+  "crawl_time": "2026-07-26T19:44:00.966229+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The maximum wind level can reach level 11 or above.",
+   "The maximum wind level can reach level 11 or above, and tornadoes are not ruled "
+  ]
+ },
+ {
+  "id": "33c9aafaa284-0",
+  "article_id": "33c9aafaa284",
+  "image": "images/33c9aafaa284.jpg",
+  "question": "What is the location of the pictured incident?",
+  "answer": "Huangyan Island waters",
+  "answer_type": "location",
+  "evidence": "7月24日，多艘菲律宾渔业与水产资源局公务船、菲海警船、八爪渔船在中国南海黄岩岛附近海域聚集，飞机盘旋窥伺，企图侵闯中国领海。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/gn/2026/07-25/10666566.shtml",
+  "article_title": "多艘菲律宾非法活动船只、飞机侵闯我黄岩岛管辖海域",
+  "pub_date": "2026-07-25T21:24:49+08:00",
+  "crawl_time": "2026-07-26T00:08:04.916749+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "South China Sea",
+   "South China Sea"
+  ],
+  "oracle_preds": [
+   "Waters near Huangyan Island (Scarborough Shoal) in the South China Sea, within t",
+   "Waters near Huangyan Island (Scarborough Shoal) in the South China Sea, within C"
+  ]
+ },
+ {
+  "id": "bdbb3ee142e5-0",
+  "article_id": "bdbb3ee142e5",
+  "image": "images/bdbb3ee142e5.jpg",
+  "question": "What is the starting price of this shown device in Japanese yen including tax?",
+  "answer": "611600 yen",
+  "answer_type": "numeric",
+  "evidence": "含税起价 61.16 万日元",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/600.htm",
+  "article_title": "NECPC 公布 Windows 商用平板电脑 LAVIE BT53C，可选 Ultra 7 365",
+  "pub_date": "2026-07-25T15:10:59+08:00",
+  "crawl_time": "2026-07-26T00:08:06.755570+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "611600 yen",
+   "611600 yen"
+  ]
+ },
+ {
+  "id": "bc794ca4353c-0",
+  "article_id": "bc794ca4353c",
+  "image": "images/bc794ca4353c.jpg",
+  "question": "Which typhoon caused the flood rescue operation pictured?",
+  "answer": "Hongxia",
+  "answer_type": "entity",
+  "evidence": "受“红霞”及未来残留云系影响，预计26日至28日，珠江流域东部降雨仍将维持，广东东部北部、福建南部等地部分地区将有大暴雨，局地特大暴雨；北江、东江、韩江、粤东沿海诸河等主要河流将出现大幅涨水过程，暴雨区内发生中小河流超警洪水、山洪灾害和城市内涝风险较大。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666889.shtml",
+  "article_title": "台风“红霞”或致珠江流域部分中小河流发生超警洪水",
+  "pub_date": "2026-07-26T19:08:49+08:00",
+  "crawl_time": "2026-07-26T19:44:00.973252+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Hongxia.\n/ Typhoon Hongxia.",
+   "Typhoon Noul (红霞) caused this flood rescue operation."
+  ]
+ },
+ {
+  "id": "05066742e982-0",
+  "article_id": "05066742e982",
+  "image": "images/05066742e982.jpg",
+  "question": "What special status does this pictured car hold for Chery Group?",
+  "answer": "20 millionth vehicle",
+  "answer_type": "entity",
+  "evidence": "同一天上市的 风云 A9 ，将作为奇瑞集团第 2000 万辆车，正式交付给用户。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/692.htm",
+  "article_title": "奇瑞尹同跃：2000 万辆之后我们不再参加内卷、不再只追求销量，而是要追求品牌向上、价值更大的创造",
+  "pub_date": "2026-07-26T06:44:46+08:00",
+  "crawl_time": "2026-07-26T19:44:12.884850+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "It is Chery Group's first electric coupe sedan.",
+   "It is Chery Group's first production coupe with an active rear wing."
+  ],
+  "oracle_preds": [
+   "It is Chery Group's 20 millionth vehicle.",
+   "It is Chery Group's 20 millionth vehicle."
+  ]
+ },
+ {
+  "id": "5fbdcf58fa84-0",
+  "article_id": "5fbdcf58fa84",
+  "image": "images/5fbdcf58fa84.jpg",
+  "question": "Where was the pictured vessel fired on by US military?",
+  "answer": "Gulf of Oman",
+  "answer_type": "location",
+  "evidence": "美军中央司令部发言人霍金斯当地时间24日表示，美军在阿曼湾向一艘油轮开火，并使其丧失航行能力。",
+  "category": "politics",
+  "source_category": "important",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/gj/2026/07-25/10666165.shtml",
+  "article_title": "美军称在阿曼湾向一艘油轮开火",
+  "pub_date": "2026-07-25T08:41:30+08:00",
+  "crawl_time": "2026-07-26T00:08:12.815659+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The Gulf of Oman.",
+   "In the Gulf of Oman."
+  ]
+ },
+ {
+  "id": "4e13812140cd-0",
+  "article_id": "4e13812140cd",
+  "image": "images/4e13812140cd.jpg",
+  "question": "What is the name of the company founded by the pictured person that released the new AI model causing industry-wide shock in July 2026?",
+  "answer": "月之暗面",
+  "answer_type": "entity",
+  "evidence": "喧嚣之下，月之暗面创始人杨植麟的故事再次被众人目光聚焦，转回阳面之上。",
+  "category": "politics",
+  "source_category": "important",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/cj/2026/07-24/10666074.shtml",
+  "article_title": "让马斯克拿不准，让黄仁勋和美国政府唱反调，月之暗面的杨植麟到底是谁？",
+  "pub_date": "2026-07-24T21:52:51+08:00",
+  "crawl_time": "2026-07-26T00:08:14.213854+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Moonshot AI (月之暗面 / Yue Zhi An Mian).\nThe person in the image is Yang Zhilin, fo",
+   "Moonshot AI"
+  ]
+ },
+ {
+  "id": "b7b516e9142a-0",
+  "article_id": "b7b516e9142a",
+  "image": "images/b7b516e9142a.jpg",
+  "question": "What is the venue where the pictured play is staged in its current opening run?",
+  "answer": "National Centre for the Performing Arts",
+  "answer_type": "location",
+  "evidence": "作为2026国家大剧院国际戏剧季展演剧目，由奥利弗奖获奖编剧苏西·米勒创作、周可执导，姚晨领衔主演，保剑锋、郭紫铭主演的话剧《非穷尽列举》，日前在国家大剧院开启北京演出。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/cul/2026/07-26/10666868.shtml",
+  "article_title": "话剧《非穷尽列举》中文版亮相国家大剧院",
+  "pub_date": "2026-07-26T18:42:31+08:00",
+  "crawl_time": "2026-07-26T19:44:08.163033+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "National Centre for the Performing Arts.",
+   "National Centre for the Performing Arts (National Grand Theatre)"
+  ]
+ },
+ {
+  "id": "2a6fe2f115d5-0",
+  "article_id": "2a6fe2f115d5",
+  "image": "images/2a6fe2f115d5.jpg",
+  "question": "What brand will be the first to launch a smartphone with the pictured 2nm TSMC chip from MediaTek?",
+  "answer": "vivo",
+  "answer_type": "entity",
+  "evidence": "据博主爆料，联发科天玑9600 Pro将抢先一步发布，这颗芯片计划在9月亮相，并由vivo X500系列首发搭载。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139037.htm",
+  "article_title": "抢先高通一步！联发科首颗2nm芯片天玑9600 Pro定档9月：vivo首发",
+  "pub_date": "2026-07-25T19:44:39+08:00",
+  "crawl_time": "2026-07-26T00:10:12.340341+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "vivo",
+   "vivo"
+  ]
+ },
+ {
+  "id": "30360d2ff987-0",
+  "article_id": "30360d2ff987",
+  "image": "images/30360d2ff987.jpg",
+  "question": "What is the official title of the newly completed tunnel pictured in this urban planning model?",
+  "answer": "万里长江高铁第一隧",
+  "answer_type": "entity",
+  "evidence": "这条全长11942米的隧道，是中国首条穿越长江并实现贯通的高铁隧道，被誉为“万里长江高铁第一隧”。",
+  "category": "politics",
+  "source_category": "important",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-25/10666199.shtml",
+  "article_title": "“万里长江高铁第一隧”是怎样炼成的？",
+  "pub_date": "2026-07-25T09:53:35+08:00",
+  "crawl_time": "2026-07-26T00:08:12.875524+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The \"Wanli Yangtze River High-speed Rail First Tunnel\" (万里长江高铁第一隧), it is also C",
+   "The \"Wanli Yangtze River High-speed Rail First Tunnel\" (万里长江高铁第一隧)."
+  ]
+ },
+ {
+  "id": "316be8b37526-0",
+  "article_id": "316be8b37526",
+  "image": "images/316be8b37526.jpg",
+  "question": "What is the range that this pictured straight distance corresponds to, as a 24 July forecast landing range for Typhoon Noul?",
+  "answer": "Zhuhai to Zhangpu",
+  "answer_type": "location",
+  "evidence": "24日，中央气象台预报显示，“红霞”将在“广东珠海到福建漳浦一带沿海”登陆。",
+  "category": "politics",
+  "source_category": "important",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666738.shtml",
+  "article_title": "台风登陆地点又变了？其实是预报更准了",
+  "pub_date": "2026-07-26T12:05:50+08:00",
+  "crawl_time": "2026-07-26T19:44:17.574112+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The coastal area from Zhuhai, Guangdong to Zhangpu, Fujian.",
+   "From Zhuhai, Guangdong to Zhangpu, Fujian (the coastal area between these two re"
+  ]
+ },
+ {
+  "id": "685629cbb7e3-0",
+  "article_id": "685629cbb7e3",
+  "image": "images/685629cbb7e3.jpg",
+  "question": "What is the pre-order price of the pictured game on Steam China?",
+  "answer": "128 yuan",
+  "answer_type": "numeric",
+  "evidence": "本作在 Steam 国区价格为 128 元（需要额外购买原版《三国志 14》才能运行）",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/779.htm",
+  "article_title": "光荣特库摩《三国志 14 威力加强传承版》开启预购：Steam 国区 128 元，9 月 10 日解锁",
+  "pub_date": "2026-07-26T10:27:12+08:00",
+  "crawl_time": "2026-07-26T19:44:10.889676+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "128 yuan.",
+   "128 yuan."
+  ]
+ },
+ {
+  "id": "eafd72052ed4-0",
+  "article_id": "eafd72052ed4",
+  "image": "images/eafd72052ed4.jpg",
+  "question": "What is the world size of the pictured game compared to Final Fantasy VII Rebirth?",
+  "answer": "Larger",
+  "answer_type": "outcome",
+  "evidence": "滨口直树透露， 本作世界规模将比《最终幻想 7：重生》更加庞大",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/782.htm",
+  "article_title": "《最终幻想 7：启示录》世界比《重生》更大，滨口直树称将避免玩家陷入“开放世界疲劳”",
+  "pub_date": "2026-07-26T10:57:20+08:00",
+  "crawl_time": "2026-07-26T19:44:10.425681+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "It is larger than that of *Final Fantasy VII Rebirth*.",
+   "It is larger than the world size of *Final Fantasy VII Rebirth*."
+  ]
+ },
+ {
+  "id": "0f0013ca57fe-0",
+  "article_id": "0f0013ca57fe",
+  "image": "images/0f0013ca57fe.jpg",
+  "question": "What recent media work made the scenic spot shown see a surge in visitor interest?",
+  "answer": "<i>The Eight Immortals!</i>",
+  "answer_type": "entity",
+  "evidence": "随着国产动画《八仙！》火热上映，银幕里八仙踏浪沧海、御风渡海的绝美画面，让这座藏在齐鲁山海间的仙城再度“出圈”，掀起了火热的暑期“寻仙潮”。",
+  "category": "politics",
+  "source_category": "important",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-25/10666177.shtml",
+  "article_title": "人这一辈子，一定要去蓬莱做回“神仙”！",
+  "pub_date": "2026-07-25T09:03:42+08:00",
+  "crawl_time": "2026-07-26T00:08:15.381178+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "The Legend of the Condor Heroes\nThis scenic spot is Penglai Pavilion, and the cl",
+   "The Legend of the Condor Heroes"
+  ],
+  "oracle_preds": [
+   "The domestic animation *Ba Xian!* (Eight Immortals!)",
+   "The domestic animated film *The Eight Immortals!*"
+  ]
+ },
+ {
+  "id": "1d665f2f2507-0",
+  "article_id": "1d665f2f2507",
+  "image": "images/1d665f2f2507.jpg",
+  "question": "Where is the pictured conference taking place?",
+  "answer": "Qinghai, China",
+  "answer_type": "location",
+  "evidence": "7月24日，青海省委统战部召开各民主党派、无党派人士“参政为公、实干为民”主题教育工作座谈会",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/txy/2026/07-25/10666564.shtml",
+  "article_title": "青海召开各民主党派、无党派人士“参政为公、实干为民”主题教育工作座谈会",
+  "pub_date": "2026-07-25T21:04:27+08:00",
+  "crawl_time": "2026-07-26T00:08:06.088540+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Qinghai.",
+   "Qinghai."
+  ]
+ },
+ {
+  "id": "56e9d2f55c0a-0",
+  "article_id": "56e9d2f55c0a",
+  "image": "images/56e9d2f55c0a.jpg",
+  "question": "What is the official reason given for the abnormally high ticket prices shown in this image?",
+  "answer": "Platform system fault",
+  "answer_type": "entity",
+  "evidence": "对此，电影院工作人员回应称，该异常票价系代售平台系统故障所致，属于平台端显示错误，并非实际销售价格。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139047.htm",
+  "article_title": "《功夫女足》现750元天价电影票 工作人员：系代售平台故障",
+  "pub_date": "2026-07-25T21:39:58+08:00",
+  "crawl_time": "2026-07-26T00:10:10.624269+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The abnormal ticket prices are due to a system failure of the consignment sales ",
+   "The abnormally high ticket prices are due to a system failure of the consignment"
+  ]
+ },
+ {
+  "id": "f41c16e50571-0",
+  "article_id": "f41c16e50571",
+  "image": "images/f41c16e50571.jpg",
+  "question": "What is the publication date of this pictured announcement?",
+  "answer": "July 25, 2026",
+  "answer_type": "temporal",
+  "evidence": "7月25日，安徽亳州警方发布情况通报称",
+  "category": "politics",
+  "source_category": "important",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-25/10666210.shtml",
+  "article_title": "安徽亳州警方通报民警牛某某涉嫌违纪违法：已成立调查组",
+  "pub_date": "2026-07-25T14:18:20+08:00",
+  "crawl_time": "2026-07-26T00:08:11.016944+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "2026年7月25日",
+   "2026年7月25日"
+  ],
+  "oracle_preds": [
+   "July 25, 2026",
+   "July 25, 2026"
+  ]
+ },
+ {
+  "id": "cc36b13f00b0-0",
+  "article_id": "cc36b13f00b0",
+  "image": "images/cc36b13f00b0.jpg",
+  "question": "Where is the tropical cyclone shown in this forecast forecast to enter in the early morning of July 27?",
+  "answer": "southern Hunan",
+  "answer_type": "location",
+  "evidence": "预计，“红霞”将以每小时15公里左右的速度向偏北方向移动，穿过广东中部，将于明天(27日)凌晨进入湖南南部",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666861.shtml",
+  "article_title": "台风蓝色预警：“红霞”将穿过广东中部 明天凌晨进入湖南南部",
+  "pub_date": "2026-07-26T18:49:45+08:00",
+  "crawl_time": "2026-07-26T19:44:08.141317+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "China, specifically the Chinese mainland/land area of southern China\n(or more pr",
+   "To determine this, observe the path: the 27th 05:00 (early morning July 27) posi"
+  ],
+  "oracle_preds": [
+   "Southern Hunan.",
+   "Southern Hunan."
+  ]
+ },
+ {
+  "id": "8e796074406d-0",
+  "article_id": "8e796074406d",
+  "image": "images/8e796074406d.jpg",
+  "question": "What is the product name of the newly announced pictured computer chassis?",
+  "answer": "COLORFIRE ME26A",
+  "answer_type": "entity",
+  "evidence": "七彩虹 (Colorful) 旗下子品牌 COLORFIRE 本周发布机箱新品 ME26A。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/603.htm",
+  "article_title": "延续“橘影橙”主题：七彩虹 COLORFIRE 发布 ME26A 机箱",
+  "pub_date": "2026-07-25T15:27:55+08:00",
+  "crawl_time": "2026-07-26T00:08:06.817890+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "COLORFIRE MEOW橘影橙",
+   "COLORFIRE MEOW CASE"
+  ],
+  "oracle_preds": [
+   "ME26A",
+   "ME26A"
+  ]
+ },
+ {
+  "id": "f379918ec736-0",
+  "article_id": "f379918ec736",
+  "image": "images/f379918ec736.jpg",
+  "question": "How many rural teachers participated in the pictured event?",
+  "answer": "65",
+  "answer_type": "numeric",
+  "evidence": "“爱飞翔·乡村教育”2026开班仪式25日在华东师范大学举行，吸引来自云南、贵州、江西、安徽等地及上海随迁子女学校的65位乡村教师等参加。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-25/10666557.shtml",
+  "article_title": "2026“爱飞翔·乡村教育”开班 65位乡村教师来沪学习先进教学经验与创新思维",
+  "pub_date": "2026-07-25T20:57:26+08:00",
+  "crawl_time": "2026-07-26T00:08:06.440727+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Sixty-five.",
+   "65."
+  ]
+ },
+ {
+  "id": "e4307d3377cf-0",
+  "article_id": "e4307d3377cf",
+  "image": "images/e4307d3377cf.jpg",
+  "question": "How many total signatories of this open letter support open-weight AI models as of the article's publication date?",
+  "answer": "35",
+  "answer_type": "numeric",
+  "evidence": "IT之家注意到，目前该名单中的组织有所增加，已经达到 35 家（Nous Research、OpenClaw、Prime Intellect 3 家仅出现在签署名单中，没有在文末展示 logo）， 包括 OpenAI",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/554.htm",
+  "article_title": "OpenAI 加入，签署支持 AI 开源模型发展公开信组织增至 35 家",
+  "pub_date": "2026-07-25T10:20:50+08:00",
+  "crawl_time": "2026-07-26T00:08:07.828395+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "35",
+   "35"
+  ]
+ },
+ {
+  "id": "934b5ef7f94a-0",
+  "article_id": "934b5ef7f94a",
+  "image": "images/934b5ef7f94a.jpg",
+  "question": "What is the total consideration for the acquisition transaction shown in the pictured announcement?",
+  "answer": "9.325 billion yuan",
+  "answer_type": "numeric",
+  "evidence": "本次交易总对价为 93.25 亿元",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/571.htm",
+  "article_title": "TCL 科技 93.25 亿元收购广州华星半导体 45% 股权项目获深交所审核通过",
+  "pub_date": "2026-07-25T11:25:15+08:00",
+  "crawl_time": "2026-07-26T00:08:08.061482+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "9.325 billion yuan",
+   "9.325 billion yuan."
+  ]
+ },
+ {
+  "id": "4e6201771719-0",
+  "article_id": "4e6201771719",
+  "image": "images/4e6201771719.jpg",
+  "question": "What is the maximum predicted rainfall of the pictured heavy rain event, in millimeters?",
+  "answer": "390",
+  "answer_type": "numeric",
+  "evidence": "江西南部、广东中北部等地局地特大暴雨(250～390毫米)",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666867.shtml",
+  "article_title": "暴雨橙色预警：6省部分地区有大暴雨 江西广东等局地有特大暴雨",
+  "pub_date": "2026-07-26T18:51:17+08:00",
+  "crawl_time": "2026-07-26T19:44:04.768081+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "400",
+   "400"
+  ],
+  "oracle_preds": [
+   "390",
+   "390"
+  ]
+ },
+ {
+  "id": "c0d10eea2dc9-0",
+  "article_id": "c0d10eea2dc9",
+  "image": "images/c0d10eea2dc9.jpg",
+  "question": "Where is the pictured weather system predicted to land?",
+  "answer": "Hong Kong to Lufeng Guangdong",
+  "answer_type": "location",
+  "evidence": "将于今天夜间至明天(26日)凌晨在香港到广东陆丰一带沿海登陆(33-42米/秒，12-14级，台风级或强台风级)",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-25/10666567.shtml",
+  "article_title": "“红霞”即将登陆！交通运输部启动强降雨一级防御响应、维持台风二级防御响应",
+  "pub_date": "2026-07-25T21:31:53+08:00",
+  "crawl_time": "2026-07-26T00:08:04.982040+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "The southeast coast of China (Fujian/northeastern Guangdong coastal area, exact ",
+   "The southeast coast of China (between Fujian and Guangdong, the eastern coast of"
+  ],
+  "oracle_preds": [
+   "Along the coast from Hong Kong to Lufeng, Guangdong.",
+   "It is predicted to land in the coastal area from Hong Kong to Lufeng, Guangdong."
+  ]
+ },
+ {
+  "id": "69f0508d60da-0",
+  "article_id": "69f0508d60da",
+  "image": "images/69f0508d60da.jpg",
+  "question": "Which company holds the largest share in the pictured 2025H2 market segment?",
+  "answer": "Huawei",
+  "answer_type": "entity",
+  "evidence": "从市场格局来看，2025下半年中国混合云整体市场中，华为占据最大份额，中国电信位列第二，阿里巴巴排名第三。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139058.htm",
+  "article_title": "中国混合云市场首破千亿！华为拿下最大份额：AI智算成竞争核心",
+  "pub_date": "2026-07-25T23:39:35+08:00",
+  "crawl_time": "2026-07-26T00:10:08.547373+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "其他"
+  ],
+  "oracle_preds": [
+   "Huawei.",
+   "Huawei"
+  ]
+ },
+ {
+  "id": "8090b4c4d4f9-0",
+  "article_id": "8090b4c4d4f9",
+  "image": "images/8090b4c4d4f9.jpg",
+  "question": "Where was the pictured ship delivered?",
+  "answer": "Nantong, Jiangsu",
+  "answer_type": "location",
+  "evidence": "7月25日，在江苏南通招商重工码头，我国自主设计建造的第二艘18万立方米超大型LNG运输船“果阿”轮顺利交付。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/590.htm",
+  "article_title": "第二艘国产 18 万方超大型 LNG 船交付，可运输零下 163℃ 低温液化天然气",
+  "pub_date": "2026-07-25T13:41:12+08:00",
+  "crawl_time": "2026-07-26T00:08:07.187500+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Jiangsu Nantong Merchants Heavy Industry wharf",
+   "Jiangsu Nantong Merchants Heavy Industry wharf"
+  ],
+  "oracle_preds": [
+   "At the China Merchants Heavy Industry wharf in Nantong, Jiangsu.",
+   "At the China Merchants Heavy Industry wharf in Nantong, Jiangsu."
+  ]
+ },
+ {
+  "id": "2ab3d35013b2-0",
+  "article_id": "2ab3d35013b2",
+  "image": "images/2ab3d35013b2.jpg",
+  "question": "At what altitude is the pictured sports event being held?",
+  "answer": "3700 meters",
+  "answer_type": "numeric",
+  "evidence": "“青超联赛”上演海拔3700米争夺战 玉树队主场战平海北队",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/tp/2026/07-25/10666560.shtml",
+  "article_title": "“青超联赛”上演海拔3700米争夺战 玉树队主场战平海北队",
+  "pub_date": "2026-07-25T21:03:51+08:00",
+  "crawl_time": "2026-07-26T00:08:04.978007+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "3700 meters.",
+   "3700 meters."
+  ]
+ },
+ {
+  "id": "e7107882f630-0",
+  "article_id": "e7107882f630",
+  "image": "images/e7107882f630.jpg",
+  "question": "In which city is the event shown in the picture held?",
+  "answer": "Hangzhou",
+  "answer_type": "location",
+  "evidence": "中新网 杭州7月26日电 由中国出版集团、浙江省委宣传部联合主办的第十七届读者大会日前在杭州国际博览中心举办。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/cul/2026/07-26/10666864.shtml",
+  "article_title": "“书香中国·阅读之美” 第十七届读者大会举办",
+  "pub_date": "2026-07-26T18:43:57+08:00",
+  "crawl_time": "2026-07-26T19:44:08.251241+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Hangzhou.",
+   "Hangzhou."
+  ]
+ },
+ {
+  "id": "4de0c9bb15a1-0",
+  "article_id": "4de0c9bb15a1",
+  "image": "images/4de0c9bb15a1.jpg",
+  "question": "Which company filed for the pictured trademark?",
+  "answer": "Garmin",
+  "answer_type": "entity",
+  "evidence": "佳明于今年 4 月申请“肌肉电量”（Muscle Battery）商标，侧重于肌肉疲劳和恢复的准备情况评分",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/536.htm",
+  "article_title": "报道称佳明正探索“肌肉电量”指标，评估肌肉疲劳和恢复情况",
+  "pub_date": "2026-07-25T07:55:37+08:00",
+  "crawl_time": "2026-07-26T00:08:08.274674+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Garmin",
+   "Garmin."
+  ]
+ },
+ {
+  "id": "4d7df53d3f5f-0",
+  "article_id": "4d7df53d3f5f",
+  "image": "images/4d7df53d3f5f.jpg",
+  "question": "The game featuring this pictured character is listed as a representative work of what category of game in the newly published report?",
+  "answer": "2A game",
+  "answer_type": "entity",
+  "evidence": "所谓“2A 级游戏”指的是介于 3A 游戏和独立游戏之间的作品，这类游戏通常由小于 70 人的团队开发，预算较为有限，主打短小精悍、有特色，代表作有《匹诺曹的谎言》《机械战警：暴戾都市》等。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/739.htm",
+  "article_title": "前索尼 SIE 高管肖恩 · 莱登：3A 大作开发成本已然失控，2A 游戏理应复兴",
+  "pub_date": "2026-07-26T07:39:45+08:00",
+  "crawl_time": "2026-07-26T19:44:11.532934+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Soulslike",
+   "Soulslike"
+  ],
+  "oracle_preds": [
+   "AA (double-A/2A) game.",
+   "AA (double-A/2A) game."
+  ]
+ },
+ {
+  "id": "e9c5c6395d00-0",
+  "article_id": "e9c5c6395d00",
+  "image": "images/e9c5c6395d00.jpg",
+  "question": "What is the location of the venue with the pictured Shanghai intangible cultural heritage display?",
+  "answer": "Yueyang Hospital",
+  "answer_type": "location",
+  "evidence": "海派非遗科普馆26日在上海中医药大学附属岳阳中西医结合医院(下称：岳阳医院)揭幕。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666895.shtml",
+  "article_title": "海派非遗科普馆在沪揭幕：打造可触摸、可参与的中医药文化新地标",
+  "pub_date": "2026-07-26T19:35:46+08:00",
+  "crawl_time": "2026-07-26T19:44:00.987409+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Yueyang Hospital of Integrated Traditional Chinese and Western Medicine affiliat",
+   "Yueyang Hospital of Integrated Traditional Chinese and Western Medicine affiliat"
+  ]
+ },
+ {
+  "id": "358ab088beaa-0",
+  "article_id": "358ab088beaa",
+  "image": "images/358ab088beaa.jpg",
+  "question": "In which location was the pictured traditional celebration held on 25 July 2026?",
+  "answer": "Hualien, Taiwan",
+  "answer_type": "location",
+  "evidence": "中新社 台湾花莲7月25日电 题：在花莲，与一场丰年祭雨中相逢 台风“红霞”正为花莲带来不时的降雨，不过，挡不住当地富里乡姆拉丁部落的热情。7月25日，一场台湾少数民族丰年祭举行正酣。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/gn/2026/07-25/10666587.shtml",
+  "article_title": "（台湾写真）在花莲，与一场丰年祭雨中相逢",
+  "pub_date": "2026-07-25T23:23:24+08:00",
+  "crawl_time": "2026-07-26T00:08:02.814521+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Fuli Township, Hualien, Taiwan.",
+   "Fuli Township, Hualien, Taiwan."
+  ]
+ },
+ {
+  "id": "b2bf559efae6-0",
+  "article_id": "b2bf559efae6",
+  "image": "images/b2bf559efae6.jpg",
+  "question": "Where was the conference for the publication of the pictured newly revised dictionary held?",
+  "answer": "Beijing",
+  "answer_type": "location",
+  "evidence": "《新华字典》（第13版）出版座谈会在京举行",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666860.shtml",
+  "article_title": "《新华字典》（第13版）出版座谈会在京举行",
+  "pub_date": "2026-07-26T18:42:27+08:00",
+  "crawl_time": "2026-07-26T19:44:10.280486+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Beijing (in Beijing)",
+   "Beijing"
+  ]
+ },
+ {
+  "id": "bf645ed4240f-0",
+  "article_id": "bf645ed4240f",
+  "image": "images/bf645ed4240f.jpg",
+  "question": "What daily water amount will these pictured facilities in the UK need in 2030 if expanded on current peak usage standards?",
+  "answer": "42 million liters",
+  "answer_type": "numeric",
+  "evidence": "在炎热的夏天，数据中心的峰值用水需求可能达到 1400 万升 / 天。如果按照这一标准估算并结合政府扩张目标，英国 2030 年每天需要供应 4200 万升水，表明扩建大型储水设施迫在眉睫。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/517.htm",
+  "article_title": "英国水务协会警告：数据中心扩张将致用水量激增，政府未提前规划",
+  "pub_date": "2026-07-25T07:13:21+08:00",
+  "crawl_time": "2026-07-26T00:08:08.632997+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "42 million litres per day.",
+   "42 million liters."
+  ]
+ },
+ {
+  "id": "70f21d7f059d-0",
+  "article_id": "70f21d7f059d",
+  "image": "images/70f21d7f059d.jpg",
+  "question": "Is the pictured game officially supported to be streamed to PS Vita via the GreenVita client mentioned in the article?",
+  "answer": "No",
+  "answer_type": "outcome",
+  "evidence": "GreenVita 可以直接把 Xbox 云游戏中的 《光环：无限》《极限竞速：地平线 5》等作品 串流至 PS Vita，并充分利用硬件 H.264 视频解码能力和 VitaSDK。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/497.htm",
+  "article_title": "老掌机获新生，开发者通过串流让索尼 PS Vita 玩上微软 XGP 大作",
+  "pub_date": "2026-07-25T06:55:42+08:00",
+  "crawl_time": "2026-07-26T00:08:09.650016+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "No.\n\nThe evidence only states GreenVita supports streaming *Forza Horizon 5* (an",
+   "No.\nThe evidence only lists *Forza Horizon 5*, not *Forza Horizon 6* (the pictur"
+  ]
+ },
+ {
+  "id": "624b0c37d181-0",
+  "article_id": "624b0c37d181",
+  "image": "images/624b0c37d181.jpg",
+  "question": "Which region fined Alibaba's AliExpress 550 million euros on July 20, 2026 as shown in the image?",
+  "answer": "European Union",
+  "answer_type": "entity",
+  "evidence": "当地时间7月20日，欧盟委员会宣布对阿里巴巴旗下跨境电商平台全球速卖通处以5.5亿欧元罚款——约合42.5亿元人民币。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/cj/2026/07-25/10666554.shtml",
+  "article_title": "欧盟罚了中美企业，却伤了欧洲自己丨真相",
+  "pub_date": "2026-07-25T20:55:58+08:00",
+  "crawl_time": "2026-07-26T00:08:06.343225+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The European Union (EU).",
+   "The European Union (EU)."
+  ]
+ },
+ {
+  "id": "66058238f8cb-0",
+  "article_id": "66058238f8cb",
+  "image": "images/66058238f8cb.jpg",
+  "question": "What is the outcome of the pictured forest fire regarding human casualties?",
+  "answer": "No casualties",
+  "answer_type": "outcome",
+  "evidence": "未造成人员被困和伤亡",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666884.shtml",
+  "article_title": "四川洪雅玉屏山突发森林火情 未造成人员被困和伤亡",
+  "pub_date": "2026-07-26T19:02:00+08:00",
+  "crawl_time": "2026-07-26T19:44:00.954154+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "No people were trapped, injured or killed.",
+   "No one was trapped, injured or killed in this forest fire."
+  ]
+ },
+ {
+  "id": "a8e11847d628-0",
+  "article_id": "a8e11847d628",
+  "image": "images/a8e11847d628.jpg",
+  "question": "How many of the signals shown in the pictured device would a driver who commits the violation described in the article have run through to receive the reported penalty?",
+  "answer": "5",
+  "answer_type": "numeric",
+  "evidence": "近日，一浙江宁波奉化女子王某刚提了新车就连闯五个红灯，被监控拍下。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139040.htm",
+  "article_title": "女子刚提现车连闯5个红灯 轻信临牌车不会查被扣30分",
+  "pub_date": "2026-07-25T20:24:29+08:00",
+  "crawl_time": "2026-07-26T00:10:12.399134+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "5",
+   "5"
+  ]
+ },
+ {
+  "id": "c87963f13d51-0",
+  "article_id": "c87963f13d51",
+  "image": "images/c87963f13d51.jpg",
+  "question": "When will the premiere of the pictured film be held?",
+  "answer": "February 6, 2027",
+  "answer_type": "temporal",
+  "evidence": "《流浪地球3》已经成功完成全片审核流程，正式确认将在2027年2月6日举办全球首映礼",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139062.htm",
+  "article_title": "《流浪地球3》首映明年2月6日：公映版、导演版时长出炉！",
+  "pub_date": "2026-07-25T23:58:00+08:00",
+  "crawl_time": "2026-07-26T00:10:09.887857+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "February 6, 2027 (2027.2.6)",
+   "2027.2.6"
+  ],
+  "oracle_preds": [
+   "February 6, 2027.",
+   "On February 6, 2027."
+  ]
+ },
+ {
+  "id": "73ce85bf0d7c-0",
+  "article_id": "73ce85bf0d7c",
+  "image": "images/73ce85bf0d7c.jpg",
+  "question": "What is the location of the pictured debating event?",
+  "answer": "Wenzhou, Zhejiang",
+  "answer_type": "location",
+  "evidence": "近日，浙江省温州市开展“Z世代说党的创新理论”辩论式宣讲展示决赛，青年选手以辩论为载体，让党的创新理论焕发青年语态的鲜活感染力。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666873.shtml",
+  "article_title": "“Z世代”辩中求新 浙江温州探索青年宣讲新路径",
+  "pub_date": "2026-07-26T18:41:21+08:00",
+  "crawl_time": "2026-07-26T19:44:09.401601+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Wenzhou, Zhejiang, China.",
+   "Wenzhou, Zhejiang, China."
+  ]
+ },
+ {
+  "id": "d984a45792e1-0",
+  "article_id": "d984a45792e1",
+  "image": "images/d984a45792e1.jpg",
+  "question": "How much is the pictured newly launched charging device priced at?",
+  "answer": "189 yuan",
+  "answer_type": "numeric",
+  "evidence": "绿联现已推出 100W 小冰片氮化镓充电器， 定价 189 元 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/539.htm",
+  "article_title": "绿联推出 100W 小冰片氮化镓充电器：2C1A，189 元",
+  "pub_date": "2026-07-25T08:04:40+08:00",
+  "crawl_time": "2026-07-26T00:08:08.281026+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "189 yuan",
+   "189 yuan"
+  ]
+ },
+ {
+  "id": "fc963a8af6f0-0",
+  "article_id": "fc963a8af6f0",
+  "image": "images/fc963a8af6f0.jpg",
+  "question": "According to 2026 reports, does the pictured ID type contain a magnetic stripe?",
+  "answer": "No",
+  "answer_type": "outcome",
+  "evidence": "目前广泛使用的第二代身份证采用的是无线射频识别技术，内部根本没有磁条，因此不存在被手机消磁的情况。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139044.htm",
+  "article_title": "第二代身份证内部根本没有磁条：不存在被手机消磁一说",
+  "pub_date": "2026-07-25T21:23:43+08:00",
+  "crawl_time": "2026-07-26T00:10:11.531270+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "No, it does not.",
+   "No, it does not. The second-generation ID card (the pictured ID type) uses radio"
+  ]
+ },
+ {
+  "id": "74aa8486f215-0",
+  "article_id": "74aa8486f215",
+  "image": "images/74aa8486f215.jpg",
+  "question": "What is the CLTC range of the vehicle shown in this post?",
+  "answer": "600km",
+  "answer_type": "numeric",
+  "evidence": "新车将搭载新国标犀牛电池，全系标配 600km CLTC 续航，30%-80% SOC 充电时间为 20 分钟。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/750.htm",
+  "article_title": "奇瑞风云 T7 即将开启小订：搭载犀牛电池，600km CLTC 续航",
+  "pub_date": "2026-07-26T08:08:27+08:00",
+  "crawl_time": "2026-07-26T19:44:11.096180+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "600km",
+   "600km"
+  ]
+ },
+ {
+  "id": "700ffeca3e17-0",
+  "article_id": "700ffeca3e17",
+  "image": "images/700ffeca3e17.jpg",
+  "question": "What is the specific theme of the pictured event?",
+  "answer": "Craftsmanship builds dreams",
+  "answer_type": "entity",
+  "evidence": "近日，上海市侨联举办以“匠心筑梦 技展风华”为主题的“侨界会客厅”活动",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/hr/2026/07-26/10666897.shtml",
+  "article_title": "沪上工匠分享奋斗历程 侨胞捐资支持职业教育发展",
+  "pub_date": "2026-07-26T19:36:52+08:00",
+  "crawl_time": "2026-07-26T19:44:00.976929+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "匠心筑梦 技展风华",
+   "匠心筑梦 技展风华"
+  ],
+  "oracle_preds": [
+   "\"Craftsmanship Builds Dreams, Skills Showcase Elegance\" (or the Chinese theme is",
+   "\"Craftsmanship builds dreams, skills showcase elegance\" (Chinese: 匠心筑梦 技展风华) is "
+  ]
+ },
+ {
+  "id": "4e5964632d2d-0",
+  "article_id": "4e5964632d2d",
+  "image": "images/4e5964632d2d.jpg",
+  "question": "What cumulative total sales milestone has the automaker whose vehicle chassis is shown in this image announced as of July 25, 2026?",
+  "answer": "exceed 20 million units",
+  "answer_type": "numeric",
+  "evidence": "奇瑞控股集团有限公司(以下简称“奇瑞”)25日披露，其累计汽车销量突破2000万辆，其中出口近700万辆，占比超三分之一。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/cj/2026/07-25/10666572.shtml",
+  "article_title": "奇瑞汽车累计销量突破2000万辆 出口占比超三分之一",
+  "pub_date": "2026-07-25T21:58:21+08:00",
+  "crawl_time": "2026-07-26T00:08:03.380746+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "20 million vehicles.",
+   "20 million units."
+  ]
+ },
+ {
+  "id": "75e00f8477fa-0",
+  "article_id": "75e00f8477fa",
+  "image": "images/75e00f8477fa.jpg",
+  "question": "Where was the test of the pictured devices carried out?",
+  "answer": "Dapeng Peninsula, Shenzhen",
+  "answer_type": "location",
+  "evidence": "试验在位于深圳市大鹏半岛的中国气象局低空经济无人航空气象保障野外科学试验基地开展",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/693.htm",
+  "article_title": "我国蜂群无人机首次实现台风过境全程立体观测",
+  "pub_date": "2026-07-26T06:52:30+08:00",
+  "crawl_time": "2026-07-26T19:44:12.444810+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "At the field scientific test base for low-altitude economic unmanned aviation me",
+   "The test was carried out at the field scientific test base for low-altitude econ"
+  ]
+ },
+ {
+  "id": "5e3d8a1c2516-0",
+  "article_id": "5e3d8a1c2516",
+  "image": "images/5e3d8a1c2516.jpg",
+  "question": "Where is the pictured exchange activity held?",
+  "answer": "Zhangpu, Fujian",
+  "answer_type": "location",
+  "evidence": "在漳浦仲善堂中医文化村，两岸医教从业者围绕学前融合教育、儿童健康干预、特殊孩童康复照护等议题深入研讨，分享两岸教学实践、临床服务经验。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666886.shtml",
+  "article_title": "台湾爱保初心教育团队赴福建漳浦开展医教融合交流",
+  "pub_date": "2026-07-26T19:01:02+08:00",
+  "crawl_time": "2026-07-26T19:44:04.455275+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "It is held in Zhongshantang (Zhongshantang Traditional Chinese Medicine Cultural",
+   "In Zhongshantang (Zhongshantang Chinese Medicine Culture Village, Zhangpu, Fujia"
+  ]
+ },
+ {
+  "id": "5c41396bbd3a-0",
+  "article_id": "5c41396bbd3a",
+  "image": "images/5c41396bbd3a.jpg",
+  "question": "In which city is the pictured football match being held?",
+  "answer": "Nanchang, Jiangxi",
+  "answer_type": "location",
+  "evidence": "2026赣台港青年足球联谊赛在江西南昌开赛",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/tp/2026/07-26/10666879.shtml",
+  "article_title": "2026赣台港青年足球联谊赛在江西南昌开赛",
+  "pub_date": "2026-07-26T18:47:25+08:00",
+  "crawl_time": "2026-07-26T19:44:08.255230+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Nanchang",
+   "Nanchang"
+  ]
+ },
+ {
+  "id": "9d01cef78ac7-0",
+  "article_id": "9d01cef78ac7",
+  "image": "images/9d01cef78ac7.jpg",
+  "question": "Where was the national conference for the work of the sector shown in this image held?",
+  "answer": "Beijing",
+  "answer_type": "location",
+  "evidence": "7月22日，全国基础教育工作会议在北京召开，会上传达了习近平总书记近日对基础教育工作作出的重要指示，系统部署新征程基础教育高质量发展重点任务。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/gn/2026/07-25/10666570.shtml",
+  "article_title": "学习时节｜立德树人！总书记领航基础教育发展",
+  "pub_date": "2026-07-25T21:43:32+08:00",
+  "crawl_time": "2026-07-26T00:08:06.552313+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Beijing.",
+   "Beijing."
+  ]
+ },
+ {
+  "id": "86369725e5ae-0",
+  "article_id": "86369725e5ae",
+  "image": "images/86369725e5ae.jpg",
+  "question": "In what city is the shown competition being held?",
+  "answer": "Harbin",
+  "answer_type": "location",
+  "evidence": "来自清华大学、哈尔滨工业大学等全国276所高校的1357名科创学子齐聚哈尔滨，围绕智慧农业、智能驾驶、全地形协同机器人、脑机与应急机器人、工业控制机数智化系统等前沿赛项同台竞技。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666872.shtml",
+  "article_title": "以赛赋能实体经济 全国276所高校千余名学子竞技“人工智能+”",
+  "pub_date": "2026-07-26T18:42:05+08:00",
+  "crawl_time": "2026-07-26T19:44:10.318076+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Harbin",
+   "Harbin"
+  ]
+ },
+ {
+  "id": "5dff1e20dde0-0",
+  "article_id": "5dff1e20dde0",
+  "image": "images/5dff1e20dde0.jpg",
+  "question": "Where did the pictured burning vehicle catch fire during testing?",
+  "answer": "Sierra Nevada, Spain",
+  "answer_type": "location",
+  "evidence": "一辆奔驰 AMG GT 路试车在西班牙内华达山脉进行高温路试时突然起火",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/685.htm",
+  "article_title": "曝奔驰 AMG GT 路试车在西班牙起火，整车烧毁",
+  "pub_date": "2026-07-26T04:51:24+08:00",
+  "crawl_time": "2026-07-26T19:44:14.471524+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Sierra Nevada, Spain.",
+   "Sierra Nevada, Spain."
+  ]
+ },
+ {
+  "id": "c252ce99cdf4-0",
+  "article_id": "c252ce99cdf4",
+  "image": "images/c252ce99cdf4.jpg",
+  "question": "What is the first month that patients are expected to receive the pictured implant commercially?",
+  "answer": "August 2026",
+  "answer_type": "temporal",
+  "evidence": "Hodak表示，公司正在与欧洲各国协商医保支付方案，预计首位商业化患者将于今年8月接受植入手术，地点很可能在德国。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139052.htm",
+  "article_title": "脑机接口迎重大突破：视网膜芯片获准在欧上市 可帮助患者恢复视力",
+  "pub_date": "2026-07-25T22:03:29+08:00",
+  "crawl_time": "2026-07-26T00:10:10.233748+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "August",
+   "August."
+  ]
+ },
+ {
+  "id": "ceddd9a1639c-0",
+  "article_id": "ceddd9a1639c",
+  "image": "images/ceddd9a1639c.jpg",
+  "question": "Where are the pictured glass doors with cross tape located?",
+  "answer": "Kowloon, Hong Kong",
+  "answer_type": "location",
+  "evidence": "记者当日路过九龙一家商场时注意到，工作人员陆续为临街玻璃门窗交叉张贴防风胶带，以降低破裂风险；附近亦有住户以“米”字贴法加固家中玻璃窗。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/dwq/2026/07-25/10666582.shtml",
+  "article_title": "台风“红霞”来袭 香港发出今年首个“八号风球”",
+  "pub_date": "2026-07-25T22:27:47+08:00",
+  "crawl_time": "2026-07-26T00:08:02.815519+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "train station",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "They are located at a shopping mall in Kowloon, Hong Kong.",
+   "A mall in Kowloon, Hong Kong."
+  ]
+ },
+ {
+  "id": "b8a28001a03b-0",
+  "article_id": "b8a28001a03b",
+  "image": "images/b8a28001a03b.jpg",
+  "question": "What is the starting price of the pictured newly launched camera battery product?",
+  "answer": "299 yuan",
+  "answer_type": "numeric",
+  "evidence": "制造商 Falcam（小隼）宣布推出 TagBatt 系列第三方相机电池，该产品最大的特点是内置苹果“查找”网络功能， 提供索尼 NP-FZ100、佳能 LP-E6 版本，定价为 299 元起 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/698.htm",
+  "article_title": "支持苹果“查找”网络：299 元起小隼推出 TagBatt 相机电池、提供索尼 NP-FZ100、佳能 LP-E6 版本",
+  "pub_date": "2026-07-26T06:55:10+08:00",
+  "crawl_time": "2026-07-26T19:44:12.472869+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "299 yuan.",
+   "299 yuan"
+  ]
+ },
+ {
+  "id": "41c594615e68-0",
+  "article_id": "41c594615e68",
+  "image": "images/41c594615e68.jpg",
+  "question": "What location is the pictured taekwondo competition held at?",
+  "answer": "Xi'an Eurasia University",
+  "answer_type": "location",
+  "evidence": "25日，2026年西安市跆拳道公开赛在西安欧亚学院综合体育馆举行。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/ty/2026/07-25/10666562.shtml",
+  "article_title": "西安市跆拳道公开赛启幕 多省区近500名选手同台竞技",
+  "pub_date": "2026-07-25T20:59:45+08:00",
+  "crawl_time": "2026-07-26T00:08:04.967800+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Xi'an Eurasia University's comprehensive gymnasium, Xi'an, China.",
+   "Xi'an Eurasia University's comprehensive gymnasium, Xi'an, China."
+  ]
+ },
+ {
+  "id": "dd2a6f4f206b-0",
+  "article_id": "dd2a6f4f206b",
+  "image": "images/dd2a6f4f206b.jpg",
+  "question": "Where is the oil extraction site shown in this picture located?",
+  "answer": "Shandong, China",
+  "answer_type": "location",
+  "evidence": "我国首个陆相断陷湖盆页岩油国家级示范区 —— 胜利济阳页岩油示范区正式建成，胜利济阳页岩油国家级示范区坐落于山东境内",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/578.htm",
+  "article_title": "破解世界级勘探开发难题，我国首个陆相断陷湖盆页岩油示范区在山东建成",
+  "pub_date": "2026-07-25T12:01:14+08:00",
+  "crawl_time": "2026-07-26T00:08:08.085808+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Shandong, China.",
+   "Shandong, China."
+  ]
+ },
+ {
+  "id": "effc84dd82ac-0",
+  "article_id": "effc84dd82ac",
+  "image": "images/effc84dd82ac.jpg",
+  "question": "What recent action have manufacturers of the pictured type of device taken regarding memory supplier price increases?",
+  "answer": "Explicitly rejected them",
+  "answer_type": "outcome",
+  "evidence": "近期多家手机大厂已明确拒绝内存供应商在未来几个季度的涨价要求。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139034.htm",
+  "article_title": "抵制天价内存！多家手机大厂联手拒绝供应商涨价要求",
+  "pub_date": "2026-07-25T19:18:27+08:00",
+  "crawl_time": "2026-07-26T00:10:13.387715+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "They have clearly rejected the memory suppliers' price increase requirements for",
+   "They have explicitly rejected the memory suppliers' requests for price increases"
+  ]
+ },
+ {
+  "id": "d8e122ec0d9e-0",
+  "article_id": "d8e122ec0d9e",
+  "image": "images/d8e122ec0d9e.jpg",
+  "question": "What is the model name of the pictured newly announced keyboard?",
+  "answer": "WALLHACK K-001",
+  "answer_type": "entity",
+  "evidence": "此前主营玻璃鼠标垫的电竞外设制造商 WALLHACK 本周公布了其首款键盘产品 K-001，整体设计简洁利落。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/597.htm",
+  "article_title": "WALLHACK 公布其首款键盘 K-001：65% 有线配列，简约风格",
+  "pub_date": "2026-07-25T14:32:25+08:00",
+  "crawl_time": "2026-07-26T00:08:07.098866+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "K-001",
+   "K-001"
+  ]
+ },
+ {
+  "id": "4210c37f5740-0",
+  "article_id": "4210c37f5740",
+  "image": "images/4210c37f5740.jpg",
+  "question": "What is the newly announced AI software suite that will be added to the upcoming version of the software platform developed by the pictured company?",
+  "answer": "ROCm.AI",
+  "answer_type": "entity",
+  "evidence": "这个六周迭代周期推出的新版本， 将正式搭载全新的ROCm.AI软件套件 ，利用AI智能体帮助开发者自动完成代码适配、性能调优和部署优化。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139057.htm",
+  "article_title": "一年发布8次！AMD ROCm向CUDA发起总攻：新功能每6周推送一次",
+  "pub_date": "2026-07-25T23:26:35+08:00",
+  "crawl_time": "2026-07-26T00:10:08.891756+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "AMD ROCm 6.0\nWait, no, the AI suite is AMD AI Suite? No, wait, the correct answe",
+   "AMD ROCm 6.0"
+  ],
+  "oracle_preds": [
+   "ROCm.AI",
+   "ROCm.AI"
+  ]
+ },
+ {
+  "id": "2075a86096ef-0",
+  "article_id": "2075a86096ef",
+  "image": "images/2075a86096ef.jpg",
+  "question": "What is the launch price of the newly released version of the pictured laptop?",
+  "answer": "4499 yuan",
+  "answer_type": "numeric",
+  "evidence": "机械革命现已为旗下无界 14 SE 笔记本新增“R7-7445HS +16GB RAM + 512GB SSD”版本，定价为 6499 元， 首发价 4499 元 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/766.htm",
+  "article_title": "机械革命无界 14 SE 笔记本新增“R7-7445HS + 16G + 512G”版本，4499 元",
+  "pub_date": "2026-07-26T09:17:33+08:00",
+  "crawl_time": "2026-07-26T19:44:10.624147+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "4499 yuan.",
+   "4499 yuan"
+  ]
+ },
+ {
+  "id": "75d264e58eab-0",
+  "article_id": "75d264e58eab",
+  "image": "images/75d264e58eab.jpg",
+  "question": "What is the transaction value of the acquisition shown in the pictured press release?",
+  "answer": "110 billion USD",
+  "answer_type": "numeric",
+  "evidence": "按照今年 2 月达成的协议，派拉蒙将以 1100 亿美元 （IT之家注：现汇率约合 7464.73 亿元人民币）收购华纳兄弟，在这场持续数月的竞购中击败 Netflix。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/762.htm",
+  "article_title": "派拉蒙 1100 亿美元收购华纳兄弟获欧盟有条件批准，十年内不得与环球影业达成协议",
+  "pub_date": "2026-07-26T08:43:18+08:00",
+  "crawl_time": "2026-07-26T19:44:10.664824+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "110 billion US dollars.",
+   "110 billion US dollars."
+  ]
+ },
+ {
+  "id": "2027b76ba9fd-0",
+  "article_id": "2027b76ba9fd",
+  "image": "images/2027b76ba9fd.jpg",
+  "question": "What is the production status of this shown system?",
+  "answer": "Full mass production",
+  "answer_type": "outcome",
+  "evidence": "Helios已经进入全面量产阶段",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139004.htm",
+  "article_title": "HBM4大战升级！AMD联手三星追赶英伟达",
+  "pub_date": "2026-07-25T15:12:07+08:00",
+  "crawl_time": "2026-07-26T00:10:16.063296+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "It has entered the full mass production stage.",
+   "It is in full mass production stage."
+  ]
+ },
+ {
+  "id": "109100cad364-0",
+  "article_id": "109100cad364",
+  "image": "images/109100cad364.jpg",
+  "question": "The company shown in the image was fined what amount by the EU according to the article?",
+  "answer": "1 billion USD",
+  "answer_type": "numeric",
+  "evidence": "美国总统特朗普威胁对欧盟产品征收新的关税，以报复欧盟对Alphabet旗下谷歌公司处以10亿美元的罚款。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139049.htm",
+  "article_title": "谷歌罚款点燃特朗普怒火 欧盟再次面临巨额关税威胁",
+  "pub_date": "2026-07-25T21:42:17+08:00",
+  "crawl_time": "2026-07-26T00:10:10.657758+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "1 billion dollars",
+   "1 billion dollars."
+  ]
+ },
+ {
+  "id": "8560f9292d20-0",
+  "article_id": "8560f9292d20",
+  "image": "images/8560f9292d20.jpg",
+  "question": "What is the price of the pictured limited-edition vehicle?",
+  "answer": "208800 yuan",
+  "answer_type": "numeric",
+  "evidence": "该车于 6 月 29 日上市，1007 台首发限量已售罄，上市指导价 20.88 万元。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/579.htm",
+  "article_title": "领克 07GT 时间限量版交付：首发 1007 台，售 20.88 万元",
+  "pub_date": "2026-07-25T12:06:33+08:00",
+  "crawl_time": "2026-07-26T00:08:07.554768+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "14.58万起",
+   "14.58万起"
+  ],
+  "oracle_preds": [
+   "208,800 yuan.",
+   "208,800 yuan"
+  ]
+ },
+ {
+  "id": "505ccc802420-0",
+  "article_id": "505ccc802420",
+  "image": "images/505ccc802420.jpg",
+  "question": "What is the official listed price of this shown monitor?",
+  "answer": "1649 yuan",
+  "answer_type": "numeric",
+  "evidence": "雷鸟现已推出型号为“25Q6A Pro”的 24.5 英寸 2K 360Hz Mini LED 显示器，将于 7 月 31 日正式开售， 定价 1649 元",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/541.htm",
+  "article_title": "雷鸟推出“25Q6A Pro”24.5 英寸 2K 360Hz Mini LED 显示器，1649 元",
+  "pub_date": "2026-07-25T08:30:43+08:00",
+  "crawl_time": "2026-07-26T00:08:08.270313+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "1649 yuan",
+   "1649 yuan"
+  ]
+ },
+ {
+  "id": "4f1a094c9630-0",
+  "article_id": "4f1a094c9630",
+  "image": "images/4f1a094c9630.jpg",
+  "question": "How much is the pictured new monitor priced at in Japan including tax, in Japanese yen?",
+  "answer": "62800 yen",
+  "answer_type": "numeric",
+  "evidence": "飞利浦 Evnia 27M2N6500NS/11 显示器 在日本市场的含税定价为 6.28 万日元",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/604.htm",
+  "article_title": "飞利浦推出 26.5\" QHD 144Hz QD-OLED 显示器 27M2N6500NS/11",
+  "pub_date": "2026-07-25T15:54:32+08:00",
+  "crawl_time": "2026-07-26T00:08:06.655997+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "62,800 yen",
+   "62800"
+  ]
+ },
+ {
+  "id": "cdf577a59270-0",
+  "article_id": "cdf577a59270",
+  "image": "images/cdf577a59270.jpg",
+  "question": "How much will the pictured phone's next generation increase in price at minimum due to storage cost rises?",
+  "answer": "1000 yuan",
+  "answer_type": "numeric",
+  "evidence": "行业消息人士表示，这一代iPhone 18系列光存储芯片的采购成本上涨部分，就会倒逼苹果至少要把整机售价上调千元。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139060.htm",
+  "article_title": "因存储iPhone 18系列至少要涨价千元！苹果借机压低OLED面板采购价",
+  "pub_date": "2026-07-25T23:56:00+08:00",
+  "crawl_time": "2026-07-26T00:10:08.895967+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "1000 yuan.",
+   "One thousand yuan."
+  ]
+ },
+ {
+  "id": "e269a26becaf-0",
+  "article_id": "e269a26becaf",
+  "image": "images/e269a26becaf.jpg",
+  "question": "What is the national region price of the pictured Steam game in its new release announcement?",
+  "answer": "93 yuan",
+  "answer_type": "numeric",
+  "evidence": "由 Ice Code Games 开发、知名策略游戏发行商 Slitherine Ltd. 推出的《噩梦边境 - Nightmare Frontier》已正式登陆 Steam 平台，目前国区定价 93 元",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/980/335.htm",
+  "article_title": "Steam 策略新游《噩梦边境》发售：国区售价 93 元，支持简体中文",
+  "pub_date": "2026-07-26T07:49:19+08:00",
+  "crawl_time": "2026-07-26T19:44:11.461657+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "93 yuan.",
+   "93 yuan"
+  ]
+ },
+ {
+  "id": "dffa16820a02-0",
+  "article_id": "dffa16820a02",
+  "image": "images/dffa16820a02.jpg",
+  "question": "What is the price of the pictured newly launched PC case?",
+  "answer": "119 yuan",
+  "answer_type": "numeric",
+  "evidence": "长城现已在京东上架视界 S1 mini+ 海景房机箱，该机提供黑白双色可选，定价为 119 元。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/778.htm",
+  "article_title": "长城推出视界 S1mini+ 海景房机箱：兼容 240mm 水冷，黑白双色均售 119 元",
+  "pub_date": "2026-07-26T10:16:49+08:00",
+  "crawl_time": "2026-07-26T19:44:10.072065+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "119 yuan",
+   "119 yuan."
+  ]
+ },
+ {
+  "id": "57a137aa5d66-0",
+  "article_id": "57a137aa5d66",
+  "image": "images/57a137aa5d66.jpg",
+  "question": "What is the change in delivery period for the main products of the manufacturer of this pictured equipment, as reported in 2026?",
+  "answer": "50~100% extended",
+  "answer_type": "numeric",
+  "evidence": "五大半导体制造设备供应商（应用材料、ASML、泛林、TEL、KLA）的主要产品交付周期已延长了 50~100% 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/587.htm",
+  "article_title": "消息称五大半导体制造设备供应商主要产品交付周期已延长 50~100%",
+  "pub_date": "2026-07-25T13:09:02+08:00",
+  "crawl_time": "2026-07-26T00:08:07.185506+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The delivery period has been extended by 50~100%.",
+   "The delivery period has been extended by 50~100%."
+  ]
+ },
+ {
+  "id": "df27a8e0cf9e-0",
+  "article_id": "df27a8e0cf9e",
+  "image": "images/df27a8e0cf9e.jpg",
+  "question": "What is the current Douban rating of the pictured film?",
+  "answer": "8.1",
+  "answer_type": "numeric",
+  "evidence": "《三国第一部：争洛阳》豆瓣评分达 8.1 分",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/594.htm",
+  "article_title": "追光动画电影“三国”系列首作《三国第一部：争洛阳》官宣撤档，豆瓣评分 8.1",
+  "pub_date": "2026-07-25T14:00:08+08:00",
+  "crawl_time": "2026-07-26T00:08:08.298996+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "8.1",
+   "8.1"
+  ]
+ },
+ {
+  "id": "cef2e30b5ec9-0",
+  "article_id": "cef2e30b5ec9",
+  "image": "images/cef2e30b5ec9.jpg",
+  "question": "What is the name of the newly announced creative program that uses the pictured earbuds to trigger animations for AI?",
+  "answer": "whoisbadai",
+  "answer_type": "entity",
+  "evidence": "Reddit 用户 Disastrous-Body-297 发帖，公布了一款利用苹果 AirPods 传感器模拟鞭子“抽打”AI 的创意程序“whoisbadai”",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/783.htm",
+  "article_title": "网友脑洞大开设计创意程序，用苹果 AirPods“挥鞭抽打”AI 加速运行",
+  "pub_date": "2026-07-26T11:03:26+08:00",
+  "crawl_time": "2026-07-26T19:44:10.493827+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "whoisbadai",
+   "whoisbadai"
+  ]
+ },
+ {
+  "id": "abf1337c8764-0",
+  "article_id": "abf1337c8764",
+  "image": "images/abf1337c8764.jpg",
+  "question": "How much is the starting sale price after subsidies for the pictured newly launched monitor?",
+  "answer": "2789 yuan",
+  "answer_type": "numeric",
+  "evidence": "雷鸟现已推出型号为“34U8A”的 34 英寸带鱼屏显示器“Q8 升级版”， 售价 3099 元 ，补贴到手价 2789 元，将于 7 月 31 日开售。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/558.htm",
+  "article_title": "雷鸟推出“Q8 升级版”34U8A 带鱼屏显示器：34 英寸 1440P 200Hz，3099 元",
+  "pub_date": "2026-07-25T11:08:58+08:00",
+  "crawl_time": "2026-07-26T00:08:07.741563+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "2789 yuan",
+   "2789 yuan"
+  ]
+ },
+ {
+  "id": "d98aeb4444f0-0",
+  "article_id": "d98aeb4444f0",
+  "image": "images/d98aeb4444f0.jpg",
+  "question": "What is the total amount of funds donated by the person shown in the top left of this pictured committee to establish the related academy's construction fund?",
+  "answer": "300 million yuan",
+  "answer_type": "numeric",
+  "evidence": "1985 级首届教改试点班杰出校友、红杉中国创始及执行合伙人沈南鹏先生慷慨 捐资 3 亿元 ，设立“红杉书院建设基金”。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/751.htm",
+  "article_title": "上海交大红杉书院揭牌成立：沈南鹏捐资 3 亿元，蚂蚁井贤栋、米哈游刘伟、联想杨元庆等任顾问委员",
+  "pub_date": "2026-07-26T08:13:43+08:00",
+  "crawl_time": "2026-07-26T19:44:12.305953+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "300 million yuan.",
+   "300 million yuan."
+  ]
+ },
+ {
+  "id": "1ce2ef22b3b7-0",
+  "article_id": "1ce2ef22b3b7",
+  "image": "images/1ce2ef22b3b7.jpg",
+  "question": "What is the starting price of the pictured device?",
+  "answer": "2499 yuan",
+  "answer_type": "numeric",
+  "evidence": "华为 AI 眼镜于今年 4 月发布，售价 2499 元起",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/595.htm",
+  "article_title": "华为 AI 眼镜推送 6.0.0.157 SP2 版本更新，支持“看一下支付宝小蓝环”支付功能",
+  "pub_date": "2026-07-25T14:25:57+08:00",
+  "crawl_time": "2026-07-26T00:08:06.898677+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "2499 yuan",
+   "2499 yuan"
+  ]
+ },
+ {
+  "id": "c4c377f775da-0",
+  "article_id": "c4c377f775da",
+  "image": "images/c4c377f775da.jpg",
+  "question": "What is the 2026 Q1 global market share of the pictured company?",
+  "answer": "13 percent",
+  "answer_type": "numeric",
+  "evidence": "Counterpoint数据显示，2026年第一季度长江存储全球市场份额已攀升至13%，与美光、闪迪持平。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139053.htm",
+  "article_title": "长江存储正在吃掉国内需求！中国云服务商绕过模组厂直接采购",
+  "pub_date": "2026-07-25T22:04:39+08:00",
+  "crawl_time": "2026-07-26T00:10:10.213382+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "13%",
+   "13%"
+  ]
+ },
+ {
+  "id": "0ab1e07e38e8-0",
+  "article_id": "0ab1e07e38e8",
+  "image": "images/0ab1e07e38e8.jpg",
+  "question": "According to the 2025 national informatization development report, how many users does the type of technology service that can run on the pictured device have in China as of the end of 2025?",
+  "answer": "602 million",
+  "answer_type": "numeric",
+  "evidence": "我国生成式人工智能用户规模达 6.02 亿人",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/527.htm",
+  "article_title": "网信办发布《国家信息化发展报告（2025 年）》：6G 完成第一阶段技术试验，生成式人工智能用户规模达 6.02 亿人",
+  "pub_date": "2026-07-25T07:24:58+08:00",
+  "crawl_time": "2026-07-26T00:08:08.704175+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "602 million.",
+   "602 million."
+  ]
+ },
+ {
+  "id": "4c31e5c465bd-0",
+  "article_id": "4c31e5c465bd",
+  "image": "images/4c31e5c465bd.jpg",
+  "question": "Where is the story of the pictured game set?",
+  "answer": "Northern India",
+  "answer_type": "location",
+  "evidence": "《古墓丽影：天灾》是系列全新主线作品，故事设定在印度北部，劳拉将在神秘灾难后探索新暴露的遗迹，寻找古代能量来源。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139014.htm",
+  "article_title": "亚马逊确认古墓丽影新作延期！《天灾》推迟至2028年",
+  "pub_date": "2026-07-25T17:44:48+08:00",
+  "crawl_time": "2026-07-26T00:10:15.135344+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Northern India.",
+   "Northern India."
+  ]
+ },
+ {
+  "id": "93e1640a65e4-0",
+  "article_id": "93e1640a65e4",
+  "image": "images/93e1640a65e4.jpg",
+  "question": "What is the outcome for all user data after the pictured service's servers are shut down?",
+  "answer": "Permanently deleted",
+  "answer_type": "outcome",
+  "evidence": "服务器关闭后，所有用户数据将根据官方隐私政策永久删除。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/748.htm",
+  "article_title": "米哈游 AI 聊天软件 AnuNeko 下周永久关闭",
+  "pub_date": "2026-07-26T07:55:13+08:00",
+  "crawl_time": "2026-07-26T19:44:11.875571+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "All user data will be permanently deleted according to the official privacy poli",
+   "All user data will be permanently deleted according to the official privacy poli"
+  ]
+ },
+ {
+  "id": "9a8a9ea91cfa-0",
+  "article_id": "9a8a9ea91cfa",
+  "image": "images/9a8a9ea91cfa.jpg",
+  "question": "What is the starting price of the pictured newly released limited edition car in China?",
+  "answer": "988,000 yuan",
+  "answer_type": "numeric",
+  "evidence": "莲花跑车官方宣布，全新莲花 Emira Scura 限量版正式发布， 官方售价 98.8 万元起，中国限量 9 台",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/777.htm",
+  "article_title": "全新莲花 Emira Scura 限量版发布：98.8 万元起，中国限量 9 台",
+  "pub_date": "2026-07-26T10:16:25+08:00",
+  "crawl_time": "2026-07-26T19:44:10.152785+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "988,000 yuan.",
+   "988,000 yuan."
+  ]
+ },
+ {
+  "id": "1d7d570729e7-0",
+  "article_id": "1d7d570729e7",
+  "image": "images/1d7d570729e7.jpg",
+  "question": "What is the year-over-year percentage decrease in the sales volume of the market category depicted in this bar chart for the latest period shown?",
+  "answer": "26.0%",
+  "answer_type": "numeric",
+  "evidence": "2026 年上半年，中国智能投影市场（不含激光电视）全渠道的销量为 205.6 万台， 同比下降 26.0%",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/764.htm",
+  "article_title": "洛图科技：2026 年上半年中国智能投影市场销量同比下降 26.0%、销售额下滑 27.0%",
+  "pub_date": "2026-07-26T08:56:39+08:00",
+  "crawl_time": "2026-07-26T19:44:10.630132+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "To calculate the year-over-year decrease for 2026H1 vs 2025H1:\n1.  2025H1 value ",
+   "To calculate this:\n1.  Latest period is **2026H1 = 205**\n2.  Year-ago equivalent"
+  ],
+  "oracle_preds": [
+   "26.0%",
+   "26.0%"
+  ]
+ },
+ {
+  "id": "5cde9347cae1-0",
+  "article_id": "5cde9347cae1",
+  "image": "images/5cde9347cae1.jpg",
+  "question": "Who is the pictured man on the right, meeting with the grey-haired man at the event related to the newly signed chip supply deals?",
+  "answer": "Jay Y. Lee",
+  "answer_type": "entity",
+  "evidence": "到访旧金山期间，李在明接连会面一众全球AI产业顶尖高管，其中包括英伟达CEO黄仁勋、OpenAI CEO山姆·奥尔特曼、Anthropic CEO达里奥·阿莫代伊以及博通CEO陈福阳等人 。随后，在当地时间7月25日，韩国总统顾问金容范在一场新闻发布会上透露，三星电子与SK海力士将与包括英伟达在内的美国大型科技公司达成总价值高达9500亿美元的存储芯片供应合作。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139002.htm",
+  "article_title": "韩国绑定美国产业链！SK海力士、三星、英伟达、博通签下9500亿美元大单",
+  "pub_date": "2026-07-25T14:37:28+08:00",
+  "crawl_time": "2026-07-26T00:10:16.257681+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Chey Tae-won",
+   "Chey Tae-won"
+  ],
+  "oracle_preds": [
+   "Jae-yong Lee / Lee Jae-yong",
+   "Jae-yong Lee / Lee Jae-yong"
+  ]
+ },
+ {
+  "id": "05db2921d347-0",
+  "article_id": "05db2921d347",
+  "image": "images/05db2921d347.jpg",
+  "question": "What is the recent country that the two pictured men traveled to together for an official visit earlier this year?",
+  "answer": "China",
+  "answer_type": "location",
+  "evidence": "两位 CEO 均曾与特朗普一同现身白宫椭圆形办公室，并于今年早些时候随其出访中国。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/580.htm",
+  "article_title": "库克力推长鑫、长存加入苹果供应链遭美光强烈反对，特朗普夹在中间犯愁",
+  "pub_date": "2026-07-25T12:12:07+08:00",
+  "crawl_time": "2026-07-26T00:08:07.658931+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "China",
+   "China"
+  ]
+ },
+ {
+  "id": "d7cb35bf965d-0",
+  "article_id": "d7cb35bf965d",
+  "image": "images/d7cb35bf965d.jpg",
+  "question": "What is the launch price of the pictured monitor?",
+  "answer": "789 yuan",
+  "answer_type": "numeric",
+  "evidence": "联想新款拯救者电竞显示器 LEGION 27-1r 于今日开售，定价为 789 元。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/543.htm",
+  "article_title": "联想拯救者显示器 27-1r 开售：原生 280Hz 刷新率、IPS 面板，789 元",
+  "pub_date": "2026-07-25T08:47:55+08:00",
+  "crawl_time": "2026-07-26T00:08:08.169368+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "¥799起",
+   "¥799起"
+  ],
+  "oracle_preds": [
+   "789 yuan",
+   "789 yuan"
+  ]
+ },
+ {
+  "id": "e7ba99c14c6b-0",
+  "article_id": "e7ba99c14c6b",
+  "image": "images/e7ba99c14c6b.jpg",
+  "question": "What is the Douban opening score of the pictured film?",
+  "answer": "7.6",
+  "answer_type": "numeric",
+  "evidence": "目前，《群星闪耀时》豆瓣开分 7.6",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/747.htm",
+  "article_title": "国产科幻电影《群星闪耀时》豆瓣开分 7.6，上映 2 天总票房破 5000 万",
+  "pub_date": "2026-07-26T07:51:19+08:00",
+  "crawl_time": "2026-07-26T19:44:11.878981+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "7.6",
+   "7.6"
+  ]
+ },
+ {
+  "id": "0593f0495b91-0",
+  "article_id": "0593f0495b91",
+  "image": "images/0593f0495b91.jpg",
+  "question": "What is the official launch price of the pictured laptop's new R5-7640H + RTX3050 version?",
+  "answer": "6499 yuan",
+  "answer_type": "numeric",
+  "evidence": "机械革命现已为旗下蛟龙 15K 笔记本推出“R5-7640H + 16GB RAM + 512GB SSD + RTX3050”版本，定价为 8499 元， 首发价 6499 元 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/765.htm",
+  "article_title": "30 系卷土重来：机械革命蛟龙 15K“R5-7640H +16G + 512G + RTX3050”版发售，6499 元",
+  "pub_date": "2026-07-26T09:06:48+08:00",
+  "crawl_time": "2026-07-26T19:44:10.796717+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "6499 yuan",
+   "6499 yuan."
+  ]
+ },
+ {
+  "id": "d0ddf16fd796-0",
+  "article_id": "d0ddf16fd796",
+  "image": "images/d0ddf16fd796.jpg",
+  "question": "What minimum value of gift is guaranteed for purchasers of the pictured AI glasses during the promotional period?",
+  "answer": "476 yuan",
+  "answer_type": "numeric",
+  "evidence": "10000 份好礼，100% 中奖，保底 476 元奖品。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/500.htm",
+  "article_title": "理想 AI 眼镜 Livis 七月 OTA 升级：直连个人终端 OpenClaw，接入小红书 Agent",
+  "pub_date": "2026-07-25T07:02:51+08:00",
+  "crawl_time": "2026-07-26T00:08:09.328489+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "476 yuan.",
+   "476 yuan."
+  ]
+ },
+ {
+  "id": "a410c1fb3f13-0",
+  "article_id": "a410c1fb3f13",
+  "image": "images/a410c1fb3f13.jpg",
+  "question": "What is the current original price of this pictured game in Steam China region?",
+  "answer": "18 yuan",
+  "answer_type": "numeric",
+  "evidence": "游戏在国区定价为 18 元",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/704.htm",
+  "article_title": "Steam 喜加一：原价 18 元丧尸塔防游戏《Yet Another Zombie Defense HD》免费领",
+  "pub_date": "2026-07-26T07:08:11+08:00",
+  "crawl_time": "2026-07-26T19:44:12.593775+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "18 yuan",
+   "18 yuan."
+  ]
+ },
+ {
+  "id": "bc75e7e8c950-0",
+  "article_id": "bc75e7e8c950",
+  "image": "images/bc75e7e8c950.jpg",
+  "question": "The type of product shown in the image saw its contract price increase by how much quarter-over-quarter in Q1 2026?",
+  "answer": "80% to 100%",
+  "answer_type": "numeric",
+  "evidence": "据TrendForce及多家机构数据，2026年第一季度企业级SSD合约价环比大涨80%至100%，部分热门型号价格较2025年底近乎翻倍。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139056.htm",
+  "article_title": "比HBM涨得还猛！企业级SSD合约价单季暴涨超80%",
+  "pub_date": "2026-07-25T22:35:09+08:00",
+  "crawl_time": "2026-07-26T00:10:09.415650+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "80% to 100%",
+   "80% to 100%"
+  ]
+ },
+ {
+  "id": "c62d266e701c-0",
+  "article_id": "c62d266e701c",
+  "image": "images/c62d266e701c.jpg",
+  "question": "What is the launch date of the pictured laptop?",
+  "answer": "July 29",
+  "answer_type": "temporal",
+  "evidence": "华硕灵耀 14 Air 2026 笔记本现已上架京东并开启预约，定价为 9999 元，7 月 29 日开售。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/549.htm",
+  "article_title": "华硕灵耀 14 Air 2026 笔记本新品预约：锐龙 AI 7 H 445 处理器，9999 元",
+  "pub_date": "2026-07-25T09:30:56+08:00",
+  "crawl_time": "2026-07-26T00:08:08.001293+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "July 29.",
+   "July 29."
+  ]
+ },
+ {
+  "id": "f50ff8edea8d-0",
+  "article_id": "f50ff8edea8d",
+  "image": "images/f50ff8edea8d.jpg",
+  "question": "What is the price of the pictured newly launched desktop amplifier?",
+  "answer": "3999 yuan",
+  "answer_type": "numeric",
+  "evidence": "飞傲 EA13 台式真空管声频功率前级电子管放大器现已上架电商平台，将于明日 10:00 正式开售， 定价 3999 元 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/776.htm",
+  "article_title": "飞傲推出 EA13 台式真空管声频功率放大器，3999 元",
+  "pub_date": "2026-07-26T10:03:24+08:00",
+  "crawl_time": "2026-07-26T19:44:10.396622+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "3999 yuan",
+   "3999 yuan"
+  ]
+ },
+ {
+  "id": "f56c81877f85-0",
+  "article_id": "f56c81877f85",
+  "image": "images/f56c81877f85.jpg",
+  "question": "What special benefit is offered for this shown game in the first month after its Switch 2 version launch?",
+  "answer": "Free to play",
+  "answer_type": "outcome",
+  "evidence": "所有玩家在上线首月均可免费游玩",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/592.htm",
+  "article_title": "游戏《最终幻想 14》任天堂 Switch 2 版 8 月 4 日发售，上线首月免费游玩",
+  "pub_date": "2026-07-25T13:42:20+08:00",
+  "crawl_time": "2026-07-26T00:08:06.990334+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "All players can play for free in the first month after launch.",
+   "All players can play for free in the first month after launch."
+  ]
+ },
+ {
+  "id": "942b6315f0d1-0",
+  "article_id": "942b6315f0d1",
+  "image": "images/942b6315f0d1.jpg",
+  "question": "What is the pre-sale price of the top configuration of the pictured vehicle?",
+  "answer": "309900 yuan",
+  "answer_type": "numeric",
+  "evidence": "本次预售率先推出的是顶配的 四激光四驱 Ultra+ 版本，预售价为 30.99 万元。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/505.htm",
+  "article_title": "顶配预售价 30.99 万元，岚图追光 S 将推四激光长续航后驱、四激光标准续航等版本",
+  "pub_date": "2026-07-25T07:06:49+08:00",
+  "crawl_time": "2026-07-26T00:08:09.341419+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "309,900 yuan",
+   "309,900 yuan"
+  ]
+ },
+ {
+  "id": "55e2f21a474d-0",
+  "article_id": "55e2f21a474d",
+  "image": "images/55e2f21a474d.jpg",
+  "question": "What is the price of the newly announced white version of the pictured power supply?",
+  "answer": "999 yuan",
+  "answer_type": "numeric",
+  "evidence": "鑫谷昆仑山海 MU-1000GD 电源现已新增白色版， 售价 999 元 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/596.htm",
+  "article_title": "鑫谷昆仑山海 MU-1000GD ATX3.1 金牌数字电源新增白色版，999 元",
+  "pub_date": "2026-07-25T14:26:11+08:00",
+  "crawl_time": "2026-07-26T00:08:06.953807+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "999 yuan",
+   "999 yuan."
+  ]
+ },
+ {
+  "id": "f9c249c8cb78-0",
+  "article_id": "f9c249c8cb78",
+  "image": "images/f9c249c8cb78.jpg",
+  "question": "Which company developed the pictured newly launched mobile application?",
+  "answer": "Alibaba",
+  "answer_type": "entity",
+  "evidence": "阿里官方今日宣布，Qoder Mobile 移动端 App 正式发布上新， iOS、 Android 、 鸿蒙 三大版本同步上线 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/548.htm",
+  "article_title": "阿里：Qoder Mobile 移动端 App 安卓、iOS、鸿蒙三大版本同步上线，功能层面完全一致",
+  "pub_date": "2026-07-25T09:10:35+08:00",
+  "crawl_time": "2026-07-26T00:08:08.051224+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Qoder",
+   "Qoder"
+  ],
+  "oracle_preds": [
+   "Alibaba (阿里)",
+   "Alibaba (阿里)"
+  ]
+ },
+ {
+  "id": "af9038298c43-0",
+  "article_id": "af9038298c43",
+  "image": "images/af9038298c43.jpg",
+  "question": "How many accounts of the pictured service were handled for telecom fraud related violations in the first half of 2026?",
+  "answer": "5.4 million",
+  "answer_type": "numeric",
+  "evidence": "今年上半年平台累计处置电信诈骗相关违规账号540万个。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139005.htm",
+  "article_title": "腾讯重拳整治电信诈骗：上半年处置500万个QQ账号",
+  "pub_date": "2026-07-25T15:26:25+08:00",
+  "crawl_time": "2026-07-26T00:10:15.996967+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "5.4 million.",
+   "5.4 million"
+  ]
+ },
+ {
+  "id": "0d7d77ae6e46-0",
+  "article_id": "0d7d77ae6e46",
+  "image": "images/0d7d77ae6e46.jpg",
+  "question": "What is the model number of the newly announced pictured monitor?",
+  "answer": "VA2762-2K-HU",
+  "answer_type": "entity",
+  "evidence": "ViewSonic（优派）本周五宣布推出 27\" QHD (2560×1440) 办公显示器 VA2762-2K-HU。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/593.htm",
+  "article_title": "优派推出 27\" QHD 75Hz 办公显示器 VA2762-2K-HU：硬件低蓝光 IPS 面板",
+  "pub_date": "2026-07-25T13:53:21+08:00",
+  "crawl_time": "2026-07-26T00:08:06.837152+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "VA2762-2K-HU",
+   "VA2762-2K-HU"
+  ]
+ },
+ {
+  "id": "addc10ce7821-0",
+  "article_id": "addc10ce7821",
+  "image": "images/addc10ce7821.jpg",
+  "question": "What is the starting price of the pictured device in the Chinese mainland market, as reported in the article?",
+  "answer": "19999 yuan",
+  "answer_type": "numeric",
+  "evidence": "《 三星 Galaxy Z TriFold 三折叠手机国行今日开售，19999 元起 》",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/767.htm",
+  "article_title": "消息称下一代三星 Galaxy Z TriFold 三折叠手机将于明年推出，备货量有望增加",
+  "pub_date": "2026-07-26T09:21:47+08:00",
+  "crawl_time": "2026-07-26T19:44:10.849373+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "19999 yuan.",
+   "19999 yuan."
+  ]
+ },
+ {
+  "id": "6230bd6adc87-0",
+  "article_id": "6230bd6adc87",
+  "image": "images/6230bd6adc87.jpg",
+  "question": "What market is the pictured upcoming HMD device targeted for?",
+  "answer": "Nepal market",
+  "answer_type": "location",
+  "evidence": "HMD T21 2nd 平板电脑曝光：更大屏幕、面向尼泊尔市场",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/700.htm",
+  "article_title": "HMD T21 2nd 平板电脑曝光：更大屏幕、面向尼泊尔市场",
+  "pub_date": "2026-07-26T07:01:35+08:00",
+  "crawl_time": "2026-07-26T19:44:12.580978+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Nepal.",
+   "Nepal."
+  ]
+ },
+ {
+  "id": "cd6e19562660-0",
+  "article_id": "cd6e19562660",
+  "image": "images/cd6e19562660.jpg",
+  "question": "What is the formal astronomical designation of the pictured object that produced the observed bipolar ejection structure?",
+  "answer": "V445 Puppis",
+  "answer_type": "entity",
+  "evidence": "2000 年底，当 V445 Puppis 爆发时，它向两侧喷射出巨大的双极碎片流，看起来犹如一对蝴蝶翅膀，延伸距离超过 1 万亿英里（约 1.6 万亿公里）。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/744.htm",
+  "article_title": "哈勃望远镜观测到银河系独特的新星爆发，以 3200 万公里时速喷射“宇宙子弹”",
+  "pub_date": "2026-07-26T07:46:26+08:00",
+  "crawl_time": "2026-07-26T19:44:11.442438+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "This is the Homunculus Nebula, ejected by the star system **Eta Carinae (η Carin",
+   "NGC 6302"
+  ],
+  "oracle_preds": [
+   "V445 Puppis",
+   "V445 Puppis"
+  ]
+ },
+ {
+  "id": "0df4d08254e9-0",
+  "article_id": "0df4d08254e9",
+  "image": "images/0df4d08254e9.jpg",
+  "question": "What happened to the pictured communication server on July 26, 2026?",
+  "answer": "Hacked by attackers",
+  "answer_type": "outcome",
+  "evidence": "Steam 近期爆火的独立多人派对游戏《超级变色龙（MECCHA CHAMELEON）》的官方 Discord 交流服务器于今天凌晨遭遇黑客入侵。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/781.htm",
+  "article_title": "《超级变色龙》游戏开发团队调查第三方恶意地图“中招”，官方 Discord 交流频道遭黑客入侵",
+  "pub_date": "2026-07-26T10:46:50+08:00",
+  "crawl_time": "2026-07-26T19:44:10.755774+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "It was the server's new start, per the welcome message."
+  ],
+  "oracle_preds": [
+   "It was hacked by an attacker.",
+   "It was hacked/intruded by hackers."
+  ]
+ },
+ {
+  "id": "235122f12133-0",
+  "article_id": "235122f12133",
+  "image": "images/235122f12133.jpg",
+  "question": "What is the maximum load capacity of the pictured newly developed industrial equipment, in tons?",
+  "answer": "50",
+  "answer_type": "numeric",
+  "evidence": "美的楼宇科技旗下菱王电梯自主研发的 全球首台 50 吨超大载重货梯 正式发运",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/769.htm",
+  "article_title": "美的菱王全球首台 50 吨超大载重货梯发运，可容纳 18 米长集装箱货车驶入",
+  "pub_date": "2026-07-26T09:35:06+08:00",
+  "crawl_time": "2026-07-26T19:44:10.924454+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "50",
+   "50"
+  ]
+ },
+ {
+  "id": "37172eadf42b-0",
+  "article_id": "37172eadf42b",
+  "image": "images/37172eadf42b.jpg",
+  "question": "What is the price of the pictured newly launched computer case in RMB?",
+  "answer": "1499 yuan",
+  "answer_type": "numeric",
+  "evidence": "HAVN 联合先马，推出一款 HAVN BF360 Flow 风道散热机箱，可选黑白双色， 定价均为 1499 元（标配 2 把 180mm 风扇和 1 把 140mm 风扇）。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/733.htm",
+  "article_title": "HAVN 推出 HAVN BF360 Flow 风道散热机箱：标配双 180mm 风扇，黑白双色均 1499 元",
+  "pub_date": "2026-07-26T07:32:04+08:00",
+  "crawl_time": "2026-07-26T19:44:11.597423+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "1499",
+   "1499"
+  ]
+ },
+ {
+  "id": "db6fbfac7dd4-0",
+  "article_id": "db6fbfac7dd4",
+  "image": "images/db6fbfac7dd4.jpg",
+  "question": "Where was the pictured offshore wind power transmission project completed?",
+  "answer": "Yangjiang Guangdong",
+  "answer_type": "location",
+  "evidence": "近日，由中交海峰承建的三峡阳江青洲五期、七期海缆集中送出工程，在广东阳江青洲海域完成全线敷设作业。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/749.htm",
+  "article_title": "全球首个 ±500 千伏柔性直流海缆建成，深远海大容量输电通道全线贯通",
+  "pub_date": "2026-07-26T08:04:26+08:00",
+  "crawl_time": "2026-07-26T19:44:11.721198+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "In the Qingzhou sea area of Yangjiang, Guangdong.",
+   "In the Qingzhou sea area of Yangjiang, Guangdong."
+  ]
+ },
+ {
+  "id": "bcb59d9cdca9-0",
+  "article_id": "bcb59d9cdca9",
+  "image": "images/bcb59d9cdca9.jpg",
+  "question": "What was the year-on-year growth rate of the output of the type of product pictured here in China in 2025?",
+  "answer": "16.1%",
+  "answer_type": "numeric",
+  "evidence": "新兴产业蓬勃发展， AI 手机、AI 电脑、AI 眼镜等人工智能终端产品加快推广应用 ，服务机器人产量达 1858.1 万套，同比增长 16.1%。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/599.htm",
+  "article_title": "2025 年我国服务机器人产量达 1858.1 万套，同比增长 16.1%",
+  "pub_date": "2026-07-25T15:07:25+08:00",
+  "crawl_time": "2026-07-26T00:08:07.004240+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "16.1%",
+   "16.1%"
+  ]
+ },
+ {
+  "id": "9fe045582096-0",
+  "article_id": "9fe045582096",
+  "image": "images/9fe045582096.jpg",
+  "question": "What technology is the pictured company shifting strategic focus to, per the 2026 report, to avoid relying on HBM manufacturing tools?",
+  "answer": "3D DRAM technology",
+  "answer_type": "entity",
+  "evidence": "长鑫存储的战略重心转向3D集成电路（3D IC）和3D DRAM技术。这种新型架构设计有望在不依赖传统HBM设备的前提下，解决数据传输的性能瓶颈。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139035.htm",
+  "article_title": "美国禁令堵死HBM！长鑫掉头杀向定制化3D DRAM：三星、SK海力士这次要栽跟头",
+  "pub_date": "2026-07-25T19:26:13+08:00",
+  "crawl_time": "2026-07-26T00:10:13.162418+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "3D IC (3D integrated circuit) and 3D DRAM technology.",
+   "3D IC and 3D DRAM technology."
+  ]
+ },
+ {
+  "id": "c7a32ed2aee7-0",
+  "article_id": "c7a32ed2aee7",
+  "image": "images/c7a32ed2aee7.jpg",
+  "question": "How much did the company shown in this image pay to acquire full ownership of Guangzhou Huaxing Semiconductor?",
+  "answer": "9.325 billion yuan",
+  "answer_type": "numeric",
+  "evidence": "本次交易总对价93.25亿元，其中现金支付约46.62亿元，股份支付约46.62亿元。收购完成后，TCL科技将直接及间接持有广州华星半导体100%股权。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139045.htm",
+  "article_title": "93.25亿元！TCL科技拿下广州华星半导体100%股权",
+  "pub_date": "2026-07-25T21:26:19+08:00",
+  "crawl_time": "2026-07-26T00:10:10.617400+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "9.325 billion yuan.",
+   "93.25 billion yuan."
+  ]
+ },
+ {
+  "id": "763929747fde-0",
+  "article_id": "763929747fde",
+  "image": "images/763929747fde.jpg",
+  "question": "What type of vehicle is the shown camouflaged car suspected to be?",
+  "answer": "flagship SUV",
+  "answer_type": "entity",
+  "evidence": "由此来看，这次曝光的新车预计是鸿蒙智行智界的 9 系旗舰 SUV。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/690.htm",
+  "article_title": "鸿蒙智行新车带伪装谍照曝光，疑似智界 9 系旗舰 SUV 测试车",
+  "pub_date": "2026-07-26T06:25:24+08:00",
+  "crawl_time": "2026-07-26T19:44:22.454117+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "智界9系（MPV）",
+   "智界9系（智界9）"
+  ],
+  "oracle_preds": [
+   "It is suspected to be the flagship SUV of the Luxeed 9 series under HarmonyOS In",
+   "It is suspected to be the flagship SUV of the Luxeed (Zhijie) 9 series of Harmon"
+  ]
+ },
+ {
+  "id": "c6d0a71fcaf3-0",
+  "article_id": "c6d0a71fcaf3",
+  "image": "images/c6d0a71fcaf3.jpg",
+  "question": "What is the regular price of a single 180mL bottle of the shown product?",
+  "answer": "89.3 yuan",
+  "answer_type": "numeric",
+  "evidence": "日本版“霸王”，卡蓓诺多款洗发水 180mL 日常售价 89.3 元，可用 218 元大额券，拍 3 件共发 3 瓶实付 49.9 元包邮。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139018.htm",
+  "article_title": "专研干性防脱 卡蓓诺多款洗发水16.6元/瓶大促",
+  "pub_date": "2026-07-25T18:21:05+08:00",
+  "crawl_time": "2026-07-26T00:10:14.540566+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "89.3 yuan",
+   "89.3 yuan"
+  ]
+ },
+ {
+  "id": "2b92efd7fed6-0",
+  "article_id": "2b92efd7fed6",
+  "image": "images/2b92efd7fed6.jpg",
+  "question": "What is the reported global shipment quantity of the latest model of this pictured mobile phone since its release this month?",
+  "answer": "Around 20000 units",
+  "answer_type": "numeric",
+  "evidence": "报道还提到，最新推出的Nothing Phone 4b自本月发布以来，全球出货量仅约为20000台，而Phone 4a与Phone 4a Pro的总出货量为150000台，该公司在2025年的全球销量约为200万台。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139041.htm",
+  "article_title": "网曝Nothing大规模收缩业务 全球裁员40%：高管否认",
+  "pub_date": "2026-07-25T20:31:39+08:00",
+  "crawl_time": "2026-07-26T00:10:13.375589+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "About 20000 units.",
+   "Approximately 20000 units."
+  ]
+ },
+ {
+  "id": "11a0cf7cfc77-0",
+  "article_id": "11a0cf7cfc77",
+  "image": "images/11a0cf7cfc77.jpg",
+  "question": "What is the launch price of the pictured newly released audio accessory?",
+  "answer": "119 yuan",
+  "answer_type": "numeric",
+  "evidence": "原道 NK1 Ultra 便携式 USB-C 解码耳放线现已在京东发售，该产品定位入门 HiFi 市场，主打强劲推力、小巧便携和通透设计，定价为 129 元， 首发价 119 元 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/757.htm",
+  "article_title": "原道 NK1 Ultra 便携式 USB-C 解码耳放线发售：搭 CX31993 DAC、CNC 铝合金切面机身，119 元",
+  "pub_date": "2026-07-26T08:34:39+08:00",
+  "crawl_time": "2026-07-26T19:44:10.841176+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "119 yuan",
+   "119 yuan"
+  ]
+ },
+ {
+  "id": "c90130295bb9-0",
+  "article_id": "c90130295bb9",
+  "image": "images/c90130295bb9.jpg",
+  "question": "What is the newly launched smartphone series that the pictured person introduced the new anti-reflective screen technology for?",
+  "answer": "Huawei Pura 90 series",
+  "answer_type": "entity",
+  "evidence": "华为在 Pura 90 Pro Max 上创新采用了光学梯度材料抗反光镀膜，相当于把前面提到的“台阶”换成了“滑梯”",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/694.htm",
+  "article_title": "华为余承东开启首次田野科普，详解手机屏幕如何做到耐刮抗反光",
+  "pub_date": "2026-07-26T06:53:22+08:00",
+  "crawl_time": "2026-07-26T19:44:13.093096+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "ONEPLUS Ace 3 Pro",
+   "OnePlus Ace 3 Pro"
+  ],
+  "oracle_preds": [
+   "Huawei Pura 90 Pro Max",
+   "Huawei Pura 90 Pro Max"
+  ]
+ },
+ {
+  "id": "8b94ff266ab7-0",
+  "article_id": "8b94ff266ab7",
+  "image": "images/8b94ff266ab7.jpg",
+  "question": "How many electrodes does the pictured implant have, per the newly released details?",
+  "answer": "Over 1000",
+  "answer_type": "numeric",
+  "evidence": "技术实现方面，Neuralink 植入物拥有超过 1000 个电极，分布在超过 100 根线上，每根线比人类头发还细，并通过手术机器人插入运动皮层。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/526.htm",
+  "article_title": "马斯克脑机公司 Neuralink 展示新动态：通过念头控制移动电动轮椅",
+  "pub_date": "2026-07-25T07:20:51+08:00",
+  "crawl_time": "2026-07-26T00:08:08.759027+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Over 1000.",
+   "Over 1000."
+  ]
+ },
+ {
+  "id": "cd48fac6d75b-0",
+  "article_id": "cd48fac6d75b",
+  "image": "images/cd48fac6d75b.jpg",
+  "question": "Which company announced the newly added feature shown in the image that connects glasses to this personal terminal?",
+  "answer": "Li Auto",
+  "answer_type": "entity",
+  "evidence": "快科技7月25日消息，理想汽车放出Livis 更新内容，这次更新带来两大全新功能，同时优化四项使用体验。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139016.htm",
+  "article_title": "理想AI眼镜Livis升级：接入小红书Agent 逛街不用掏手机",
+  "pub_date": "2026-07-25T17:49:58+08:00",
+  "crawl_time": "2026-07-26T00:10:14.938392+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Li Auto (Lixiang)",
+   "Li Auto (Lixiang)"
+  ]
+ },
+ {
+  "id": "4815242bf677-0",
+  "article_id": "4815242bf677",
+  "image": "images/4815242bf677.jpg",
+  "question": "What is the speculated reason why this person removed his workplace information from his social media profile as stated in the news?",
+  "answer": "Resigned from Anthropic",
+  "answer_type": "outcome",
+  "evidence": "于是，一个大胆的猜测随即开始发酵：加入 Anthropic 仅仅两个多月，卡帕西可能已经离职了。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/684.htm",
+  "article_title": "卡帕西社交媒体删除 Anthropic 工作简介引发离职猜测，本人称并未离职",
+  "pub_date": "2026-07-26T04:51:14+08:00",
+  "crawl_time": "2026-07-26T19:44:16.327190+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "It is speculated that he has left his job at Anthropic.",
+   "It is speculated that he has left his job at Anthropic."
+  ]
+ },
+ {
+  "id": "3e2f66652b01-0",
+  "article_id": "3e2f66652b01",
+  "image": "images/3e2f66652b01.jpg",
+  "question": "How many cities first launched this pictured cold chain temperature query service?",
+  "answer": "10",
+  "answer_type": "numeric",
+  "evidence": "近日在北京、上海、广州、深圳、天津、南京、杭州、成都、重庆、武汉十座城市率先推出配送温度全程可查服务",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/533.htm",
+  "article_title": "京东买药秒送推出行业首个“冷链药品配送温度可视化”服务",
+  "pub_date": "2026-07-25T07:41:56+08:00",
+  "crawl_time": "2026-07-26T00:08:08.410037+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Ten.",
+   "Ten."
+  ]
+ },
+ {
+  "id": "7b8b9d552861-0",
+  "article_id": "7b8b9d552861",
+  "image": "images/7b8b9d552861.jpg",
+  "question": "The profession shown in the image saw its related university major enrollment drop in the US for the first time in nearly 20 years in which academic year?",
+  "answer": "2025-26 academic year",
+  "answer_type": "temporal",
+  "evidence": "近 20 年首次，2025-26 学年美国大学计算机科学专业选课人数出现同比下降",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/557.htm",
+  "article_title": "近 20 年首次，2025-26 学年美国大学计算机科学专业选课人数出现同比下降",
+  "pub_date": "2026-07-25T10:58:19+08:00",
+  "crawl_time": "2026-07-26T00:08:07.941591+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "2021-2022",
+   "2021-2022"
+  ],
+  "oracle_preds": [
+   "2025-26 academic year.",
+   "2025-26 academic year."
+  ]
+ },
+ {
+  "id": "d79cd4795399-0",
+  "article_id": "d79cd4795399",
+  "image": "images/d79cd4795399.jpg",
+  "question": "When will the pictured product's new generation using Huawei's newly announced logic folding technology launch?",
+  "answer": "September 2026",
+  "answer_type": "temporal",
+  "evidence": "按照规划2026年秋季正式面世的新一代麒麟芯片，将会率先大规模商用逻辑折叠技术",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139063.htm",
+  "article_title": "麒麟2026 9月杀到！华为：先进制程之外 韬定律让中国芯片有了另一条路",
+  "pub_date": "2026-07-25T23:59:00+08:00",
+  "crawl_time": "2026-07-26T00:10:08.876769+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Fall 2026",
+   "In the fall of 2026."
+  ]
+ },
+ {
+  "id": "375204b11f25-0",
+  "article_id": "375204b11f25",
+  "image": "images/375204b11f25.jpg",
+  "question": "What century-old brand is the shown phone series co-developed with on imaging?",
+  "answer": "ARRI",
+  "answer_type": "entity",
+  "evidence": "这款年度旗舰将深度融合阿莱影像能力，力求在视频录制与摄影拍照两大核心领域实现质的飞跃。阿莱是来自德国的全球顶级电影摄影器材制造商。这家百年企业自1917年创立以来，在电影工业领域始终占据着举足轻重的地位，其技术积淀极为深厚。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139059.htm",
+  "article_title": "荣耀最强旗舰！荣耀Magic9系列最快9月登场：联名百年巨头阿莱",
+  "pub_date": "2026-07-25T23:55:25+08:00",
+  "crawl_time": "2026-07-26T00:10:08.888689+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "Leica"
+  ],
+  "oracle_preds": [
+   "ARRI/阿莱.",
+   "ARRI/阿莱, the century-old German top cinematographic equipment manufacturer.\n\nSho"
+  ]
+ },
+ {
+  "id": "fa8300b44a64-0",
+  "article_id": "fa8300b44a64",
+  "image": "images/fa8300b44a64.jpg",
+  "question": "What is the location of the court where the developer using this pictured decorative pattern was sued by LV?",
+  "answer": "Xiamen Huli District",
+  "answer_type": "location",
+  "evidence": "近日，奢侈品品牌路易威登（LV）已将厦门某楼盘的开发企业、物业公司起诉至厦门市湖里区人民法院",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139048.htm",
+  "article_title": "LV维权盯上房地产 厦门一楼盘因四叶雕花装饰被告上法庭",
+  "pub_date": "2026-07-25T21:42:08+08:00",
+  "crawl_time": "2026-07-26T00:10:11.755488+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Xiamen Huli District People's Court, Xiamen, China.",
+   "Xiamen Huli District People's Court, Xiamen, China."
+  ]
+ },
+ {
+  "id": "ffe5170d49a5-0",
+  "article_id": "ffe5170d49a5",
+  "image": "images/ffe5170d49a5.jpg",
+  "question": "What type of upgrade was announced for the pictured vehicle models on July 25, 2026?",
+  "answer": "OTA upgrade",
+  "answer_type": "entity",
+  "evidence": "比亚迪仰望 U8 豪华版 2023 款、越野玩家版 2024 款 OTA 升级：新增灵动岛通知、一键无痕等",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/581.htm",
+  "article_title": "比亚迪仰望 U8 豪华版 2023 款、越野玩家版 2024 款 OTA 升级：新增灵动岛通知、一键无痕等",
+  "pub_date": "2026-07-25T12:17:45+08:00",
+  "crawl_time": "2026-07-26T00:08:07.634753+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "OTA upgrade, adding Dynamic Island notifications, one-click trace-free function ",
+   "OTA upgrade (with new Dynamic Island notifications, one-click无痕即no trace feature"
+  ]
+ },
+ {
+  "id": "641a02cb9e27-0",
+  "article_id": "641a02cb9e27",
+  "image": "images/641a02cb9e27.jpg",
+  "question": "What is the starting price of the pictured EV model?",
+  "answer": "199800 yuan",
+  "answer_type": "numeric",
+  "evidence": "比亚迪方程豹钛 7 EV 闪充版于 4 月 29 日上市 ，售价 19.98 万元起",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/555.htm",
+  "article_title": "比亚迪熊甜波：方程豹钛 7 EV 闪充版车型本月交付量已明显提升，4 月大部分订单已完成交付",
+  "pub_date": "2026-07-25T10:29:22+08:00",
+  "crawl_time": "2026-07-26T00:08:07.773590+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "199,800 yuan.",
+   "199,800 yuan."
+  ]
+ },
+ {
+  "id": "e14f7b30838c-0",
+  "article_id": "e14f7b30838c",
+  "image": "images/e14f7b30838c.jpg",
+  "question": "What reason did the regulatory authority cite for the penalty shown in this image?",
+  "answer": "monopoly violation",
+  "answer_type": "entity",
+  "evidence": "今天，市场监管总局发布正式公告，携程因垄断违法行为合计被罚没51.79亿元，这一结果很快引发全行业和全网消费者的广泛热议。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139010.htm",
+  "article_title": "为何挨了最重的罚 被罚没51.79亿元！《人民日报》评携程垄断被查处",
+  "pub_date": "2026-07-25T16:36:00+08:00",
+  "crawl_time": "2026-07-26T00:10:15.877509+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Monopoly violations.",
+   "monopoly illegal acts"
+  ]
+ },
+ {
+  "id": "f69ff047ec66-0",
+  "article_id": "f69ff047ec66",
+  "image": "images/f69ff047ec66.jpg",
+  "question": "What is the current discounted price of the base version of this pictured game in China's Steam store?",
+  "answer": "71.1 yuan",
+  "answer_type": "numeric",
+  "evidence": "基础游戏版：原价 79 元，首发享 10% 折扣后售价 71.1 元",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/980/385.htm",
+  "article_title": "国产 Boss Rush 动作 RPG《红眼露比》发售，国区首发价 71.1 元",
+  "pub_date": "2026-07-26T09:08:20+08:00",
+  "crawl_time": "2026-07-26T19:44:10.791794+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "71.1 yuan",
+   "71.1 yuan"
+  ]
+ },
+ {
+  "id": "f0bae5e970ef-0",
+  "article_id": "f0bae5e970ef",
+  "image": "images/f0bae5e970ef.jpg",
+  "question": "What is the model name of the newly announced mini AI workstation shown in the image?",
+  "answer": "F9A",
+  "answer_type": "entity",
+  "evidence": "ACEMAGIC（阿迈奇）近日公布了其基于 AMD 锐龙 AI Max+ 395 处理器的迷你工作站 F9A。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/588.htm",
+  "article_title": "ACEMAGIC 公布 2.1L 迷你工作站 F9A，搭载 AMD 锐龙 AI Max+ 395",
+  "pub_date": "2026-07-25T13:21:15+08:00",
+  "crawl_time": "2026-07-26T00:08:07.114627+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "ACEMAGIC Mini AI Workstation",
+   "AMD Ryzen AI MAX+ 395"
+  ],
+  "oracle_preds": [
+   "F9A",
+   "F9A"
+  ]
+ },
+ {
+  "id": "6c6bcb3f3c82-0",
+  "article_id": "6c6bcb3f3c82",
+  "image": "images/6c6bcb3f3c82.jpg",
+  "question": "What is the starting price of the Ultimate extended version of this shown car?",
+  "answer": "649800 yuan",
+  "answer_type": "numeric",
+  "evidence": "鸿蒙智行全新一代 问界 M9 Ultimate 领世加长版发布于 5 月 27 日 ，售价 64.98 万元起。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/545.htm",
+  "article_title": "鸿蒙智行问界 M9 Ultimate 先行者配置新增 3 套内外饰组合，8 月下旬启动交付",
+  "pub_date": "2026-07-25T08:53:37+08:00",
+  "crawl_time": "2026-07-26T00:08:08.080131+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "649,800 yuan",
+   "649,800 yuan."
+  ]
+ },
+ {
+  "id": "2f328525450b-0",
+  "article_id": "2f328525450b",
+  "image": "images/2f328525450b.jpg",
+  "question": "What is the starting price of the car model shown in this launch event, under its limited-time super置换 policy?",
+  "answer": "106900 yuan",
+  "answer_type": "numeric",
+  "evidence": "售价方面，655km Pro版限时超级置换价为10.69万元",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139051.htm",
+  "article_title": "杨紫代言！奇瑞风云A9纯电轿跑上市：10.69万元起",
+  "pub_date": "2026-07-25T22:00:27+08:00",
+  "crawl_time": "2026-07-26T00:10:10.586252+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "10.69万元",
+   "10.69万元"
+  ],
+  "oracle_preds": [
+   "106,900 yuan",
+   "106,900 yuan"
+  ]
+ },
+ {
+  "id": "507f06dd6144-0",
+  "article_id": "507f06dd6144",
+  "image": "images/507f06dd6144.jpg",
+  "question": "How much was the pictured company fined by the State Administration for Market Regulation in 2026?",
+  "answer": "5.179 billion yuan",
+  "answer_type": "numeric",
+  "evidence": "今日，国家市场监督管理总局依法对携程集团作出51.79亿行政处罚决定并提出相关整改要求。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139012.htm",
+  "article_title": "携程被罚51.79亿后公布19项整改措施：停止独家合作 废除“全网最低价”",
+  "pub_date": "2026-07-25T17:08:17+08:00",
+  "crawl_time": "2026-07-26T00:10:14.903430+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "5.179 billion yuan.",
+   "5.179 billion yuan."
+  ]
+ },
+ {
+  "id": "48e35b861147-0",
+  "article_id": "48e35b861147",
+  "image": "images/48e35b861147.jpg",
+  "question": "Where did the pictured meal between the South Korean president, the tech executive and the Samsung chair take place?",
+  "answer": "The Ramp restaurant, San Francisco",
+  "answer_type": "location",
+  "evidence": "当地时间7月24日，正在美国进行访问的韩国总统李在明在旧金山 The Ramp餐厅举行的全球AI领袖晚宴上，与出席嘉宾共同举杯互动。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139015.htm",
+  "article_title": "韩国总统李在明和黄仁勋会面 三星李在镕作陪 一起吃汉堡喝啤酒",
+  "pub_date": "2026-07-25T17:49:12+08:00",
+  "crawl_time": "2026-07-26T00:10:15.904568+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The Ramp restaurant in San Francisco.",
+   "The Ramp restaurant in San Francisco."
+  ]
+ },
+ {
+  "id": "b3ee9719c8b0-0",
+  "article_id": "b3ee9719c8b0",
+  "image": "images/b3ee9719c8b0.jpg",
+  "question": "How much does the upgrade for owners of the original version of the pictured game cost in RMB approximately?",
+  "answer": "43.2 yuan",
+  "answer_type": "numeric",
+  "evidence": "拥有原版 Switch 版游戏的玩家，可以花费 50 港币（IT之家注：现汇率约合 43.2 元人民币）进行升级。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/551.htm",
+  "article_title": "任天堂 Switch 2 版《异度神剑 2》游戏 7 月 30 日推出数字版，实体版 10 月 1 日发售",
+  "pub_date": "2026-07-25T09:39:31+08:00",
+  "crawl_time": "2026-07-26T00:08:07.977569+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "43.2 yuan",
+   "43.2 yuan."
+  ]
+ },
+ {
+  "id": "e8b3b5d9132e-0",
+  "article_id": "e8b3b5d9132e",
+  "image": "images/e8b3b5d9132e.jpg",
+  "question": "When will the pictured car be put on the market?",
+  "answer": "in the near future",
+  "answer_type": "temporal",
+  "evidence": "零跑汽车今日公开 A05 纯电小车设计细节，目前展车已陆续到店，预计将于近期上市。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/538.htm",
+  "article_title": "零跑 A05 纯电小车设计细节公开：高通 8295 旗舰座舱芯片、二排小桌板等",
+  "pub_date": "2026-07-25T08:01:03+08:00",
+  "crawl_time": "2026-07-26T00:08:08.343111+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "It is expected to be launched in the near future.",
+   "It is expected to be launched in the near future."
+  ]
+ },
+ {
+  "id": "f5ceeb6cb635-0",
+  "article_id": "f5ceeb6cb635",
+  "image": "images/f5ceeb6cb635.jpg",
+  "question": "What is the capacity of the battery in the shown device?",
+  "answer": "8000 mAh",
+  "answer_type": "numeric",
+  "evidence": "OPPO K15内置8000mAh冰川电池，采用硅碳负极材料。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139046.htm",
+  "article_title": "OPPO K15上手：主动散热+8000mAh电池 户外必备神器",
+  "pub_date": "2026-07-25T21:28:17+08:00",
+  "crawl_time": "2026-07-26T00:10:11.095071+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "8000mAh",
+   "8000mAh"
+  ]
+ },
+ {
+  "id": "e9760865f133-0",
+  "article_id": "e9760865f133",
+  "image": "images/e9760865f133.jpg",
+  "question": "What is the second weekend domestic box office projected for the film that the pictured ancient Greek warrior characters appear in?",
+  "answer": "$84.5M",
+  "answer_type": "numeric",
+  "evidence": "Universal’s The Odyssey remains strong after a near $26M Friday, still on course to post Christopher Nolan’s best second weekend ever at the box office with $84.5M .",
+  "category": "culture",
+  "source_category": "movies",
+  "source": "bing-news",
+  "article_url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6a65f885a55242b6be9f1edd13a9e2db&url=https%3a%2f%2fdeadline.com%2f2026%2f07%2fbox-office-the-odyssey-motor-city-her-private-hell-hadestown-1237002537%2f&c=6966031547618632005&mkt=en-us",
+  "article_title": "‘The Odyssey’s $84M+ Second Weekend Will Be A Record For Christopher Nolan, Besting ‘Dark Knight’ – Saturday Box Office Update",
+  "pub_date": "2026-07-25T02:04:00+08:00",
+  "crawl_time": "2026-07-26T20:09:14.811434+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "$84.5 million",
+   "$84.5M"
+  ]
+ },
+ {
+  "id": "e3038bca11f2-0",
+  "article_id": "e3038bca11f2",
+  "image": "images/e3038bca11f2.jpg",
+  "question": "What is the consensus regular season win-loss prediction for the pictured football team in 2026?",
+  "answer": "9-3",
+  "answer_type": "numeric",
+  "evidence": "Among the national voices, the consensus prediction centered around a 9-3 regular season.",
+  "category": "sports",
+  "source_category": "football",
+  "source": "bing-news",
+  "article_url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6a65f885d4934823b903315475828f60&url=https%3a%2f%2fsports.yahoo.com%2farticles%2fon3-experts-agree-one-thing-150002917.html&c=478887575086778933&mkt=en-us",
+  "article_title": "On3 Experts All Agree on One Thing About Kalen DeBoer’s Alabama Football Team in 2026",
+  "pub_date": "2026-07-25T08:00:00+08:00",
+  "crawl_time": "2026-07-26T20:08:36.484099+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "9-3",
+   "9-3"
+  ]
+ },
+ {
+  "id": "7d685ebcfa7e-0",
+  "article_id": "7d685ebcfa7e",
+  "image": "images/7d685ebcfa7e.jpg",
+  "question": "Where is the event venue shown in this picture located?",
+  "answer": "Jingdezhen, Jiangxi",
+  "answer_type": "location",
+  "evidence": "走进江西景德镇 感受世界遗产“景德镇手工瓷业遗存”",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/tp/2026/07-26/10666901.shtml",
+  "article_title": "景德镇：一面老城烟火，一面瓷都新潮",
+  "pub_date": "2026-07-26T19:48:07+08:00",
+  "crawl_time": "2026-07-26T20:08:26.136611+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Jingdezhen, China",
+   "Jingdezhen, China"
+  ],
+  "oracle_preds": [
+   "Jingdezhen, Jiangxi.",
+   "Jingdezhen, Jiangxi."
+  ]
+ },
+ {
+  "id": "e7ea198ed968-0",
+  "article_id": "e7ea198ed968",
+  "image": "images/e7ea198ed968.jpg",
+  "question": "What is the outcome of the racing event involving the pictured damaged car?",
+  "answer": "Dropped out of race",
+  "answer_type": "outcome",
+  "evidence": "今日，在China GT珠海站GTC/GTS组别第一回合正赛中，知名汽车博主闫闯驾驶的赛车与前车发生追尾碰撞，随后撞上轮胎墙，车辆受损严重，无法继续比赛，遗憾退赛。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139042.htm",
+  "article_title": "闫闯遭法拉利撞击退赛上热搜 本人回应：碰撞后先检查刹车 避免二次碰撞",
+  "pub_date": "2026-07-25T21:07:57+08:00",
+  "crawl_time": "2026-07-26T00:10:11.514163+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The driver of the damaged car retired from the race (could not continue the race",
+   "The driver of this car withdrew from the race (failed to finish the race)."
+  ]
+ },
+ {
+  "id": "4a99352546bf-0",
+  "article_id": "4a99352546bf",
+  "image": "images/4a99352546bf.jpg",
+  "question": "What is the fine given to the pictured man for his illegal behavior?",
+  "answer": "5000 yuan",
+  "answer_type": "numeric",
+  "evidence": "依据道路交通安全相关法规，使用其他机动车号牌属于严重交通违法，交管部门对其作出罚款5000元、驾驶证一次性记满12分的处罚。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139102.htm",
+  "article_title": "为省几元停车费 男子路边偷换车牌！交警：罚款5000元 记12分",
+  "pub_date": "2026-07-26T16:19:36+08:00",
+  "crawl_time": "2026-07-26T20:08:38.495314+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "5000 yuan.",
+   "5000 yuan"
+  ]
+ },
+ {
+  "id": "11995db6d0ee-0",
+  "article_id": "11995db6d0ee",
+  "image": "images/11995db6d0ee.jpg",
+  "question": "Which astronaut crew's milestone is announced in the news that this title card is associated with?",
+  "answer": "Shenzhou 23 crew",
+  "answer_type": "entity",
+  "evidence": "IT之家 7 月 26 日消息，据中国载人航天工程办公室，神舟二十三号乘组朱杨柱、张志远、黎家盈在轨已满两月，空间站内各项科学实（试）验进展顺利，平台照料与健康管理同步进行。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/732.htm",
+  "article_title": "神舟二十三号乘组太空之旅满两月，平台照料与健康管理同步进行",
+  "pub_date": "2026-07-26T07:31:55+08:00",
+  "crawl_time": "2026-07-26T19:44:11.961479+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Shenzhou 18 crew",
+   "Shenzhou 18 crew"
+  ],
+  "oracle_preds": [
+   "Shenzhou 23 (Shenzhou二十三号) crew.",
+   "Shenzhou 23 (Shenzhou二十三号) crew."
+  ]
+ },
+ {
+  "id": "baabe29c4ba5-0",
+  "article_id": "baabe29c4ba5",
+  "image": "images/baabe29c4ba5.jpg",
+  "question": "What event are the people pictured participating in?",
+  "answer": "2026 Huaxing Junior Reporter Camp",
+  "answer_type": "entity",
+  "evidence": "25日，“2026华星小记者四川集结营”研学活动走进乐山。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/hr/2026/07-25/10666561.shtml",
+  "article_title": "华星小记者畅游乐山 品读大佛与乌木里的华夏文脉",
+  "pub_date": "2026-07-25T20:57:58+08:00",
+  "crawl_time": "2026-07-26T00:08:06.118866+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "sightseeing tour of Leshan Giant Buddha",
+   "Sightseeing cruise to view Leshan Giant Buddha"
+  ],
+  "oracle_preds": [
+   "\"2026 Huaxing Young Journalists Sichuan Assembly Camp\" research and study activi",
+   "They are participating in the \"2026 Huaxing Young Reporters Sichuan Assembly Cam"
+  ]
+ },
+ {
+  "id": "ab83fc070049-0",
+  "article_id": "ab83fc070049",
+  "image": "images/ab83fc070049.jpg",
+  "question": "What was the live stream selling price of this pictured product when it was sold in Da Simu's live stream?",
+  "answer": "699 yuan",
+  "answer_type": "numeric",
+  "evidence": "此前大司马依托《大司马杯S2》赛事直播带货标价699元的游戏声卡，直播间标注为全网底价，很快被观众曝出淘宝同款售价低10元，经核实是运营上架失误所致。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139126.htm",
+  "article_title": "带货翻车！金主爸爸主动承担声卡费用 大司马乐坏了",
+  "pub_date": "2026-07-26T19:32:32+08:00",
+  "crawl_time": "2026-07-26T20:08:34.651889+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "699 yuan.",
+   "¥699"
+  ]
+ },
+ {
+  "id": "1db28aa64a00-0",
+  "article_id": "1db28aa64a00",
+  "image": "images/1db28aa64a00.jpg",
+  "question": "Where was the animal shown in the picture first recorded as appearing in the wild?",
+  "answer": "Huangzhong, Xining",
+  "answer_type": "location",
+  "evidence": "近日，该区生态护林员联合当地牧民在共和镇尕水峡常态化巡护中，拍摄到野生雪豹野外活动影像，这是湟中区首次记录到野生雪豹野外活动踪迹",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666902.shtml",
+  "article_title": "青海西宁湟中境内首次拍到野生雪豹",
+  "pub_date": "2026-07-26T19:46:07+08:00",
+  "crawl_time": "2026-07-26T20:08:26.134396+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Snow leopards were first recorded in the wild in the mountainous regions of Cent",
+   "Qinghai, China"
+  ],
+  "oracle_preds": [
+   "In Huangzhong District, Xining, Qinghai (specifically in Gashui Gorge, Gonghe To",
+   "Huangzhong District, Xining, Qinghai."
+  ]
+ },
+ {
+  "id": "abc8f0ad9424-0",
+  "article_id": "abc8f0ad9424",
+  "image": "images/abc8f0ad9424.jpg",
+  "question": "When was the tweet pictured made public relative to the leak covered in this article?",
+  "answer": "One day earlier",
+  "answer_type": "temporal",
+  "evidence": "headline: Claude Opus 5 被扒光，1511 行提示词底牌全摊开\nsource: ithome | category: tech | published: 2026-07-26T05:33:44+08:00\nVitto Rivabella @VittoStack · Jul 25",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/688.htm",
+  "article_title": "Claude Opus 5 被扒光，1511 行提示词底牌全摊开",
+  "pub_date": "2026-07-26T05:33:44+08:00",
+  "crawl_time": "2026-07-26T19:44:12.826691+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The tweet was made public one day earlier than the leak article, on July 25, whi",
+   "The tweet was made public one day earlier (Jul 25) than the article's publicatio"
+  ]
+ },
+ {
+  "id": "af46ca6015e0-0",
+  "article_id": "af46ca6015e0",
+  "image": "images/af46ca6015e0.jpg",
+  "question": "What activity are the pictured young people participating in, as part of this Shanghai camp?",
+  "answer": "Mian sculpture making",
+  "answer_type": "entity",
+  "evidence": "在面塑课堂上，营员们揉搓白色面泥，将它捏成大熊猫的造型，这看似简单的步骤，真正操作起来却需要十足的耐心。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666906.shtml",
+  "article_title": "华裔青少年沪上寻根 沉浸式感受中华文脉",
+  "pub_date": "2026-07-26T19:57:17+08:00",
+  "crawl_time": "2026-07-26T20:08:26.144396+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "They are participating in a dough modeling class, making panda-shaped dough figu",
+   "They are participating in a dough modeling class, making panda-shaped dough figu"
+  ]
+ },
+ {
+  "id": "600ed2290758-0",
+  "article_id": "600ed2290758",
+  "image": "images/600ed2290758.jpg",
+  "question": "What is the launch price of the newly announced display product that the pictured element refers to?",
+  "answer": "669 yuan",
+  "answer_type": "numeric",
+  "evidence": "联想现已上架拯救者系列新款23.8英寸电竞显示器“24-1r”，主打1080P分辨率与280Hz超高刷新率，定价仅 669 元。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139121.htm",
+  "article_title": "联想推出新款拯救者23.8英寸显示器：1080P 280Hz屏首发669元",
+  "pub_date": "2026-07-26T19:04:55+08:00",
+  "crawl_time": "2026-07-26T20:08:36.037764+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "669 yuan.",
+   "669 yuan."
+  ]
+ },
+ {
+  "id": "0c01a0ca5ec9-0",
+  "article_id": "0c01a0ca5ec9",
+  "image": "images/0c01a0ca5ec9.jpg",
+  "question": "What is the location where the pictured young volunteers will provide services during the summer peak?",
+  "answer": "Children's Science Park",
+  "answer_type": "location",
+  "evidence": "7月28日至8月23日期间，2026级“小小志愿者”都将坚守在中国科技馆儿童科学乐园展厅，为前来参观的公众提供展品讲解服务",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666899.shtml",
+  "article_title": "中国科技馆2026级“小小志愿者”完成培训 暑期高峰即将上岗",
+  "pub_date": "2026-07-26T19:39:46+08:00",
+  "crawl_time": "2026-07-26T20:08:26.150943+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The Children's Science Park Exhibition Hall of the China Science and Technology ",
+   "The children's science park exhibition hall of the China Science and Technology "
+  ]
+ },
+ {
+  "id": "5884be9bee29-0",
+  "article_id": "5884be9bee29",
+  "image": "images/5884be9bee29.jpg",
+  "question": "What new cooperation did the company shown in this image reach with NVIDIA in the memory sector?",
+  "answer": "HBM joint development",
+  "answer_type": "outcome",
+  "evidence": "在内存领域，英伟达与SK海力士建立长期合作关系，共同保障并联合开发包括HBM在内的下一代AI内存解决方案。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139100.htm",
+  "article_title": "黄仁勋：韩国进入黄金年代 芯片还有10倍扩张",
+  "pub_date": "2026-07-26T16:09:10+08:00",
+  "crawl_time": "2026-07-26T20:08:39.070051+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "SK hynix agreed to supply NVIDIA with high bandwidth memory (HBM) semiconductors",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "They established a long-term partnership to jointly guarantee and co-develop nex",
+   "They established a long-term partnership to jointly guarantee and co-develop nex"
+  ]
+ },
+ {
+  "id": "a58e2ba31137-0",
+  "article_id": "a58e2ba31137",
+  "image": "images/a58e2ba31137.jpg",
+  "question": "How many rural tourism routes were announced at the pictured launch event?",
+  "answer": "4",
+  "answer_type": "numeric",
+  "evidence": "推介会上，安阳官方发布了4条乡村旅游精品线路。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666904.shtml",
+  "article_title": "太行山“乡”约大别山  河南安阳发布四条乡村旅游精品线路",
+  "pub_date": "2026-07-26T19:56:45+08:00",
+  "crawl_time": "2026-07-26T20:08:26.145394+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Four.",
+   "Four."
+  ]
+ },
+ {
+  "id": "178c1528e6b0-0",
+  "article_id": "178c1528e6b0",
+  "image": "images/178c1528e6b0.jpg",
+  "question": "What is the location of the village where the pictured disaster preparedness drill is held?",
+  "answer": "Sichuan, China",
+  "answer_type": "location",
+  "evidence": "近日在四川阿坝黑水县洛多乡嘎茸村，一场面向全村居民的应急避险演练持续开展。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-25/10666559.shtml",
+  "article_title": "中国红十字基金会数字化备灾救灾项目：多地试点、惠及民众",
+  "pub_date": "2026-07-25T20:56:56+08:00",
+  "crawl_time": "2026-07-26T00:08:06.449779+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Luoduo Township, Aba Prefecture",
+   "Luoduo Township, Aba Prefecture"
+  ],
+  "oracle_preds": [
+   "Garong Village, Luoduo Township, Heishui County, Aba, Sichuan, China",
+   "Garong Village, Luoduo Township, Heishui County, Aba, Sichuan."
+  ]
+ },
+ {
+  "id": "d4f04229c546-0",
+  "article_id": "d4f04229c546",
+  "image": "images/d4f04229c546.jpg",
+  "question": "What is the reported outcome for the pictured boy after he swallowed the medicine?",
+  "answer": "Saved",
+  "answer_type": "outcome",
+  "evidence": "当事人表示，孩子已经救回来了，作为父母，自己确实有照看责任。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139054.htm",
+  "article_title": "儿子游戏成瘾：父亲起诉4家游戏公司",
+  "pub_date": "2026-07-25T22:15:26+08:00",
+  "crawl_time": "2026-07-26T00:10:08.874772+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "He was saved.",
+   "He was saved."
+  ]
+ },
+ {
+  "id": "1123292a886d-0",
+  "article_id": "1123292a886d",
+  "image": "images/1123292a886d.jpg",
+  "question": "How long has the pictured appliance been in use by the owner who shared it?",
+  "answer": "Over 40 years",
+  "answer_type": "numeric",
+  "evidence": "这名男子补充说明，这台老冰箱是日立在1985年6月生产出厂的，算下来已经在自家服役了40余年，生产年份甚至比自己的年纪还要大，直到现在制冷效果都相当不错，里面还放着腊肉。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139092.htm",
+  "article_title": "男子晒出家里41年前旧冰箱：表面千疮百孔 内部还能正常使用",
+  "pub_date": "2026-07-26T14:49:19+08:00",
+  "crawl_time": "2026-07-26T20:08:40.487503+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "More than 40 years.",
+   "More than 40 years."
+  ]
+ },
+ {
+  "id": "e1a153373b45-0",
+  "article_id": "e1a153373b45",
+  "image": "images/e1a153373b45.jpg",
+  "question": "What new service hub was recently launched in the city pictured here?",
+  "answer": "Southeast Token Operation Center",
+  "answer_type": "entity",
+  "evidence": "近日，东南Token运营中心在温州启动。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/cj/2026/07-26/10666905.shtml",
+  "article_title": "温州在AI时代跑出加速度",
+  "pub_date": "2026-07-26T19:47:17+08:00",
+  "crawl_time": "2026-07-26T20:08:27.124108+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Southeast Token Operation Center.",
+   "Southeast Token Operation Center."
+  ]
+ },
+ {
+  "id": "9d44aaa7bb34-0",
+  "article_id": "9d44aaa7bb34",
+  "image": "images/9d44aaa7bb34.jpg",
+  "question": "When will the pictured vehicle start its domestic pre-order?",
+  "answer": "Imminent",
+  "answer_type": "temporal",
+  "evidence": "今日，奇瑞风云新能源官方宣布，风云T7国内小订即将开启",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139123.htm",
+  "article_title": "20分钟快充补能！奇瑞风云T7将开启小订：续航破600km",
+  "pub_date": "2026-07-26T19:15:57+08:00",
+  "crawl_time": "2026-07-26T20:08:35.057241+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "It will start its domestic pre-order soon.",
+   "Soon, the official announcement states that the domestic pre-order (small pre-or"
+  ]
+ },
+ {
+  "id": "93135e8dd235-0",
+  "article_id": "93135e8dd235",
+  "image": "images/93135e8dd235.jpg",
+  "question": "What is the original tagged price of the product shown in this QR code?",
+  "answer": "299 yuan",
+  "answer_type": "numeric",
+  "evidence": "太平鸟 · 短袖 POLO 衫标价 299 元",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139019.htm",
+  "article_title": "18款可选！太平鸟短袖POLO衫72元清仓 标价299元",
+  "pub_date": "2026-07-25T18:22:46+08:00",
+  "crawl_time": "2026-07-26T00:10:14.021172+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "299 yuan",
+   "299 yuan."
+  ]
+ },
+ {
+  "id": "7dc5d71ce948-0",
+  "article_id": "7dc5d71ce948",
+  "image": "images/7dc5d71ce948.jpg",
+  "question": "What type of product is the pictured promotion for?",
+  "answer": "AI assistant",
+  "answer_type": "entity",
+  "evidence": "作为融合特有鸿蒙Skills能力打造的专属养成系AI助理",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/756.htm",
+  "article_title": "华为鸿蒙“龙虾”小艺 Claw 上线“新人福利”，新用户首次订阅连续包月享 7 天免费体验",
+  "pub_date": "2026-07-26T08:22:38+08:00",
+  "crawl_time": "2026-07-26T19:44:11.400264+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "小艺Claw",
+   "小艺Claw"
+  ],
+  "oracle_preds": [
+   "Exclusive developed养成系 AI assistant with unique HarmonyOS Skills capability, 小艺 ",
+   "Exclusive cultivated AI assistant developed with unique HarmonyOS Skills capabil"
+  ]
+ },
+ {
+  "id": "a318c80ad65d-0",
+  "article_id": "a318c80ad65d",
+  "image": "images/a318c80ad65d.jpg",
+  "question": "Who is the person shown in the image recognized by this pictured worker?",
+  "answer": "Zhang Xue",
+  "answer_type": "entity",
+  "evidence": "近日，一则趣味短视频在社交平台走红，机车领域创业者张雪深夜叫代驾回家时，被代驾小哥意外认出。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139103.htm",
+  "article_title": "张雪开比亚迪秦L被代驾小哥认出！网友：机车野 汽车省",
+  "pub_date": "2026-07-26T16:34:15+08:00",
+  "crawl_time": "2026-07-26T20:08:38.371008+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Zhang Xue",
+   "Zhang Xue\n(张雪)"
+  ]
+ },
+ {
+  "id": "f42b61bec35b-0",
+  "article_id": "f42b61bec35b",
+  "image": "images/f42b61bec35b.jpg",
+  "question": "How many of the type of passenger vehicles pictured had monthly sales exceeding 10,000 units in June 2026?",
+  "answer": "17",
+  "answer_type": "numeric",
+  "evidence": "不过6月车市数据出现转折，燃油车迎来阶段性销量反弹，17款车型月销突破万辆，较5月增加4款，丰田凯美瑞、大众朗逸两款经典轿车重回销量前十。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139086.htm",
+  "article_title": "17款油车月销破万！被质疑不行的燃油车 又杀了个回马枪",
+  "pub_date": "2026-07-26T13:47:44+08:00",
+  "crawl_time": "2026-07-26T20:08:41.289052+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "17",
+   "17"
+  ]
+ },
+ {
+  "id": "bb13b5b768f8-0",
+  "article_id": "bb13b5b768f8",
+  "image": "images/bb13b5b768f8.jpg",
+  "question": "What is the cost to produce 1 million characters of the AI-assisted writing content shown in this social media discussion?",
+  "answer": "1000 yuan",
+  "answer_type": "numeric",
+  "evidence": "而现在，以唐库创作网的公开报价为例，用 AI 生成 + 人工审校，百万字成本只要一千。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139096.htm",
+  "article_title": "你看的无尽连载 作者可能已经不当人了",
+  "pub_date": "2026-07-26T15:27:41+08:00",
+  "crawl_time": "2026-07-26T20:08:39.852084+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "One thousand (yuan, with the process of AI generation plus human proofreading, a",
+   "One thousand (yuan, with AI generation plus human proofreading, as per the given"
+  ]
+ },
+ {
+  "id": "998515845dcd-0",
+  "article_id": "998515845dcd",
+  "image": "images/998515845dcd.jpg",
+  "question": "Where did the incident involving the pictured burning test vehicle occur?",
+  "answer": "Sierra Nevada, Spain",
+  "answer_type": "location",
+  "evidence": "梅赛德斯-AMG新款GT改款路试车在西班牙内华达山脉进行高温路测时意外起火，整车被烧毁。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139079.htm",
+  "article_title": "去做高温路试 结果车着了！奔驰AMG GT路试车在西班牙烧成空壳",
+  "pub_date": "2026-07-26T11:53:39+08:00",
+  "crawl_time": "2026-07-26T20:08:41.954256+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Sierra Nevada, Spain.",
+   "Sierra Nevada, Spain."
+  ]
+ },
+ {
+  "id": "aa02e5364f58-0",
+  "article_id": "aa02e5364f58",
+  "image": "images/aa02e5364f58.jpg",
+  "question": "What is the earliest planned launch platform for this manufacturer's 3D stacked DRAM?",
+  "answer": "Apple A20 Pro",
+  "answer_type": "entity",
+  "evidence": "A20 Pro很可能成为SK海力士3D堆叠DRAM的首发平台。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139038.htm",
+  "article_title": "SK海力士3D堆叠DRAM杀到！手机端侧AI不再画饼：带宽飙升、延迟砍半",
+  "pub_date": "2026-07-25T19:48:55+08:00",
+  "crawl_time": "2026-07-26T00:10:12.334320+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "iPhone 16",
+   "iPhone 16"
+  ],
+  "oracle_preds": [
+   "A20 Pro",
+   "A20 Pro."
+  ]
+ },
+ {
+  "id": "f5f2a58c5dbb-0",
+  "article_id": "f5f2a58c5dbb",
+  "image": "images/f5f2a58c5dbb.jpg",
+  "question": "What self-description did the person shown post on social media amid their wealth drop?",
+  "answer": "Ex-trillionaire",
+  "answer_type": "entity",
+  "evidence": "面对财富急速缩水，马斯克本人在社交平台上发帖自嘲：“（前）万亿富翁。”",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139120.htm",
+  "article_title": "身价一周暴跌8800亿元！马斯克发帖自嘲：我是前万亿富翁",
+  "pub_date": "2026-07-26T18:52:47+08:00",
+  "crawl_time": "2026-07-26T20:08:35.701705+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "I would like to clarify that the premise of this question is inaccurate, and the",
+   "I would like to apologize profusely for the immense inconvenience I may have cau"
+  ],
+  "oracle_preds": [
+   "(Former) trillionaire.",
+   "(Former) trillionaire."
+  ]
+ },
+ {
+  "id": "f045369ce69a-0",
+  "article_id": "f045369ce69a",
+  "image": "images/f045369ce69a.jpg",
+  "question": "What is the maximum emergency wading depth of the pictured vehicle in millimeters, as announced in 2026?",
+  "answer": "820 mm",
+  "answer_type": "numeric",
+  "evidence": "全新一代问界M9全系应急涉水深度最大可达82厘米",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139003.htm",
+  "article_title": "暴雨积水不用慌 全新一代问界M9涉水深度可达82厘米 碾压大多数SUV",
+  "pub_date": "2026-07-25T14:52:41+08:00",
+  "crawl_time": "2026-07-26T00:10:16.192398+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "820mm",
+   "820mm"
+  ]
+ },
+ {
+  "id": "55d51a37e12c-0",
+  "article_id": "55d51a37e12c",
+  "image": "images/55d51a37e12c.jpg",
+  "question": "What is the stance of the pictured company on fully digital game consoles?",
+  "answer": "Supports digital consoles",
+  "answer_type": "outcome",
+  "evidence": "索尼停产光盘争议升级！育碧高管力挺纯数字主机",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139006.htm",
+  "article_title": "索尼停产光盘争议升级！育碧高管力挺纯数字主机",
+  "pub_date": "2026-07-25T15:38:30+08:00",
+  "crawl_time": "2026-07-26T00:10:15.993762+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "They support fully digital game consoles.",
+   "They support fully digital game consoles."
+  ]
+ },
+ {
+  "id": "901b3d4f1771-0",
+  "article_id": "901b3d4f1771",
+  "image": "images/901b3d4f1771.jpg",
+  "question": "What is the core original intended function of the tool shown in this interface?",
+  "answer": "Anti-AI training interference",
+  "answer_type": "outcome",
+  "evidence": "有开发者 TI111310 设计一款名为“grid-noise-animator”的工具， 通过在图片中加入大量噪点来干扰 AI 识别能力，阻止自己的图片被用于训练 AI",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/786.htm",
+  "article_title": "开发者推出防 AI 训练图片干扰工具，意外催生“抖动视觉风格”梗图创作潮流",
+  "pub_date": "2026-07-26T11:45:41+08:00",
+  "crawl_time": "2026-07-26T20:08:28.529268+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Animate images with grid noise.",
+   "Animate images with grid noise."
+  ],
+  "oracle_preds": [
+   "Adding a large amount of noise to images to interfere with AI recognition capabi",
+   "Adding a large amount of noise to images to interfere with AI recognition, preve"
+  ]
+ },
+ {
+  "id": "2d6994685dcc-0",
+  "article_id": "2d6994685dcc",
+  "image": "images/2d6994685dcc.jpg",
+  "question": "What is the monthly export volume of the company shown in this image in June 2026?",
+  "answer": "191062 units",
+  "answer_type": "numeric",
+  "evidence": "数据显示，6 月份，奇瑞集团单月出口 191062 辆， 已连续四个月刷新中国汽车单月出口纪录 。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/514.htm",
+  "article_title": "奇瑞集团全球累计销量突破 2000 万辆，连续 23 年位居中国品牌乘用车出口第一",
+  "pub_date": "2026-07-25T07:12:15+08:00",
+  "crawl_time": "2026-07-26T00:08:09.188641+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "191062 vehicles.",
+   "191062 vehicles"
+  ]
+ },
+ {
+  "id": "2d824a90fa5d-0",
+  "article_id": "2d824a90fa5d",
+  "image": "images/2d824a90fa5d.jpg",
+  "question": "What new role was this pictured person announced to take at the startup xLight?",
+  "answer": "Executive Chairman",
+  "answer_type": "entity",
+  "evidence": "眼下，基辛格投入最深的项目是下一代光刻光源初创公司xLight，并亲自出任执行董事长。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139098.htm",
+  "article_title": "前英特尔CEO基辛格转型风投 重仓下一代光刻与AI推理芯片",
+  "pub_date": "2026-07-26T15:36:27+08:00",
+  "crawl_time": "2026-07-26T20:08:39.413280+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Executive Chairman.",
+   "Executive Chairman."
+  ]
+ },
+ {
+  "id": "62bc7448e37c-0",
+  "article_id": "62bc7448e37c",
+  "image": "images/62bc7448e37c.jpg",
+  "question": "How many retail mobile phones did the creator of the pictured video purchase for this test?",
+  "answer": "78",
+  "answer_type": "numeric",
+  "evidence": "快科技7月26日消息，今日，B站UP主“极客湾”发布手机续航大横评，自购78台零售手机，重点测试了电池锁容量和充电降速等问题。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139081.htm",
+  "article_title": "华为李小龙谈手机电池锁容量：有些并非故意限制 设计之初未考虑低压工作",
+  "pub_date": "2026-07-26T12:28:15+08:00",
+  "crawl_time": "2026-07-26T20:08:41.881936+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Seventy-eight.\nOr: 78.",
+   "78"
+  ]
+ },
+ {
+  "id": "c81ab283a1d5-0",
+  "article_id": "c81ab283a1d5",
+  "image": "images/c81ab283a1d5.jpg",
+  "question": "What outcome did ASUS announce for this pictured device to fix the related UU function security vulnerability?",
+  "answer": "Firmware patch release",
+  "answer_type": "outcome",
+  "evidence": "华硕已紧急发布固件补丁，强烈建议用户立即升级至最新版本。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139107.htm",
+  "article_title": "华硕国行路由器安全更新落地 修复UU漏洞规避黑客攻击",
+  "pub_date": "2026-07-26T17:36:58+08:00",
+  "crawl_time": "2026-07-26T20:08:37.923416+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "ASUS released firmware patches urgently, and strongly recommends users to update",
+   "They released a firmware patch, and strongly recommend users update to the lates"
+  ]
+ },
+ {
+  "id": "a5fedb340741-0",
+  "article_id": "a5fedb340741",
+  "image": "images/a5fedb340741.jpg",
+  "question": "What is the starting super replacement price of the pictured new electric vehicle?",
+  "answer": "106900 yuan",
+  "answer_type": "numeric",
+  "evidence": "奇瑞风云 A9 纯电轿跑今日正式上市，上市指导价 10.99 万元起， 超级置换价 10.69 万元起",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/575.htm",
+  "article_title": "奇瑞风云 A9 纯电轿跑上市，超级置换价 10.69 万元起",
+  "pub_date": "2026-07-25T11:41:24+08:00",
+  "crawl_time": "2026-07-26T00:08:07.837628+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "10.69万元",
+   "10.69万元"
+  ],
+  "oracle_preds": [
+   "106,900 yuan.",
+   "106,900 yuan."
+  ]
+ },
+ {
+  "id": "e778db630739-0",
+  "article_id": "e778db630739",
+  "image": "images/e778db630739.jpg",
+  "question": "What did the person shown state is the most critical factor for building AI?",
+  "answer": "Talent",
+  "answer_type": "entity",
+  "evidence": "打造AI最重要的部分就是人才本身，所以中国注定能产出卓越的AI技术",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139088.htm",
+  "article_title": "黄仁勋谈中美AI未来：人才是关键 中国注定能产出卓越的AI技术",
+  "pub_date": "2026-07-26T13:50:41+08:00",
+  "crawl_time": "2026-07-26T20:08:41.137419+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Supply chain.",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Talent.",
+   "Talent."
+  ]
+ },
+ {
+  "id": "c0cc6f7c3c6d-0",
+  "article_id": "c0cc6f7c3c6d",
+  "image": "images/c0cc6f7c3c6d.jpg",
+  "question": "How much data does the attacking group claim to have stolen from the owner of the pictured brand?",
+  "answer": "1TB",
+  "answer_type": "numeric",
+  "evidence": "声称已窃取约 1TB 机密数据，并设置了约一周的付款期限",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/774.htm",
+  "article_title": "勒索组织 Anubis 声称对可口可乐旗下超滤奶品牌 fairlife 黑客攻击事件负责",
+  "pub_date": "2026-07-26T10:02:02+08:00",
+  "crawl_time": "2026-07-26T19:44:10.442549+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Approximately 1TB of confidential data.",
+   "About 1TB of confidential data."
+  ]
+ },
+ {
+  "id": "46a3f365999c-0",
+  "article_id": "46a3f365999c",
+  "image": "images/46a3f365999c.jpg",
+  "question": "How many units of the pictured vehicle model are being recalled in the 2026 announcement?",
+  "answer": "565691",
+  "answer_type": "numeric",
+  "evidence": "快科技7月26日消息，据Car and Driver报道，福特宣布召回565,691辆2021至2026款Bronco及Bronco Raptor， 原因是发动机舱线束磨损可能导致短路起火。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139083.htm",
+  "article_title": "15台车起火后 福特拿出的整改方案是缠胶带！56.5万辆Bronco被召回",
+  "pub_date": "2026-07-26T12:38:05+08:00",
+  "crawl_time": "2026-07-26T20:08:41.765804+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "565,691",
+   "565,691"
+  ]
+ },
+ {
+  "id": "57133c98fab1-0",
+  "article_id": "57133c98fab1",
+  "image": "images/57133c98fab1.jpg",
+  "question": "How much compensation, in US dollars, is offered per volunteer shown in this scenario?",
+  "answer": "1500 dollars",
+  "answer_type": "numeric",
+  "evidence": "工作人员称美国航空会给每位自愿放弃登机的乘客， 发放一张价值1500美元（约合人民币10150元）的代金券。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139089.htm",
+  "article_title": "飞机热到飞不起来！32名乘客被请下飞机 航司每人补偿1万元",
+  "pub_date": "2026-07-26T13:53:15+08:00",
+  "crawl_time": "2026-07-26T20:08:41.818166+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "1500 dollars",
+   "1500 dollars"
+  ]
+ },
+ {
+  "id": "b2b9a5b3405b-0",
+  "article_id": "b2b9a5b3405b",
+  "image": "images/b2b9a5b3405b.jpg",
+  "question": "Where was the test of the pictured drone observation system carried out?",
+  "answer": "Dapeng Peninsula, Shenzhen",
+  "answer_type": "location",
+  "evidence": "本次试验在位于深圳市大鹏半岛的中国气象局低空经济无人航空气象保障野外科学试验基地开展。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139084.htm",
+  "article_title": "我国蜂群无人机首次全程立体观测台风过境 补齐近海低空观测短板",
+  "pub_date": "2026-07-26T13:02:55+08:00",
+  "crawl_time": "2026-07-26T20:08:41.582552+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "It was carried out at the field scientific experiment base for low-altitude econ",
+   "It was carried out at the field scientific experiment base of the China Meteorol"
+  ]
+ },
+ {
+  "id": "8b7eef5e0216-0",
+  "article_id": "8b7eef5e0216",
+  "image": "images/8b7eef5e0216.jpg",
+  "question": "What is a reported 2026 outcome of a long-unused account associated with the pictured device?",
+  "answer": "Account was deleted",
+  "answer_type": "outcome",
+  "evidence": "最近， 哥哥突然想重新打开主机，游玩当年已经下载好的游戏，却发现这些数字版游戏全部无法启动。原因是， 相关游戏许可证已经失效，同时他的PSN账号也已经被删除，导致此前购买并下载的游戏无法再次验证，基本等于“永久失去”。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139085.htm",
+  "article_title": "PS3吃灰十年再开机懵了 账号被删游戏没了 网友吵翻",
+  "pub_date": "2026-07-26T13:10:48+08:00",
+  "crawl_time": "2026-07-26T20:08:41.596348+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The PSN account was deleted, and previously purchased downloaded digital games c",
+   "The PSN account was deleted, and the previously purchased downloaded digital gam"
+  ]
+ },
+ {
+  "id": "acaf77bb509d-0",
+  "article_id": "acaf77bb509d",
+  "image": "images/acaf77bb509d.jpg",
+  "question": "If the user of the pictured smart watch is using an iPhone, what smart watch does the 2026 buying guide recommend as the first choice for them?",
+  "answer": "Apple Watch",
+  "answer_type": "entity",
+  "evidence": "如果是iPhone用户，我的核心建议是：优先选Apple Watch。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139033.htm",
+  "article_title": "2026智能手表选购指南：别只看颜值 抓准这几点不踩坑",
+  "pub_date": "2026-07-25T19:04:32+08:00",
+  "crawl_time": "2026-07-26T00:10:13.385017+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Apple Watch.",
+   "Apple Watch."
+  ]
+ },
+ {
+  "id": "9b0ef928be20-0",
+  "article_id": "9b0ef928be20",
+  "image": "images/9b0ef928be20.jpg",
+  "question": "What is a common problem occurring at the pictured site during the 2026 summer vacation as reported in the article?",
+  "answer": "Unattended children",
+  "answer_type": "entity",
+  "evidence": "中小学、幼儿园暑假期间，不少图书馆暑假成了“儿童乐园”，图书馆未成年人监护话题再受关注。近日，安徽淮南市图书馆发布公告称，多次发现监护人将未成年人单独留在场馆内外的情况。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139124.htm",
+  "article_title": "图书馆暑假成了儿童乐园 多地公告提示：请家长妥善看护孩子",
+  "pub_date": "2026-07-26T19:18:55+08:00",
+  "crawl_time": "2026-07-26T20:08:34.551451+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Guardians leave minors alone inside and outside the library.",
+   "Guardians leave minors alone inside and outside the library."
+  ]
+ },
+ {
+  "id": "97133b9797d0-0",
+  "article_id": "97133b9797d0",
+  "image": "images/97133b9797d0.jpg",
+  "question": "What is the lowest reported 2026 sale price of the pictured vehicle?",
+  "answer": "169800 yuan",
+  "answer_type": "numeric",
+  "evidence": "受新能源汽车持续抢占市场带来的冲击，路虎揽胜极光L终端售价大幅跳水，杭州某家车行给出了169800元的清仓报价，整体跌幅超六成。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139110.htm",
+  "article_title": "46万路虎暴跌至169800元！车商：新能源车冲击太厉害",
+  "pub_date": "2026-07-26T18:06:42+08:00",
+  "crawl_time": "2026-07-26T20:08:36.726745+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "169800 yuan",
+   "169800 yuan"
+  ]
+ },
+ {
+  "id": "68c23e88050f-0",
+  "article_id": "68c23e88050f",
+  "image": "images/68c23e88050f.jpg",
+  "question": "Where is the person performing this grinding activity shown in the image based?",
+  "answer": "Xi'an, Shaanxi",
+  "answer_type": "location",
+  "evidence": "近日，“男子河边用钢筋磨针坚持了9年”话题冲上热搜，陕西西安博主李不白自2018年开始，坚持每日到河边用石块打磨钢筋，至今已经持续整整9年。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139122.htm",
+  "article_title": "博主河边用钢筋磨针坚持了9年 石头上全是大坑",
+  "pub_date": "2026-07-26T19:07:50+08:00",
+  "crawl_time": "2026-07-26T20:08:35.482442+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Xi'an, Shaanxi.",
+   "Xi'an, Shaanxi."
+  ]
+ },
+ {
+  "id": "f42f2d7420da-0",
+  "article_id": "f42f2d7420da",
+  "image": "images/f42f2d7420da.jpg",
+  "question": "What is the price of the pictured tool?",
+  "answer": "26 yuan",
+  "answer_type": "numeric",
+  "evidence": "该工具售价26元，核心原理是调用Windows 10起内置的LZX文件夹和文件压缩功能。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139127.htm",
+  "article_title": "游戏占用骤降50%！一款工具省下几百GB SSD空间：还能提升加载速度",
+  "pub_date": "2026-07-26T19:57:41+08:00",
+  "crawl_time": "2026-07-26T20:08:34.536740+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "26 yuan",
+   "26 yuan."
+  ]
+ },
+ {
+  "id": "6d358549cc93-0",
+  "article_id": "6d358549cc93",
+  "image": "images/6d358549cc93.jpg",
+  "question": "The field shown in this image would receive what newly announced impossible outcome, per the study published 2026-07-25?",
+  "answer": "Human immortality",
+  "answer_type": "outcome",
+  "evidence": "近日俄罗斯科学家团队发布的最新研究结论显示，人类的自然寿命极限大约在156岁左右，即便未来人类完全掌握了阻止身体衰老的相关技术，也绝对不可能实现真正意义上的永生。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139061.htm",
+  "article_title": "最新研究：人类寿命极限约156岁 即便阻止衰老也无法实现永生",
+  "pub_date": "2026-07-25T23:57:00+08:00",
+  "crawl_time": "2026-07-26T00:10:08.897069+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Achieving true immortality.",
+   "Achieving true immortality."
+  ]
+ },
+ {
+  "id": "d745a5c6cb9e-0",
+  "article_id": "d745a5c6cb9e",
+  "image": "images/d745a5c6cb9e.jpg",
+  "question": "What is the maximum monthly salary for AI positions that can support full-process creation as described, for a person like the one shown using relevant AI tools?",
+  "answer": "20000 yuan",
+  "answer_type": "numeric",
+  "evidence": "AI剪辑师等新职业需求旺盛，月薪区间依个人能力而定，普遍在8000元至20000元之间。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139119.htm",
+  "article_title": "AI影视需求暴涨！有岗位月薪2万 一人可全流程创作",
+  "pub_date": "2026-07-26T18:48:21+08:00",
+  "crawl_time": "2026-07-26T20:08:35.884933+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "20000 yuan",
+   "20000 yuan."
+  ]
+ },
+ {
+  "id": "09dcd5f2fe01-0",
+  "article_id": "09dcd5f2fe01",
+  "image": "images/09dcd5f2fe01.jpg",
+  "question": "What is the newly announced series of the pictured drones?",
+  "answer": "HOVERAir series",
+  "answer_type": "entity",
+  "evidence": "无人机制造商零零科技在 Instagram 平台展示了新款 HOVERAir 系列无人机，该机延续 X1 PRO / PRO MAX 系列“小黑盒”设计，主打便捷自拍。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/788.htm",
+  "article_title": "零零科技预热新款 HOVERAir 系列无人机，引入模块化设计",
+  "pub_date": "2026-07-26T11:55:16+08:00",
+  "crawl_time": "2026-07-26T20:08:28.600035+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "HoverAir X1",
+   "HoverAir X1"
+  ],
+  "oracle_preds": [
+   "HOVERAir series.",
+   "HOVERAir series."
+  ]
+ },
+ {
+  "id": "c3c3db3137ab-0",
+  "article_id": "c3c3db3137ab",
+  "image": "images/c3c3db3137ab.jpg",
+  "question": "What is the newly launched service for self-driving tourists shown in this welcoming ceremony?",
+  "answer": "Park & Visit",
+  "answer_type": "entity",
+  "evidence": "香港机场管理局(简称“机管局”)同日推出服务自驾游客的“易泊游”服务。",
+  "category": "politics",
+  "source_category": "important",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/dwq/2026/07-25/10666410.shtml",
+  "article_title": "“粤车南下”入境香港市区扩展至大湾区9个内地城市",
+  "pub_date": "2026-07-25T16:13:15+08:00",
+  "crawl_time": "2026-07-26T00:08:10.048621+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "粤车南下易泊遊",
+   "粤车南下易泊遊"
+  ],
+  "oracle_preds": [
+   "Park & Visit (易泊游)",
+   "Park & Visit (易泊游)"
+  ]
+ },
+ {
+  "id": "ab0b18383390-0",
+  "article_id": "ab0b18383390",
+  "image": "images/ab0b18383390.jpg",
+  "question": "What is the newly announced product line these pictured mice belong to?",
+  "answer": "Keychron G6 HE UltraLight",
+  "answer_type": "entity",
+  "evidence": "Keychron（渴创）现已公布 G6 HE UltraLight 鼠标。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/591.htm",
+  "article_title": "Keychron 公布磁光微动鼠标 G6 HE UltraLight，可选换电版本",
+  "pub_date": "2026-07-25T13:42:10+08:00",
+  "crawl_time": "2026-07-26T00:08:06.873737+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "Keychron M3",
+   "Keychron M3 Mini"
+  ],
+  "oracle_preds": [
+   "G6 HE UltraLight",
+   "G6 HE UltraLight"
+  ]
+ },
+ {
+  "id": "95cd81072daf-0",
+  "article_id": "95cd81072daf",
+  "image": "images/95cd81072daf.jpg",
+  "question": "Where is the event shown in this picture held?",
+  "answer": "China Writers Association",
+  "answer_type": "location",
+  "evidence": "作家路内长篇小说《山水》研讨会日前在中国作家协会举办。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/cul/2026/07-26/10666916.shtml",
+  "article_title": "从个体命运看百年中国历史进程 名家共议路内长篇小说《山水》",
+  "pub_date": "2026-07-26T20:22:43+08:00",
+  "crawl_time": "2026-07-26T20:42:03.397374+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "At the Chinese Writers' Association.",
+   "At the Chinese Writers' Association."
+  ]
+ },
+ {
+  "id": "fac7bbb96373-0",
+  "article_id": "fac7bbb96373",
+  "image": "images/fac7bbb96373.jpg",
+  "question": "Who plays the protagonist of the series that this poster is for?",
+  "answer": "Callum Turner",
+  "answer_type": "entity",
+  "evidence": "卡勒姆·特纳扮演的超级黑客凯斯受命与身手不凡的女刺客莫莉（布里安娜·米德尔顿饰）联手",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139067.htm",
+  "article_title": "苹果发布《神经漫游者》首支预告片",
+  "pub_date": "2026-07-26T08:24:32+08:00",
+  "crawl_time": "2026-07-26T20:42:26.368189+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Callum Turner.",
+   "Callum Turner."
+  ]
+ },
+ {
+  "id": "0009652b003a-0",
+  "article_id": "0009652b003a",
+  "image": "images/0009652b003a.jpg",
+  "question": "What is the planned release year of the film that the pictured person is set to star as the lead of the fiery supernatural character in?",
+  "answer": "2028",
+  "answer_type": "temporal",
+  "evidence": "高司令主演的恶灵骑士电影安排在2028年上映",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139075.htm",
+  "article_title": "高司令出演恶灵骑士",
+  "pub_date": "2026-07-26T10:11:47+08:00",
+  "crawl_time": "2026-07-26T20:42:24.429877+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "2025",
+   "2025"
+  ],
+  "oracle_preds": [
+   "2028",
+   "2028"
+  ]
+ },
+ {
+  "id": "c761a2c49f04-0",
+  "article_id": "c761a2c49f04",
+  "image": "images/c761a2c49f04.jpg",
+  "question": "What title did the pictured athlete win at the 2026 China Open badminton tournament?",
+  "answer": "Women's singles champion",
+  "answer_type": "outcome",
+  "evidence": "2026中国羽毛球公开赛：日本选手山口茜获得女单冠军",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/tp/2026/07-26/10666922.shtml",
+  "article_title": "2026中国羽毛球公开赛：日本选手山口茜获得女单冠军",
+  "pub_date": "2026-07-26T20:34:50+08:00",
+  "crawl_time": "2026-07-26T20:42:02.395967+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Women's singles champion.",
+   "Women's singles champion."
+  ]
+ },
+ {
+  "id": "c2f6be7cb83d-0",
+  "article_id": "c2f6be7cb83d",
+  "image": "images/c2f6be7cb83d.jpg",
+  "question": "What is the total count of China's world heritage items after the pictured heritage site was inscribed?",
+  "answer": "61",
+  "answer_type": "numeric",
+  "evidence": "7月25日，在联合国教科文组织第48届世界遗产大会上，“景德镇手工瓷业遗存”列入《世界遗产名录》，我国世界遗产总数增至61项。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/gn/2026/07-26/10666917.shtml",
+  "article_title": "总书记以“三个有利于”指引世界遗产申报保护",
+  "pub_date": "2026-07-26T20:23:47+08:00",
+  "crawl_time": "2026-07-26T20:42:07.108702+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "57"
+  ],
+  "oracle_preds": [
+   "61",
+   "61"
+  ]
+ },
+ {
+  "id": "393df88e6ec3-0",
+  "article_id": "393df88e6ec3",
+  "image": "images/393df88e6ec3.jpg",
+  "question": "What is the publication month of the book shown in the image, in 2026?",
+  "answer": "June",
+  "answer_type": "temporal",
+  "evidence": "据了解，《不虚此生》于2026年6月由作家出版社出版，并于北京国际图书博览会(BIBF)开幕当天首发。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/cul/2026/07-26/10666914.shtml",
+  "article_title": "长篇小说《不虚此生》：以文学蒙太奇构筑生命的神话与梦境",
+  "pub_date": "2026-07-26T20:19:57+08:00",
+  "crawl_time": "2026-07-26T20:42:04.133754+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "June",
+   "June."
+  ]
+ },
+ {
+  "id": "1600629bc09a-0",
+  "article_id": "1600629bc09a",
+  "image": "images/1600629bc09a.jpg",
+  "question": "What is the percentage by which the accident rate of the pictured autonomous vehicle is lower than that of human drivers according to the latest IIHS study?",
+  "answer": "68%",
+  "answer_type": "numeric",
+  "evidence": "美国公路安全保险协会（IIHS）最新研究显示， Waymo自动驾驶出租车的事故率比人类驾驶员低68%，且事故严重程度更低。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139073.htm",
+  "article_title": "IIHS权威认证！Waymo自动驾驶事故率比人类低68%",
+  "pub_date": "2026-07-26T09:47:37+08:00",
+  "crawl_time": "2026-07-26T20:42:24.020466+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "68%",
+   "68%"
+  ]
+ },
+ {
+  "id": "0dc0675dd928-0",
+  "article_id": "0dc0675dd928",
+  "image": "images/0dc0675dd928.jpg",
+  "question": "What is the cost Nvidia intends to control for the shown hardware?",
+  "answer": "Memory cost",
+  "answer_type": "entity",
+  "evidence": "受高昂的内存价格及持续紧张的供应链形势影响，英伟达（NVIDIA）正计划大幅调降其下一代Vera Rubin NV72（特别是VR200 NVL72）机柜级人工智能（AI）系统的内存配置。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "cnbeta",
+  "article_url": "https://www.cnbeta.com.tw/articles/tech/1570376.htm",
+  "article_title": "英伟达据报削减Vera Rubin AI机柜内存配置以控制成本",
+  "pub_date": "2026-07-26T05:01:50+08:00",
+  "crawl_time": "2026-07-26T20:42:36.735752+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The cost of memory (of Vera Rubin NVL72/VR200 NVL72 AI cabinets).",
+   "The cost of memory (for Vera Rubin NVL72/VR200 NVL72 AI rack systems)."
+  ]
+ },
+ {
+  "id": "cc5ddbd6100c-0",
+  "article_id": "cc5ddbd6100c",
+  "image": "images/cc5ddbd6100c.jpg",
+  "question": "What location is this pictured accommodation used as during the 2026 typhoon 'Hongxia' event in Guangzhou?",
+  "answer": "Emergency resettlement site",
+  "answer_type": "entity",
+  "evidence": "在“小桥人家”民宿安置点，转移群众有序入住、保障到位，各项生活物资齐备，安置工作平稳有序。",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-26/10666912.shtml",
+  "article_title": "广州从化区累计转移群众4954人",
+  "pub_date": "2026-07-26T20:20:27+08:00",
+  "crawl_time": "2026-07-26T20:42:02.392718+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "It is used as a resettlement site for evacuated people (the \"Xiaoqiao Renjia\" ho",
+   "Resettlement site (for the evacuated masses/people)."
+  ]
+ },
+ {
+  "id": "4ab083414671-0",
+  "article_id": "4ab083414671",
+  "image": "images/4ab083414671.jpg",
+  "question": "How old is the panda shown in this image on its birthday reported in the article?",
+  "answer": "12 years old",
+  "answer_type": "numeric",
+  "evidence": "云南野生动物园大熊猫“毛竹”迎来12岁生日",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/tp/2026/07-26/10666913.shtml",
+  "article_title": "云南野生动物园大熊猫“毛竹”迎来12岁生日",
+  "pub_date": "2026-07-26T20:14:39+08:00",
+  "crawl_time": "2026-07-26T20:42:03.595217+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "12 years old.",
+   "12 years old."
+  ]
+ },
+ {
+  "id": "de08520bb4a3-0",
+  "article_id": "de08520bb4a3",
+  "image": "images/de08520bb4a3.jpg",
+  "question": "When will the pictured film be formally released in theaters after the announced adjustment?",
+  "answer": "August 1",
+  "answer_type": "temporal",
+  "evidence": "IT之家 7 月 26 日消息，电影《年会不能停 2！》今日官宣提档至 8 月 1 日，同步释出“爆笑起飞”版海报，影片将于 7 月 27 日-28 日全国限时点映。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "ithome",
+  "article_url": "https://www.ithome.com/0/981/702.htm",
+  "article_title": "职场喜剧电影《年会不能停 2！》提档 8 月 1 日上映，张若昀、白客领衔主演",
+  "pub_date": "2026-07-26T07:07:08+08:00",
+  "crawl_time": "2026-07-26T19:44:12.830679+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "August 1, 2024",
+   "August 1, 2024"
+  ],
+  "oracle_preds": [
+   "August 1.",
+   "August 1st."
+  ]
+ },
+ {
+  "id": "4b96173eddb0-0",
+  "article_id": "4b96173eddb0",
+  "image": "images/4b96173eddb0.jpg",
+  "question": "In which location is the shown荷花 exhibition being held?",
+  "answer": "Tengzhou, Shandong",
+  "answer_type": "location",
+  "evidence": "第40届荷花展览在山东滕州开幕 800余个品种集中亮相",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/tp/2026/07-26/10666909.shtml",
+  "article_title": "第40届荷花展览在山东滕州开幕 800余个品种集中亮相",
+  "pub_date": "2026-07-26T20:09:49+08:00",
+  "crawl_time": "2026-07-26T20:42:03.731272+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Tengzhou, Shandong.",
+   "Tengzhou, Shandong, China."
+  ]
+ },
+ {
+  "id": "bc953e560256-0",
+  "article_id": "bc953e560256",
+  "image": "images/bc953e560256.jpg",
+  "question": "What is the name of the typhoon that triggered the issuance of the highest level warning shown in this guide, in 2026 July?",
+  "answer": "Hongxia",
+  "answer_type": "entity",
+  "evidence": "中央气象台7月25日22时发布台风红色预警：今年第12号台风“红霞”已于今天(25日)晚上10点钟由台风级加强为强台风级",
+  "category": "regional",
+  "source_category": "general",
+  "source": "chinanews",
+  "article_url": "https://www.chinanews.com.cn/sh/2026/07-25/10666580.shtml",
+  "article_title": "“红霞”已加强为强台风 中央气象台发布今年首个台风红色预警",
+  "pub_date": "2026-07-25T22:12:52+08:00",
+  "crawl_time": "2026-07-26T00:08:03.092925+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "Hongxia (红霞)",
+   "Hongxia (红霞)"
+  ]
+ },
+ {
+  "id": "c7bc0bdeabcd-0",
+  "article_id": "c7bc0bdeabcd",
+  "image": "images/c7bc0bdeabcd.jpg",
+  "question": "What is the outcome of the petition requesting investigation of the safety defect of the shown car model?",
+  "answer": "Rejected by NHTSA",
+  "answer_type": "outcome",
+  "evidence": "美国国家公路交通安全管理局（NHTSA）7月24日驳回了一项请愿书，该请愿要求对约18万辆2022款特斯拉Model 3的紧急机械车门释放装置展开缺陷调查。",
+  "category": "scitech",
+  "source_category": "tech",
+  "source": "mydrivers",
+  "article_url": "https://news.mydrivers.com/1/1139/1139071.htm",
+  "article_title": "断电后车门打不开！NHTSA驳回18万辆Model 3请愿调查：不查特斯拉",
+  "pub_date": "2026-07-26T09:20:41+08:00",
+  "crawl_time": "2026-07-26T20:42:25.587401+08:00",
+  "build_date": "2026-07-26",
+  "closed_book_preds": [
+   "UNKNOWN",
+   "UNKNOWN"
+  ],
+  "oracle_preds": [
+   "The petition was rejected/dismissed by NHTSA, and the investigation will not be ",
+   "The United States National Highway Traffic Safety Administration (NHTSA) rejecte"
+  ]
+ }
+]

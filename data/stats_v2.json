@@ -1,0 +1,18 @@
+{
+ "generated": 74,
+ "drop_closed_book": 24,
+ "drop_oracle": 23,
+ "drop_dup_question": 2,
+ "accepted": 27,
+ "articles_used": 21,
+ "elapsed_sec": 465,
+ "final_size": 200,
+ "build_date": "2026-07-26",
+ "category_counts": {
+  "scitech": 149,
+  "politics": 8,
+  "regional": 41,
+  "culture": 1,
+  "sports": 1
+ }
+}
