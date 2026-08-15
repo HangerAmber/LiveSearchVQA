@@ -1,0 +1,51 @@
+{
+ "validated_at": "2026-08-15T15:01:15.626611+00:00",
+ "input": "benchmark_v2.json",
+ "items": 200,
+ "english_count": 200,
+ "english_ratio": 1.0,
+ "quantitative_count": 157,
+ "quantitative_ratio": 0.785,
+ "sources": {
+  "un-news": 10,
+  "hollywood-reporter": 11,
+  "fortune": 8,
+  "motorsport": 40,
+  "variety": 16,
+  "billboard": 8,
+  "techcrunch": 7,
+  "cbs": 21,
+  "decrypt": 8,
+  "rolling-stone": 6,
+  "global-news": 4,
+  "9to5mac": 7,
+  "cointelegraph": 9,
+  "mashable": 12,
+  "space-news": 3,
+  "wired": 11,
+  "android-authority": 3,
+  "electrek": 8,
+  "engadget": 3,
+  "cnbc": 2,
+  "the-verge": 1,
+  "defense-news": 1,
+  "mit-news": 1
+ },
+ "categories": {
+  "politics": 36,
+  "culture": 41,
+  "business": 27,
+  "sports": 40,
+  "scitech": 56
+ },
+ "answer_types": {
+  "numeric": 103,
+  "temporal": 54,
+  "outcome": 14,
+  "entity": 18,
+  "location": 11
+ },
+ "problems": [],
+ "warnings": [],
+ "status": "PASS"
+}

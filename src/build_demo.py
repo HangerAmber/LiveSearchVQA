@@ -17,6 +17,11 @@ stats = json.load(open(os.path.join(DATA, "stats_v2.json"), encoding="utf-8"))
 
 build_date = stats.get("build_date", datetime.date.today().isoformat())
 n_items = len(items)
+english_pct = round(100 * sum(it.get("source_language") == "en" for it in items)
+                    / max(1, n_items))
+quant_pct = round(100 * sum(it.get("answer_type") in {"numeric", "temporal"}
+                          for it in items) / max(1, n_items))
+cert_profile = stats.get("certification_profile", "3-model-x-4")
 
 # slim payload for the page
 slim = []
@@ -28,6 +33,8 @@ for it in items:
         "a": it["answer"],
         "type": it.get("answer_type", ""),
         "cat": it.get("category", ""),
+        "lang": it.get("source_language", ""),
+        "quant": bool(it.get("is_quantitative")),
         "ev": it.get("evidence", ""),
         "src": it.get("source", ""),
         "url": it.get("article_url", ""),
@@ -35,6 +42,8 @@ for it in items:
         "pub": (it.get("pub_date", "") or "")[:16].replace("T", " "),
         "cb": it.get("closed_book_preds", []),
         "orp": it.get("oracle_preds", []),
+        "profile": (it.get("certification") or {}).get("profile", cert_profile),
+        "match": it.get("image_match_audit", {}),
     })
 
 cats = sorted({s["cat"] for s in slim})
@@ -195,8 +204,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <div class="hero"><div class="wrap">
   <div class="live"><span class="dot"></span>LIVE &middot; REBUILT DAILY &middot; BUILD __BUILD__</div>
   <h1>Live<span class="g">Search</span>VQA</h1>
-  <div class="tag">A self-refreshing VQA benchmark for diagnosing <b>when</b>, <b>what</b>, and <b>how</b> web-search agents fail — built from news published within the last 48 hours, certified <i>search-necessary</i> and <i>well-posed</i> item by item.</div>
-  <div class="zh">每日自动重建 · 双重过滤逐条认证「不搜必错、给证必对」 · 三段式协议自动归因检索 / 干扰 / 利用失败</div>
+  <div class="tag">A self-refreshing VQA benchmark for diagnosing <b>when</b>, <b>what</b>, and <b>how</b> web-search agents fail — built from news published within the last 48 hours, independently audited for image–question alignment, and certified <i>search-necessary</i> and <i>well-posed</i> item by item.</div>
+  <div class="zh">每日自动重建 · 图文强匹配门槛 · 英文数字型事件优先 · 3 模型多采样逐条认证「不搜必错、给证必对」</div>
   <div class="cta">
     <a class="btn btn-p" href="#challenge">Try the Challenge &rarr;</a>
     <a class="btn btn-o" href="#explorer">Browse __N__ Questions</a>
@@ -205,9 +214,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="stats">
     <div class="stat"><b data-n="__N__">0</b><span>QUESTIONS TODAY</span></div>
     <div class="stat"><b data-n="__NCAT__">0</b><span>NEWS CATEGORIES</span></div>
-    <div class="stat"><b data-n="5">0</b><span>ANSWER TYPES</span></div>
+    <div class="stat"><b data-n="__ENPCT__" data-suf="%">0</b><span>ENGLISH SOURCES</span></div>
+    <div class="stat"><b data-n="__QPCT__" data-suf="%">0</b><span>NUMERIC / TEMPORAL</span></div>
     <div class="stat"><b data-n="48" data-suf="h">0</b><span>MAX EVENT AGE</span></div>
-    <div class="stat"><b data-n="58" data-suf="%">0</b><span>DROPPED: ANSWERABLE W/O SEARCH</span></div>
   </div>
 </div></div>
 
@@ -216,11 +225,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <h2>Fully automated daily pipeline</h2>
   <div class="accent"></div>
   <div class="pipe">
-    <div class="stage"><i>STAGE 1</i><b>Fresh crawl</b><p>RSS feeds, &lt; 48 h, image-bearing articles only</p><div class="n keep">multi-source</div></div>
-    <div class="stage"><i>STAGE 2</i><b>VLM generation</b><p>image-grounded QA, answers &le; 5 tokens, verbatim evidence</p><div class="n keep">5 answer types</div></div>
-    <div class="stage"><i>STAGE 3</i><b>Closed-book filter</b><p>panel must FAIL without search &rarr; search necessary (P1)</p><div class="n drop">&minus;58% candidates</div></div>
-    <div class="stage"><i>STAGE 4</i><b>Oracle filter</b><p>panel must SUCCEED with gold evidence &rarr; well-posed (P2)</p><div class="n drop">ambiguity removed</div></div>
-    <div class="stage"><i>STAGE 5</i><b>Dedup &amp; quota</b><p>perceptual-hash image dedup, question dedup, category balance</p><div class="n keep">__N__ items/day</div></div>
+    <div class="stage"><i>L0</i><b>Evidence-first draft</b><p>lock a fresh event fact first; same-call closed-book self-check</p><div class="n keep">cost &asymp; 0</div></div>
+    <div class="stage"><i>L1</i><b>Alignment gate</b><p>independent image↔article and image↔question audit; reject image-only prompts</p><div class="n drop">4 scores &ge; 3/4</div></div>
+    <div class="stage"><i>L1–L2</i><b>Cascade + early stop</b><p>cheap vision screen, then OR-logic closed-book / AND-logic oracle stopping</p><div class="n keep">fewer panel calls</div></div>
+    <div class="stage"><i>L3</i><b>Full certification</b><p>__PROFILE__ panel: every CB sample fails and every oracle sample succeeds</p><div class="n keep">P1 + P2 intact</div></div>
+    <div class="stage"><i>PUBLISH</i><b>Hard composition gates</b><p>pHash/question dedup, &ge;85% English, &ge;65% numeric or temporal</p><div class="n keep">__N__ items/day</div></div>
   </div>
 </div></section>
 
@@ -260,7 +269,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <div class="pv"><b>CLOSED-BOOK PANEL (no search)</b><div id="c-cb"></div></div>
           <div class="pv"><b>ORACLE PANEL (given evidence)</b><div id="c-or"></div></div>
         </div>
-        <div class="cert">&#10003; certified search-necessary &nbsp;&middot;&nbsp; &#10003; certified well-posed</div>
+        <div class="cert" id="c-cert">&#10003; image–question aligned &nbsp;&middot;&nbsp; &#10003; certified search-necessary &nbsp;&middot;&nbsp; &#10003; certified well-posed</div>
         <div class="srcline" id="c-src"></div>
       </div>
     </div>
@@ -358,11 +367,13 @@ function loadQ(it){
   document.getElementById("c-q").textContent = it.q;
   document.getElementById("c-cat").textContent = it.cat;
   document.getElementById("c-type").textContent = it.type;
-  document.getElementById("c-pub").textContent = "published " + it.pub;
+  document.getElementById("c-pub").textContent = it.lang.toUpperCase() + " · published " + it.pub;
   document.getElementById("c-gold").textContent = it.a;
   document.getElementById("c-ev").innerHTML = "<b>Gold evidence:</b> " + esc(it.ev);
   document.getElementById("c-cb").innerHTML = chips(it.cb, it.a, false);
   document.getElementById("c-or").innerHTML = chips(it.orp, it.a, true);
+  document.getElementById("c-cert").innerHTML =
+    `&#10003; alignment audit passed &nbsp;&middot;&nbsp; &#10003; ${esc(it.profile)} P1/P2 certification`;
   document.getElementById("c-src").innerHTML =
     `Source: <a href="${it.url}" target="_blank">${esc(it.title||it.src)}</a>`;
   document.getElementById("c-ans").style.display = "none";
@@ -402,7 +413,7 @@ function render(){
       <img loading="lazy" src="${it.img}">
       <div class="cbody">
         <div class="q">${esc(it.q)}</div>
-        <div class="meta"><span class="badge b-cat">${it.cat}</span><span class="badge b-type">${it.type}</span></div>
+        <div class="meta"><span class="badge b-cat">${it.cat}</span><span class="badge b-type">${it.type}</span><span class="badge b-date">${it.lang.toUpperCase()}</span></div>
       </div>
     </div>`).join("");
   document.getElementById("count").textContent = `${filtered.length} / ${DATA.length} items`;
@@ -418,7 +429,7 @@ function openModal(i){
   document.getElementById("m-q").textContent = it.q;
   document.getElementById("m-cat").textContent = it.cat;
   document.getElementById("m-type").textContent = it.type;
-  document.getElementById("m-pub").textContent = "published " + it.pub;
+  document.getElementById("m-pub").textContent = it.lang.toUpperCase() + " · published " + it.pub;
   document.getElementById("m-gold").textContent = it.a;
   document.getElementById("m-ev").innerHTML = "<b>Gold evidence:</b> " + esc(it.ev);
   document.getElementById("m-cb").innerHTML = chips(it.cb, it.a, false);
@@ -457,6 +468,9 @@ html = (PAGE
         .replace("__TYPES__", json.dumps(types))
         .replace("__BUILD__", build_date)
         .replace("__NCAT__", str(len(cats)))
+        .replace("__ENPCT__", str(english_pct))
+        .replace("__QPCT__", str(quant_pct))
+        .replace("__PROFILE__", cert_profile)
         .replace("__N__", str(n_items)))
 
 out = os.path.join(ROOT, "demo.html")

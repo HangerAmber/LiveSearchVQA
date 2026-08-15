@@ -7,3 +7,6 @@ paper/*.out
 paper/*.bbl
 paper/*.blg
 paper/*.pdf
+data/benchmark_v2.next.json
+data/benchmark_v2.previous.json
+data/stats_v2.next.json

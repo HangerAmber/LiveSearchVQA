@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Multi-source news crawler.
+"""English-first multi-source news crawler.
 
 Pulls fresh (<48h) news items from RSS feeds reachable from this network,
 fetches each article page, extracts main text + og:image, downloads and
@@ -35,38 +35,127 @@ SESSION_DIRECT = requests.Session()
 SESSION_DIRECT.trust_env = False
 SESSION_PROXY = requests.Session()
 
+# Direct English outlets come first.  Chinese feeds are retained only as a
+# shortage fallback; the admission stage enforces the final language mix.
+# tuple: (source, canonical-ish category, RSS URL, source language)
 FEEDS = [
-    ("ithome",     "tech",          "https://www.ithome.com/rss/"),
-    ("chinanews",  "general",       "https://www.chinanews.com.cn/rss/scroll-news.xml"),
-    ("people",     "politics",      "http://www.people.com.cn/rss/politics.xml"),
-    ("people",     "world",         "http://www.people.com.cn/rss/world.xml"),
-    ("people",     "society",       "http://www.people.com.cn/rss/society.xml"),
-    ("people",     "sports",        "http://www.people.com.cn/rss/sports.xml"),
-    ("people",     "finance",       "http://www.people.com.cn/rss/finance.xml"),
-    ("people",     "military",      "http://www.people.com.cn/rss/military.xml"),
-    ("people",     "entertainment", "http://www.people.com.cn/rss/ent.xml"),
-    ("people",     "education",     "http://www.people.com.cn/rss/edu.xml"),
-    ("chinanews",  "important",     "https://www.chinanews.com.cn/rss/importnews.xml"),
-    ("bing-news",  "technology",    "https://www.bing.com/news/search?q=technology&format=rss"),
-    ("bing-news",  "business",      "https://www.bing.com/news/search?q=business&format=rss"),
-    ("bing-news",  "health",        "https://www.bing.com/news/search?q=health&format=rss"),
-    ("36kr",       "business",      "https://36kr.com/feed"),
-    ("cnbeta",     "tech",          "https://www.cnbeta.com.tw/backend.php"),
-    ("bing-news",  "world",         "https://www.bing.com/news/search?q=world+news&format=rss"),
-    ("bing-news",  "sports",        "https://www.bing.com/news/search?q=sports&format=rss"),
-    ("bing-news",  "science",       "https://www.bing.com/news/search?q=science&format=rss"),
-    ("bing-news",  "entertainment", "https://www.bing.com/news/search?q=entertainment&format=rss"),
-    ("bing-news",  "finance",       "https://www.bing.com/news/search?q=finance&format=rss"),
-    ("bing-news",  "space",         "https://www.bing.com/news/search?q=space+exploration&format=rss"),
-    ("bing-news",  "ai",            "https://www.bing.com/news/search?q=artificial+intelligence&format=rss"),
-    ("bing-news",  "football",      "https://www.bing.com/news/search?q=football&format=rss"),
-    ("bing-news",  "movies",        "https://www.bing.com/news/search?q=movie+box+office&format=rss"),
-    ("sina",       "tech",          "https://rss.sina.com.cn/tech/rollnews.xml"),
-    ("solidot",    "tech",          "https://www.solidot.org/index.rss"),
-    ("ifanr",      "tech",          "https://www.ifanr.com/feed"),
-    ("sspai",      "tech",          "https://sspai.com/feed"),
-    ("huxiu",      "business",      "https://www.huxiu.com/rss/0.xml"),
-    ("mydrivers",  "tech",          "https://rss.mydrivers.com/rss.aspx?Tid=1"),
+    ("bbc", "world", "https://feeds.bbci.co.uk/news/world/rss.xml", "en"),
+    ("bbc", "business", "https://feeds.bbci.co.uk/news/business/rss.xml", "en"),
+    ("bbc", "technology", "https://feeds.bbci.co.uk/news/technology/rss.xml", "en"),
+    ("bbc", "science", "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml", "en"),
+    ("bbc", "health", "https://feeds.bbci.co.uk/news/health/rss.xml", "en"),
+    ("bbc", "entertainment", "https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml", "en"),
+    ("bbc-sport", "sports", "https://feeds.bbci.co.uk/sport/rss.xml", "en"),
+    ("guardian", "world", "https://www.theguardian.com/world/rss", "en"),
+    ("guardian", "business", "https://www.theguardian.com/business/rss", "en"),
+    ("guardian", "technology", "https://www.theguardian.com/technology/rss", "en"),
+    ("guardian", "science", "https://www.theguardian.com/science/rss", "en"),
+    ("guardian", "environment", "https://www.theguardian.com/environment/rss", "en"),
+    ("guardian", "sports", "https://www.theguardian.com/sport/rss", "en"),
+    ("guardian", "culture", "https://www.theguardian.com/culture/rss", "en"),
+    ("nyt", "world", "https://rss.nytimes.com/services/xml/rss/nyt/World.xml", "en"),
+    ("nyt", "business", "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml", "en"),
+    ("nyt", "technology", "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml", "en"),
+    ("nyt", "science", "https://rss.nytimes.com/services/xml/rss/nyt/Science.xml", "en"),
+    ("nyt", "health", "https://rss.nytimes.com/services/xml/rss/nyt/Health.xml", "en"),
+    ("nyt", "sports", "https://rss.nytimes.com/services/xml/rss/nyt/Sports.xml", "en"),
+    ("nyt", "culture", "https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml", "en"),
+    ("sky-news", "world", "https://feeds.skynews.com/feeds/rss/world.xml", "en"),
+    ("sky-news", "business", "https://feeds.skynews.com/feeds/rss/business.xml", "en"),
+    ("sky-news", "technology", "https://feeds.skynews.com/feeds/rss/technology.xml", "en"),
+    ("aljazeera", "world", "https://www.aljazeera.com/xml/rss/all.xml", "en"),
+    ("abc-au", "world", "https://www.abc.net.au/news/feed/51120/rss.xml", "en"),
+    ("cbc", "world", "https://www.cbc.ca/webfeed/rss/rss-world", "en"),
+    ("cbs", "world", "https://www.cbsnews.com/latest/rss/main", "en"),
+    ("nbc", "world", "https://feeds.nbcnews.com/nbcnews/public/world", "en"),
+    ("politico", "politics", "https://rss.politico.com/politics-news.xml", "en"),
+    ("cnbc", "business", "https://www.cnbc.com/id/10001147/device/rss/rss.html", "en"),
+    ("techcrunch", "technology", "https://techcrunch.com/feed/", "en"),
+    ("ars-technica", "technology", "https://feeds.arstechnica.com/arstechnica/index", "en"),
+    ("nasa", "space", "https://www.nasa.gov/news-release/feed/", "en"),
+    ("space-news", "space", "https://spacenews.com/feed/", "en"),
+    ("science-daily", "science", "https://www.sciencedaily.com/rss/top/science.xml", "en"),
+    ("espn", "sports", "https://www.espn.com/espn/rss/news", "en"),
+    ("the-verge", "technology", "https://www.theverge.com/rss/index.xml", "en"),
+    ("wired", "technology", "https://www.wired.com/feed/rss", "en"),
+    ("engadget", "technology", "https://www.engadget.com/rss.xml", "en"),
+    ("venturebeat", "technology", "https://venturebeat.com/feed/", "en"),
+    ("electrek", "technology", "https://electrek.co/feed/", "en"),
+    ("9to5mac", "technology", "https://9to5mac.com/feed/", "en"),
+    ("macrumors", "technology", "https://feeds.macrumors.com/MacRumors-All", "en"),
+    ("phys-org", "science", "https://phys.org/rss-feed/", "en"),
+    ("medicalxpress", "health", "https://medicalxpress.com/rss-feed/", "en"),
+    ("space-com", "space", "https://www.space.com/feeds/all", "en"),
+    ("motorsport", "sports", "https://www.motorsport.com/rss/all/news/", "en"),
+    ("variety", "culture", "https://variety.com/feed/", "en"),
+    ("deadline", "culture", "https://deadline.com/feed/", "en"),
+    ("rolling-stone", "culture", "https://www.rollingstone.com/music/music-news/feed/", "en"),
+    ("coindesk", "business", "https://www.coindesk.com/arc/outboundfeeds/rss/", "en"),
+    ("marketwatch", "business", "https://feeds.marketwatch.com/marketwatch/topstories/", "en"),
+    ("un-news", "world", "https://news.un.org/feed/subscribe/en/news/all/rss.xml", "en"),
+    ("white-house", "politics", "https://www.whitehouse.gov/briefing-room/feed/", "en"),
+    ("yahoo-news", "world", "https://news.yahoo.com/rss/", "en"),
+    ("fox-news", "world", "https://moxie.foxnews.com/google-publisher/world.xml", "en"),
+    ("fox-news", "politics", "https://moxie.foxnews.com/google-publisher/politics.xml", "en"),
+    ("fox-news", "business", "https://moxie.foxnews.com/google-publisher/economy.xml", "en"),
+    ("fox-news", "science", "https://moxie.foxnews.com/google-publisher/science.xml", "en"),
+    ("fox-news", "health", "https://moxie.foxnews.com/google-publisher/health.xml", "en"),
+    ("fox-news", "sports", "https://moxie.foxnews.com/google-publisher/sports.xml", "en"),
+    ("fox-news", "entertainment", "https://moxie.foxnews.com/google-publisher/entertainment.xml", "en"),
+    ("newsweek", "world", "https://www.newsweek.com/rss", "en"),
+    ("time", "world", "https://time.com/feed/", "en"),
+    ("new-york-post", "world", "https://nypost.com/feed/", "en"),
+    ("france24", "world", "https://www.france24.com/en/rss", "en"),
+    ("dw", "world", "https://rss.dw.com/rdf/rss-en-all", "en"),
+    ("euronews", "world", "https://www.euronews.com/rss?level=theme&name=news", "en"),
+    ("global-news", "world", "https://globalnews.ca/feed/", "en"),
+    ("national-post", "world", "https://nationalpost.com/feed/", "en"),
+    ("the-conversation", "science", "https://theconversation.com/us/articles.atom", "en"),
+    ("mit-news", "science", "https://news.mit.edu/rss/feed", "en"),
+    ("harvard-gazette", "science", "https://news.harvard.edu/gazette/feed/", "en"),
+    ("nature", "science", "https://www.nature.com/nature.rss", "en"),
+    ("scientific-american", "science", "https://www.scientificamerican.com/feed/", "en"),
+    ("live-science", "science", "https://www.livescience.com/feeds/all", "en"),
+    ("futurism", "technology", "https://futurism.com/feed", "en"),
+    ("gizmodo", "technology", "https://gizmodo.com/rss", "en"),
+    ("tomshardware", "technology", "https://www.tomshardware.com/feeds/all", "en"),
+    ("android-authority", "technology", "https://www.androidauthority.com/feed", "en"),
+    ("mashable", "technology", "https://mashable.com/feeds/rss/all", "en"),
+    ("polygon", "culture", "https://www.polygon.com/rss/index.xml", "en"),
+    ("gamespot", "culture", "https://www.gamespot.com/feeds/mashup/", "en"),
+    ("billboard", "culture", "https://www.billboard.com/feed/", "en"),
+    ("hollywood-reporter", "culture", "https://www.hollywoodreporter.com/feed/", "en"),
+    ("npr", "world", "https://feeds.npr.org/1004/rss.xml", "en"),
+    ("npr", "business", "https://feeds.npr.org/1006/rss.xml", "en"),
+    ("npr", "science", "https://feeds.npr.org/1007/rss.xml", "en"),
+    ("npr", "health", "https://feeds.npr.org/1128/rss.xml", "en"),
+    ("npr", "culture", "https://feeds.npr.org/1008/rss.xml", "en"),
+    ("pbs", "world", "https://www.pbs.org/newshour/feeds/rss/headlines", "en"),
+    ("propublica", "politics", "https://www.propublica.org/feeds/propublica/main", "en"),
+    ("fortune", "business", "https://fortune.com/feed/", "en"),
+    ("cointelegraph", "business", "https://cointelegraph.com/rss", "en"),
+    ("decrypt", "business", "https://decrypt.co/feed", "en"),
+    ("cbs-sports", "sports", "https://www.cbssports.com/rss/headlines/", "en"),
+    ("sky-sports", "sports", "https://www.skysports.com/rss/12040", "en"),
+    ("defense-news", "politics", "https://www.defensenews.com/arc/outboundfeeds/rss/", "en"),
+    ("google-news", "world", "https://news.google.com/rss/search?q=world+news+when:1d&hl=en-US&gl=US&ceid=US:en", "en"),
+    ("google-news", "business", "https://news.google.com/rss/search?q=business+earnings+when:1d&hl=en-US&gl=US&ceid=US:en", "en"),
+    ("google-news", "technology", "https://news.google.com/rss/search?q=technology+launch+when:1d&hl=en-US&gl=US&ceid=US:en", "en"),
+    ("google-news", "science", "https://news.google.com/rss/search?q=science+discovery+when:1d&hl=en-US&gl=US&ceid=US:en", "en"),
+    ("google-news", "health", "https://news.google.com/rss/search?q=health+study+when:1d&hl=en-US&gl=US&ceid=US:en", "en"),
+    ("google-news", "sports", "https://news.google.com/rss/search?q=sports+score+when:1d&hl=en-US&gl=US&ceid=US:en", "en"),
+    ("google-news", "entertainment", "https://news.google.com/rss/search?q=box+office+music+when:1d&hl=en-US&gl=US&ceid=US:en", "en"),
+    ("bing-news", "world", "https://www.bing.com/news/search?q=world+news&format=rss", "en"),
+    ("bing-news", "business", "https://www.bing.com/news/search?q=business&format=rss", "en"),
+    ("bing-news", "technology", "https://www.bing.com/news/search?q=technology&format=rss", "en"),
+    ("bing-news", "science", "https://www.bing.com/news/search?q=science&format=rss", "en"),
+    ("bing-news", "health", "https://www.bing.com/news/search?q=health&format=rss", "en"),
+    ("bing-news", "sports", "https://www.bing.com/news/search?q=sports&format=rss", "en"),
+    ("bing-news", "entertainment", "https://www.bing.com/news/search?q=entertainment&format=rss", "en"),
+    ("chinanews", "general", "https://www.chinanews.com.cn/rss/scroll-news.xml", "zh"),
+    ("chinanews", "important", "https://www.chinanews.com.cn/rss/importnews.xml", "zh"),
+    ("ithome", "technology", "https://www.ithome.com/rss/", "zh"),
+    ("mydrivers", "technology", "https://rss.mydrivers.com/rss.aspx?Tid=1", "zh"),
 ]
 
 MAX_AGE_HOURS = 48
@@ -110,6 +199,13 @@ def _parse_pubdate(s):
     if not s:
         return None
     s = s.strip()
+    try:
+        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt
+    except Exception:
+        pass
     fmts = ["%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S %Z",
             "%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S%z"]
     for f in fmts:
@@ -134,27 +230,48 @@ def _tag(block, tag):
     return htmllib.unescape(v)
 
 
-def fetch_feed(source, category, url):
+def fetch_feed(source, category, url, language="en"):
     """Regex-based RSS parsing: robust to malformed XML and trailing junk."""
     items = []
     try:
-        xml_text = _get(url, timeout=25, validator=lambda t: "<item" in t)
-        blocks = re.findall(r"<item[\s>][\s\S]*?</item>", xml_text, re.I)
-        for block in blocks:
+        xml_text = _get(
+            url, timeout=14,
+            validator=lambda t: "<item" in t or "<entry" in t,
+        )
+        blocks = [(b, False) for b in re.findall(
+            r"<item[\s>][\s\S]*?</item>", xml_text, re.I
+        )]
+        blocks += [(b, True) for b in re.findall(
+            r"<entry[\s>][\s\S]*?</entry>", xml_text, re.I
+        )]
+        for block, is_atom in blocks:
             title = _tag(block, "title")
-            link = _tag(block, "link")
-            pub = _parse_pubdate(_tag(block, "pubDate"))
-            desc = re.sub(r"<[^>]+>", " ", _tag(block, "description"))
+            if is_atom:
+                link_match = re.search(
+                    r'<link[^>]+(?:rel=["\']alternate["\'][^>]+)?href=["\']([^"\']+)',
+                    block, re.I,
+                )
+                link = htmllib.unescape(link_match.group(1)) if link_match else ""
+                pub = _parse_pubdate(_tag(block, "published") or _tag(block, "updated"))
+                desc = re.sub(
+                    r"<[^>]+>", " ",
+                    _tag(block, "summary") or _tag(block, "content"),
+                )
+            else:
+                link = _tag(block, "link")
+                pub = _parse_pubdate(_tag(block, "pubDate"))
+                desc = re.sub(r"<[^>]+>", " ", _tag(block, "description"))
             if not title or not link.startswith("http"):
                 continue
             if pub is not None:
                 age = datetime.now(timezone.utc) - pub.astimezone(timezone.utc)
-                if age > timedelta(hours=MAX_AGE_HOURS):
+                if age > timedelta(hours=MAX_AGE_HOURS) or \
+                        age < -timedelta(hours=6):
                     continue
             items.append({
                 "source": source, "category": category, "title": title,
                 "url": link, "pub_date": pub.isoformat() if pub else None,
-                "rss_desc": desc.strip()[:500],
+                "rss_desc": desc.strip()[:500], "source_language": language,
             })
     except Exception as e:
         print(f"[feed fail] {source}/{category}: {str(e)[:120]}")
@@ -198,17 +315,20 @@ _BAD_IMG_WORDS = ("logo", "icon", "arrow", "qrcode", "avatar", "weixin",
 
 
 def _candidate_images(page, base_url, source):
-    """Ordered candidate image URLs: og:image, body images, page images."""
+    """Ordered candidates: article-body images, og:image, then page images."""
     cands = []
-    og = _extract_og_image(page)
-    if og:
-        cands.append(og)
-    regions = [page]
+    regions = []
     pat = CONTENT_REGION.get(source)
     if pat:
         m = re.search(pat, page, re.I)
         if m:
-            regions.insert(0, m.group(0))
+            regions.append(m.group(0))
+    # Generic news pages usually place the article before recommendations.
+    article = re.search(r"<article[\s\S]*?</article>", page, re.I)
+    if article:
+        regions.append(article.group(0))
+    og = _extract_og_image(page)
+    regions.append(page)
     for region in regions:
         for m in re.finditer(
                 r'<img[^>]+(?:data-original|data-src|src)=["\']([^"\']+)["\']',
@@ -228,6 +348,11 @@ def _candidate_images(page, base_url, source):
                 src = m2.group(1) + src
             if src.startswith("http") and src not in cands:
                 cands.append(src)
+        # Place og:image after body candidates but before generic page images.
+        if region is not page and og and og not in cands:
+            cands.append(og)
+    if og and og not in cands:
+        cands.insert(0, og)
     return cands[:6]
 
 
@@ -362,18 +487,28 @@ def process_item(item):
     return item
 
 
-def crawl(max_articles=400):
+def _fresh_article(article):
+    try:
+        dt = datetime.fromisoformat(article.get("pub_date") or "")
+        age = datetime.now(timezone.utc) - dt.astimezone(timezone.utc)
+        return -timedelta(hours=6) <= age <= timedelta(hours=MAX_AGE_HOURS)
+    except Exception:
+        return False
+
+
+def crawl(max_articles=1400):
     out = os.path.join(DATA_DIR, "articles.json")
     existing = []
     if os.path.exists(out):
         with open(out, encoding="utf-8") as fp:
-            existing = json.load(fp)
+            existing = [a for a in json.load(fp) if _fresh_article(a)]
     seen_ids = {a["id"] for a in existing}
     seen_titles = {a["title"][:30] for a in existing}
 
     all_items = []
-    with ThreadPoolExecutor(max_workers=8) as ex:
-        futs = [ex.submit(fetch_feed, s, c, u) for s, c, u in FEEDS]
+    with ThreadPoolExecutor(max_workers=24) as ex:
+        futs = [ex.submit(fetch_feed, s, c, u, lang)
+                for s, c, u, lang in FEEDS]
         for f in as_completed(futs):
             for it in f.result():
                 key = it["title"][:30]
@@ -386,10 +521,18 @@ def crawl(max_articles=400):
     all_items = [it for it in all_items
                  if hashlib.md5(it["url"].encode()).hexdigest()[:12]
                  not in seen_ids]
+    # English direct sources first, followed by English aggregation and only
+    # then the Chinese fallback pool.
+    all_items.sort(key=lambda it: (
+        it.get("source_language") != "en",
+        it.get("source") == "bing-news",
+        it.get("pub_date") or "",
+    ))
     articles = list(existing)
     new_count = 0
-    with ThreadPoolExecutor(max_workers=10) as ex:
-        futs = {ex.submit(process_item, it): it for it in all_items[:max_articles * 2]}
+    ex = ThreadPoolExecutor(max_workers=20)
+    futs = {ex.submit(process_item, it): it for it in all_items[:max_articles * 2]}
+    try:
         for f in as_completed(futs):
             try:
                 r = f.result()
@@ -404,6 +547,12 @@ def crawl(max_articles=400):
                           f"(total {len(articles)})")
             if len(articles) >= max_articles:
                 break
+    finally:
+        for future in futs:
+            future.cancel()
+        # Cancel queued URLs after the target is reached; wait only for the
+        # small set that had already started.
+        ex.shutdown(wait=True, cancel_futures=True)
     with open(out, "w", encoding="utf-8") as fp:
         json.dump(articles, fp, ensure_ascii=False, indent=1)
     _save_hash_registry()
