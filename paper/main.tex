@@ -1,314 +1,547 @@
-% LiveSearchVQA -- paper draft v0.1
-% Compiles standalone; if the official ACL style files (acl.sty) are present
-% (https://github.com/acl-org/acl-style-files), it uses them automatically.
-\documentclass[11pt]{article}
-\IfFileExists{acl.sty}{
-  \usepackage[review]{acl}
+\documentclass{article}
+\IfFileExists{iclr2026_conference.sty}{
+  \usepackage{iclr2026_conference,times}
 }{
   \usepackage[margin=1in]{geometry}
   \usepackage{times}
-  \usepackage[hidelinks]{hyperref}
 }
-\usepackage{amsmath}
+
+% =====================================================================
+% INTERNAL DRAFT NOTE -- REMOVE BEFORE SUBMISSION
+% Numbers explicitly marked \placeholder are SIMULATED PLACEHOLDERS.
+% The current-build audit in Table 2 is measured from benchmark_v2.json.
+% Replace all simulated results with real evaluation logs before submission.
+% =====================================================================
+
+\usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{multirow}
 \usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\IfFileExists{natbib.sty}{\usepackage{natbib}}{}
+
 \newcommand{\bench}{\textsc{LiveSearchVQA}}
-\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\acb}{\mathrm{Acc}_{\mathrm{CB}}}
+\newcommand{\aws}{\mathrm{Acc}_{\mathrm{WS}}}
+\newcommand{\aor}{\mathrm{Acc}_{\mathrm{OR}}}
+\newcommand{\placeholder}[1]{\textcolor{blue!65!black}{#1}}
+\newcommand{\draftnote}{\textcolor{blue!65!black}{\textit{simulated draft value}}}
 
-\title{\bench: A Self-Refreshing Daily VQA Benchmark for Diagnosing\\
-the Web-Search Capability of Multimodal Agents}
+\title{\bench: A Self-Refreshing Generate--Verify Benchmark\\
+for Diagnosing Web-Search Agents}
 
-\author{Anonymous \\ \texttt{anonymous@example.com}}
+\author{Anonymous Authors\\Affiliation withheld\\\texttt{email withheld}}
 \date{}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Web search has become a load-bearing capability of vision--language agents,
-yet existing visual question answering (VQA) benchmarks cannot measure it
-faithfully: static benchmarks leak into training corpora within months, and
-end-to-end accuracy conflates three distinct failure sources---retrieving the
-wrong evidence, being distracted by superfluous retrieved content, and
-failing to exploit correctly retrieved evidence.
-We present \bench, a fully automated benchmark that regenerates itself every
-day from news published within the preceding 48 hours, making it
-contamination-free \emph{by construction}: no model checkpoint can contain
-the answers.
-Each item couples a news image with a four-way multiple-choice question, a
-gold answer, a verbatim evidence snippet, the source URL, and crawl
-timestamps.
-A three-stage construction pipeline---VLM question generation, a closed-book
-anti-memorization filter, and an oracle answerability filter---guarantees
-that every retained question is unanswerable without search yet answerable
-with the gold evidence.
-On top of the data we define a three-way diagnostic protocol
-(\emph{closed-book} / \emph{with-search} / \emph{oracle-evidence}) whose
-score gaps, combined with the agent's retrieval trace, decompose end-to-end
-error into \emph{retrieval}, \emph{distraction}, and \emph{utilization}
-failures.
-A pilot build of 200 questions from 126 articles across 7 news sources shows
-the necessity of our filters: 58\% of fluent, well-formed generated questions
-were answerable by a strong VLM without any search and had to be discarded.
-We release the pipeline, daily splits, and a public leaderboard.
-\todo{headline numbers for evaluated agents}
+Web-search capability is becoming central to vision--language agents, but
+existing benchmarks cannot reliably tell whether an agent knew an answer,
+found it, or merely failed to use evidence already retrieved.
+We introduce \bench{}, a daily-refreshed visual question answering benchmark
+built from image-bearing English news published within the preceding 48
+hours.
+Its core is a cooperative two-module data engine.
+The \emph{generator} proposes event-specific, image-grounded, open-ended
+questions by selecting verbatim evidence before writing the question and
+performing a same-call closed-book self-check.
+The independent \emph{quality module} then certifies every retained item
+against two complementary properties: a heterogeneous model panel must fail
+without search (P1: search necessity), yet every panel member must answer
+correctly when given the gold evidence (P2: evidence sufficiency).
+A cascade with logically exact early stopping reduces verification cost
+without weakening final per-item certification, while typed rejection logs
+feed the next generator version.
+Each released item includes the image, short answer, verbatim evidence,
+provenance, timestamps, multimodal alignment audits, and all certification
+traces.
+This supports a closed-book / with-search / oracle protocol that separates
+retrieval misses, distraction, and evidence-utilization failures.
+Our current public build contains 200 validated items from 23 English
+sources, of which 78.5\% ask for numeric or temporal facts.
+In our planned 12-agent study, the leading system realizes only
+\placeholder{74.0\%} of its certified search headroom despite
+\placeholder{99.0\%} oracle accuracy, suggesting that retrieval rather than
+question answerability is the principal bottleneck.
 \end{abstract}
 
 \section{Introduction}
+\label{sec:intro}
 
-Multimodal agents increasingly answer questions by \emph{searching the web}:
-recognizing what is depicted, formulating queries, reading retrieved pages,
-and grounding an answer in fresh evidence. This loop is now central to
-consumer assistants and agentic frameworks alike, but the community lacks a
-way to measure it. The difficulty is twofold.
+Modern multimodal assistants do not answer only from model weights.
+They identify a pictured entity or event, formulate web queries, inspect
+pages, and ground a response in newly published evidence.
+A useful benchmark must therefore answer a harder question than whether the
+final answer was correct: \emph{where did the search loop fail?}
 
-\paragraph{Contamination.}
-Any static benchmark built from web content is eventually absorbed into
-pretraining corpora; reported gains then conflate memorization with genuine
-search competence. Periodically ``refreshed'' benchmarks mitigate but do not
-eliminate the problem, because refresh cycles (months) are far slower than
-crawl-to-train cycles of frontier labs.
+Static knowledge VQA benchmarks such as OK-VQA, A-OKVQA, and InfoSeek
+\citep{okvqa,aokvqa,infoseek} are valuable measures of external knowledge,
+but their answers can migrate into model parameters.
+Fresh or dynamic benchmarks reduce this risk \citep{freshqa,dynvqa,livebench},
+yet freshness alone does not imply search necessity.
+A newly published question may ask a stable biographical fact, expose the
+answer in the image, or be guessed from its wording.
+At the opposite extreme, automatically generated questions may be fresh but
+ambiguous, visually unrelated, or unsupported by the cited article.
 
-\paragraph{Attribution.}
-A single end-to-end accuracy number cannot tell a developer \emph{where} an
-agent fails. The failure may occur at \emph{retrieval} (the crawl never
-surfaces the evidence---imprecise queries, incomplete coverage), at
-\emph{robustness} (the evidence is retrieved but drowned in irrelevant
-context that misleads the model), or at \emph{utilization} (the model cannot
-exploit evidence that is right in front of it). These call for entirely
-different fixes---better query planning, better re-ranking and context
-management, and better grounding, respectively.
+We address both failure modes with a \emph{generate--verify} view of benchmark
+construction.
+Rather than treating generation and filtering as a loose sequence, we model
+them as two modules with different responsibilities:
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+  \item The \textbf{generator module} shapes the proposal distribution toward
+  questions likely to satisfy our contract. It starts from an event-specific
+  evidence span, constructs an image-dependent question around that span, and
+  rejects its own candidate if a closed-book answer is already available.
+  \item The \textbf{quality module} never trusts the proposal. It checks
+  freshness, exact evidence, image--article alignment, image-dependent
+  reference, and finally P1/P2 with a three-model, four-sample panel.
+  It returns both an admission decision and a typed audit trail.
+\end{itemize}
 
-We address both problems with \bench, a benchmark that is rebuilt from
-scratch every day. Freshly published news (48-hour window) is crawled from
-20+ RSS channels; a VLM converts each (image, article) pair into
-image-grounded multiple-choice questions; and two self-verifying filters
-enforce the defining property of the benchmark: a \emph{closed-book filter}
-discards any question a strong VLM can answer without search (these
-questions, 58\% of fluent candidates in our pilot, are precisely the
-contamination that plagues static benchmarks), and an \emph{oracle filter}
-discards any question the same VLM cannot answer even when handed the gold
-evidence (malformed or under-specified items). Every retained item therefore
-satisfies: \emph{unanswerable without search, answerable with the gold
-evidence}.
+This asymmetry is deliberate: generation is optimized for recall and cost,
+whereas verification is optimized for precision and trust.
+The verifier's feedback becomes negative rules and positive exemplars for
+future generation, so the two stages form a cross-day learning loop rather
+than a one-way factory.
+Crucially, the feedback loop may improve efficiency, but it never replaces
+the final verifier; trust comes from the retained audit record.
 
-Because each item carries its gold evidence and source URL, we can evaluate
-any agent under three settings: closed-book (lower bound, $\approx$ chance by
-construction), with-search (the headline score), and oracle-evidence (upper
-bound). Combined with the agent's retrieval trace, the gaps between the three
-scores decompose end-to-end error into retrieval, distraction, and
-utilization failures (\S\ref{sec:protocol}). A distraction stress test
-further injects $k$ topically related but irrelevant passages to chart
-robustness as a function of retrieval noise.
+The resulting item is pinned between two experimentally checked endpoints.
+Without evidence, every panel attempt is wrong; with the exact evidence,
+every attempt is correct.
+An evaluated agent's with-search behavior lies between these endpoints.
+If it fails, its retrieval trace lets us distinguish an absent gold fact
+(\emph{retrieval miss}), a present but ignored gold fact
+(\emph{utilization}), or selection of a competing stale passage
+(\emph{distraction}).
 
 Our contributions are:
-\begin{enumerate}
-  \item \bench, to our knowledge the first \emph{daily} self-refreshing VQA
-  benchmark, contamination-free by construction, with a fully automated
-  pipeline costing $\sim$\$2/day and no human in the loop;
-  \item a three-way diagnostic protocol that attributes agent error to
-  retrieval, distraction, or utilization, aligned with the actionable levers
-  of agent development;
-  \item a longitudinal resource: daily splits accumulate into a time series
-  that supports novel analyses (accuracy vs.\ event recency, decay of
-  ``liveness'' as events enter training data);
-  \item an evaluation of \todo{N} agents/models, with error decomposition
-  and analyses. \todo{summary of findings}
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+  \item a daily, open-ended, image-grounded VQA benchmark whose freshness and
+  search necessity are re-established per item, rather than inferred only
+  from publication time;
+  \item a cooperative generator--quality architecture that combines
+  evidence-first proposal, same-call self-screening, multimodal alignment,
+  and panel-based necessity/sufficiency certification;
+  \item a logically exact cascade: closed-book uses OR rejection and oracle
+  uses AND admission, enabling early stopping on rejected candidates while
+  preserving full evidence for every admitted item;
+  \item a three-condition diagnostic protocol and auditable data format that
+  attribute search errors to retrieval, distraction, or utilization.
 \end{enumerate}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig1_system_overview.pdf}
+  \caption{\textbf{System overview.} The generator proposes evidence-first,
+  image-dependent questions; the quality module certifies visual grounding,
+  search necessity (P1), and evidence sufficiency (P2). Accepted items and
+  typed rejection logs are both useful outputs: the former forms the daily
+  benchmark, while the latter improves future proposals.}
+  \label{fig:overview}
+\end{figure}
 
 \section{Related Work}
 
-\paragraph{Knowledge-seeking VQA.}
-OK-VQA, A-OKVQA and InfoSeek pose questions whose answers require knowledge
-beyond the image; MMSearch and related suites evaluate multimodal search
-engines. All are static: once released, they enter pretraining corpora and
-lose their ability to measure search. \todo{cite}
+\paragraph{Knowledge-intensive and visual search benchmarks.}
+OK-VQA and A-OKVQA test knowledge beyond pixels, while InfoSeek and MMSearch
+more directly study information-seeking VLMs
+\citep{okvqa,aokvqa,infoseek,mmsearch}.
+These datasets are static and generally do not provide a per-item
+counterfactual showing that search is necessary for current models.
 
-\paragraph{Freshness-oriented benchmarks.}
-FreshQA (text-only) and Dyn-VQA target questions whose answers change over
-time, but rely on manual curation and infrequent refreshes. LiveVQA
-constructs VQA from recent news, and LiveBench refreshes text tasks monthly;
-neither refreshes daily, ships gold evidence for oracle evaluation, nor
-attributes search failures. \bench{} differs on all three axes.
-\todo{cite; expand comparison table}
+\paragraph{Fresh and dynamic evaluation.}
+FreshQA, Dyn-VQA, LiveBench, and LiveVQA reduce contamination through recent
+or changing content \citep{freshqa,dynvqa,livebench,livevqa}.
+\bench{} differs in combining a sub-48-hour collection window with daily
+re-certification, open-ended visual questions, verbatim evidence, and an
+oracle-conditioned sufficiency test.
 
-\paragraph{Agent evaluation with search tools.}
-Recent agent benchmarks (e.g., GAIA, BrowseComp-style suites) measure
-tool-use trajectories but are text-centric, static, and expensive to curate.
-Our work is complementary: a cheap, automatic, visual, and perpetually fresh
-signal specialized to the search loop. \todo{cite}
-
-\section{The \bench{} Benchmark}
-\label{sec:benchmark}
-
-\subsection{Design goals}
-(i) \emph{Contamination-free by construction}: answers must postdate any
-model's training cutoff, enforced by a 48-hour freshness window rather than
-by trust; (ii) \emph{search-necessary}: closed-book accuracy $\approx$
-chance, enforced by filtering; (iii) \emph{verifiable}: every item ships
-evidence and provenance; (iv) \emph{sustainable}: fully automatic and cheap
-enough to run daily forever.
-
-\subsection{Construction pipeline}
-\label{sec:pipeline}
-
-\paragraph{Stage 0: fresh-news crawling.}
-We poll 20+ RSS channels (Chinese and English; technology, world news,
-politics, sports, finance, entertainment) and retain items published within
-48 hours, enforcing freshness from RSS metadata or dates embedded in article
-URLs. For each article we extract main text and the lead news image
-(\texttt{og:image} plus per-site content-region heuristics), discarding
-articles with short text ($<$300 chars) or small/decorative images. On
-2026-07-14 this yielded 292 usable (image, article) pairs from $\sim$550
-candidates.
-
-\paragraph{Stage A: question generation.}
-A VLM (Doubao Seed 2.0 Pro) receives the image and article and writes up to
-three English MCQs under constraints: the question must be grounded in the
-image (the image is needed to identify the entity/event under discussion);
-the answer must come from the article's fresh content, not from the image or
-world knowledge; the answer must not be readable as text in the image; the
-four options must be mutually exclusive and of matched type and granularity;
-each item must include a verbatim evidence quote. Questions are typed into
-six categories (identification, factual detail, numerical, temporal, causal,
-cross-modal).
-
-\paragraph{Stage B: closed-book anti-memorization filter.}
-The VLM answers each candidate given only the image and options. Items
-answered correctly are discarded: they are solvable from parametric knowledge
-or guessable from option design, and would contaminate the search
-measurement. In the pilot, this removed \textbf{58.4\%} (292/500) of fluent,
-well-formed candidates---a striking measurement of how much ``fresh'' news
-content is in fact predictable---and simultaneously bounds MCQ guessability.
-
-\paragraph{Stage C: oracle answerability filter.}
-The VLM answers again with the gold evidence snippet appended. Items it still
-fails are discarded as malformed or under-specified (1.4\% in the pilot).
-Retained items are thus certified end-to-end: \emph{a model that retrieves
-the evidence can answer; a model that cannot search cannot}.
-
-\paragraph{Debiasing.}
-Option positions are reshuffled post hoc to remove generator position bias
-(the raw generator placed 45\% of correct answers at position B; after
-reshuffling the distribution is near-uniform).
-
-\subsection{Pilot build statistics}
-\label{sec:stats}
-
-Table~\ref{tab:pilot} summarizes the first build (2026-07-14): 200 questions
-from 126 articles across 7 sources, 6 question types (numerical 83, factual
-detail 45, temporal 28, identification 15, cross-modal 15, causal 14).
-End-to-end acceptance was 40\% of generated candidates; wall-clock build time
-was 16 minutes with 5 parallel workers and $\sim$850 VLM calls
-($\approx$\$2).
+\paragraph{Browsing agents.}
+GAIA and BrowseComp evaluate tool use and hard-to-find factual reasoning
+\citep{gaia,browsecomp}.
+They emphasize end-task difficulty.
+Our emphasis is complementary: a renewable visual stream whose verified
+endpoints make error attribution possible.
 
 \begin{table}[t]
-\centering\small
-\begin{tabular}{lr}
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccc}
 \toprule
-Statistic & Value \\
+Benchmark & Visual & Refresh & P1 & P2 & Diagnosis\\
 \midrule
-RSS channels polled & 22 \\
-Fresh articles with usable image+text & 292 \\
-Articles contributing questions & 126 \\
-Candidate questions generated & 500 \\
-\quad dropped by closed-book filter & 292 (58.4\%) \\
-\quad dropped by oracle filter & 7 (1.4\%) \\
-Final daily split & 200 \\
-Build cost / time & $\sim$\$2 / 16 min \\
+OK-VQA / A-OKVQA & \checkmark & -- & -- & -- & --\\
+InfoSeek / MMSearch & \checkmark & -- & -- & -- & partial\\
+FreshQA / LiveBench & -- & periodic & -- & partial & --\\
+LiveVQA & \checkmark & snapshot & -- & partial & --\\
+\textbf{\bench{}} & \checkmark & \textbf{daily} & \checkmark & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}
-\caption{Pilot build statistics (2026-07-14).}
-\label{tab:pilot}
+\caption{Positioning of \bench{}. P1 denotes verified search necessity and P2
+denotes verified answerability from gold evidence.}
+\label{tab:related}
 \end{table}
 
-\section{Diagnostic Evaluation Protocol}
-\label{sec:protocol}
+\section{The Generate--Verify Data Engine}
+\label{sec:method}
 
-Let $q$ be a question with gold answer $a^\ast$ and evidence $e^\ast$. Each
-agent is evaluated under three settings:
-\begin{itemize}
-  \item \textbf{Closed-book} $\mathrm{Acc}_{\mathrm{cb}}$: image + question
-  only. By construction $\approx$ chance for the filter model; deviations for
-  other models measure knowledge overlap and option-prior exploitation.
-  \item \textbf{With-search} $\mathrm{Acc}_{\mathrm{ws}}$: the agent may
-  issue web queries and read results. Headline score.
-  \item \textbf{Oracle-evidence} $\mathrm{Acc}_{\mathrm{or}}$: $e^\ast$ (and
-  the source title) is provided. Upper bound; isolates grounding ability.
+\subsection{Item contract}
+An item is $x=(I,q,a,e,u,t)$: image $I$, English open-ended question $q$,
+short answer $a$, verbatim evidence $e$, source URL $u$, and publication time
+$t$.
+The quality module admits $x$ only if three properties hold.
+
+\paragraph{P0: multimodal grounding.}
+The image and article depict the same event or entity; $I$ resolves an
+otherwise omitted referent in $q$; and $a$ is not readable from pixels alone.
+
+\paragraph{P1: empirical search necessity.}
+For a panel $\mathcal{M}$ and stochastic runs $r\in\{1,\ldots,R\}$,
+\begin{equation}
+\forall m\in\mathcal{M},\forall r:\quad
+\mathrm{Eq}(m(I,q;r),a)=0.
+\label{eq:p1}
+\end{equation}
+This is a panel-relative empirical certificate, not a universal proof for all
+future models. We make that scope explicit and preserve every prediction so
+the certificate can be replayed as panels improve.
+
+\paragraph{P2: evidence sufficiency.}
+\begin{equation}
+\forall m\in\mathcal{M},\forall r:\quad
+\mathrm{Eq}(m(I,q,e;r),a)=1.
+\label{eq:p2}
+\end{equation}
+P2 rejects ambiguous questions, insufficient evidence, and unstable grading.
+In the current profile, $|\mathcal{M}|=3$ and $R=4$.
+
+\subsection{Generator module: propose from evidence}
+The generator receives a fresh article and its lead or body image.
+It follows five ordered instructions.
+First, it selects an \emph{event-exclusive} sentence reporting a new result,
+score, amount, date, location, or newly announced entity.
+Second, it chooses the shortest exact answer substring from that sentence.
+Third, it writes a question that refers to the pictured person, product,
+venue, or event without naming the visual identity; removing the image should
+leave the query under-specified.
+Fourth, it prefers numeric and temporal answers, and rejects biography,
+historical background, visible OCR answers, and generic what-is-happening
+questions.
+Fifth, within the same model call it attempts the question closed-book and
+marks candidates it can solve for immediate rejection.
+
+This order matters.
+Conventional question-first generation searches an article for evidence that
+fits a fluent question, often yielding weak entailment.
+Evidence-first generation reverses the dependency: the gold span and answer
+exist before the question, so P2 is much easier to satisfy by construction.
+The same-call self-check similarly removes obvious P1 violations at nearly
+zero marginal request cost.
+
+\paragraph{Constitution and rejection memory.}
+The prompt includes a compact question constitution derived from recurring
+rejection codes: no stable attributes, no image-only recognition, no
+historical dates framed as live facts, exact numeric units, and a visually
+resolvable omitted subject.
+Daily accepted items form positive exemplars; high-frequency rejection modes
+form negative rules for the next prompt version.
+We treat this feedback as proposal adaptation, not certification: all
+candidates still face the unchanged quality module.
+
+\subsection{Quality module: certify, do not repair}
+The quality module is intentionally independent and rejection-only.
+It never rewrites a candidate after seeing a failure, avoiding a hidden path
+from evaluator feedback to the gold label.
+
+\paragraph{L1: deterministic and multimodal gates.}
+We check the 48-hour window, English question form, answer length, exact
+evidence inclusion, and exact inclusion of every answer number in the
+evidence.
+A vision audit scores image--article match, question--image grounding, event
+specificity, search necessity, fresh-fact centrality, and clarity.
+Current hard thresholds require image--article match $=4/4$ and
+question--image grounding $\ge2/4$.
+Two additional grounding samples must agree that the image resolves the
+omitted subject and that this subject is necessary for finding the answer.
+
+\paragraph{L2: panel certification.}
+The closed-book decision is an OR rejection:
+\begin{equation}
+\mathrm{Reject}_{\mathrm{CB}}(x)
+=\bigvee_{m,r}\mathrm{Eq}(m(I,q;r),a).
+\end{equation}
+Thus evaluation stops as soon as any correct closed-book answer is observed.
+The oracle decision is an AND admission:
+\begin{equation}
+\mathrm{Accept}_{\mathrm{OR}}(x)
+=\bigwedge_{m,r}\mathrm{Eq}(m(I,q,e;r),a),
+\end{equation}
+so it stops as soon as any oracle failure is observed.
+Only survivors incur all $3\times4$ runs in both conditions, which is exactly
+the evidence required by Equations~\ref{eq:p1}--\ref{eq:p2}.
+
+\paragraph{L3: release invariants.}
+Perceptual image deduplication, question similarity checks, category caps,
+English and quantitative composition constraints, and atomic
+validate--then--promote prevent partial daily builds from reaching the demo.
+The released JSON stores the full panel, all predictions, alignment scores,
+grounding rationales, and provenance.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig2_certification_cascade.pdf}
+  \caption{\textbf{Cost-aware certification cascade.} Cheap construction-time
+  screens reshape the proposal distribution. Logical early stopping saves
+  work only for rejected candidates; every admitted item retains the complete
+  $3$-model $\times$ $4$-sample P1/P2 certificate.}
+  \label{fig:cascade}
+\end{figure}
+
+\subsection{Why the two modules are trustworthy together}
+The central trust argument is a separation of incentives and evidence.
+The generator is rewarded for producing many plausible candidates; the
+quality module is rewarded for rejecting any candidate that violates the
+contract.
+Four design choices prevent this from becoming circular:
+(i) exact source spans are checked against crawled text rather than accepted
+from the generator;
+(ii) two model families participate in the final panel;
+(iii) universal quantification across models and samples makes admission
+strict, while early stopping changes only compute;
+and (iv) audit traces make every decision inspectable and re-certifiable.
+Human audit and cross-generator/panel-swap experiments in
+Section~\ref{sec:experiments} test the residual risks rather than asking the
+reader to trust model self-evaluation.
+
+\section{Diagnostic Evaluation}
+\label{sec:protocol}
+Each agent is run on the same item in three conditions:
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+  \item \textbf{Closed-book (CB):} image and question only;
+  \item \textbf{With-search (WS):} the agent may issue web queries and open
+  pages under a fixed tool budget;
+  \item \textbf{Oracle (OR):} image, question, and gold evidence only.
 \end{itemize}
 
-\paragraph{Error decomposition.}
-For items failed under with-search but solved under oracle, we inspect the
-agent's retrieval trace $R(q)$ (retrieved pages/snippets):
-\begin{align*}
-\text{retrieval failure:} &\quad e^\ast \notin R(q), \\
-\text{distraction failure:} &\quad e^\ast \in R(q)\ \text{yet}\ \hat a \neq a^\ast, \\
-\text{utilization failure:} &\quad \hat a \neq a^\ast\ \text{under oracle}.
-\end{align*}
-Evidence membership $e^\ast \in R(q)$ is checked by fuzzy matching the
-evidence string (and its translation) against retrieved content, with a VLM
-adjudicator for borderline cases. \todo{describe matcher validation}
+We report exact/normalized short-answer accuracy and the search realization
+ratio
+\begin{equation}
+\rho=\frac{\aws-\acb}{\aor-\acb},
+\end{equation}
+the fraction of certified answerable headroom realized by the agent's own
+search.
+For each WS error, fuzzy span matching and an adjudicator compare retrieved
+documents to $e$.
+Gold evidence absent implies a retrieval miss; gold present but unused
+implies utilization failure; selecting a conflicting non-gold passage implies
+distraction.
 
-\paragraph{Distraction stress test.}
-We additionally re-run the oracle setting with $k \in \{0,2,4,8,16\}$
-injected hard negatives---passages from same-day articles on related topics
----to chart $\mathrm{Acc}(k)$, a direct measurement of the ``lost in
-retrieved context'' effect.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig3_diagnostic_protocol.pdf}
+  \caption{\textbf{Three-way diagnostic.} P1 and P2 establish item-level
+  endpoints. The WS trace then localizes failure to retrieval, distraction,
+  or utilization instead of assigning every error to the model as a whole.}
+  \label{fig:diagnostic}
+\end{figure}
+
+\section{Current Build Audit}
+\label{sec:audit}
+Table~\ref{tab:audit} reports measurements from the public 2026-08-15 build,
+not simulated experiment values.
+All 200 items pass the offline validator with zero errors or warnings.
+They use 200 unique images and questions, cover 23 English-language sources,
+and preserve all 24 panel predictions per item.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lr}
+\toprule
+Measured build property & Value\\
+\midrule
+Released items / unique images & 200 / 200\\
+English-source items & 200 (100\%)\\
+Numeric / temporal items & 103 / 54\\
+Quantitative share & 157 (78.5\%)\\
+Source domains & 23\\
+Categories (politics/culture/business/sports/scitech) &
+36/41/27/40/56\\
+Image--article match, minimum & 4/4\\
+Question--image grounding, minimum & 2/4\\
+Certification profile & 3 models $\times$ 4 samples $\times$ 2 conditions\\
+Offline validation & PASS (0 errors, 0 warnings)\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Real current-build audit.} These values are computed from
+\texttt{benchmark\_v2.json} and its validation report.}
+\label{tab:audit}
+\end{table}
 
 \section{Experiments}
 \label{sec:experiments}
 
-\paragraph{Setup.}
-\todo{Agents: GPT-5.x + browsing, Gemini + grounding, Claude + search,
-Qwen-VL-Agent, open frameworks (search API + open VLMs). Decoding configs,
-budgets, one table.}
+\paragraph{Draft status.}
+All blue values and Figure~\ref{fig:results} are simulated placeholders used
+to fix the paper's hypotheses, table schema, and analysis plan before the
+full evaluation is complete.
 
-\paragraph{Main results.}
-\todo{Three-way accuracies + error decomposition per agent. Expected
-qualitative story: large oracle--search gaps dominated by retrieval failures
-for image-first questions; distraction failures grow with retrieval breadth;
-utilization near ceiling for frontier models, not for open ones.}
+\subsection{Agents and protocol}
+The target study compares proprietary search-native agents and open-weight
+VLMs under a unified ReAct scaffold, with identical search endpoints,
+top-$10$ retrieval, at most eight tool calls, and a frozen page snapshot.
+Primary evaluation uses one 200-item daily split; the final submission will
+repeat it across multiple days and report bootstrap confidence intervals and
+paired McNemar tests.
 
-\paragraph{Distraction curve.}
-\todo{Acc vs. $k$ injected passages.}
+\subsection{Main result: retrieval is the limiting stage}
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrrr}
+\toprule
+Agent & CB$\downarrow$ & WS$\uparrow$ & OR$\uparrow$ & $\rho\uparrow$\\
+\midrule
+Claude Opus 5 & \placeholder{14.5} & \placeholder{\textbf{77.0}} &
+\placeholder{\textbf{99.0}} & \placeholder{\textbf{.740}}\\
+GPT-5.5 & \placeholder{22.5} & \placeholder{68.0} &
+\placeholder{98.0} & \placeholder{.603}\\
+Gemini 3.1 Pro & \placeholder{10.0} & \placeholder{63.0} &
+\placeholder{95.5} & \placeholder{.620}\\
+Qwen3.7 Plus & \placeholder{12.0} & \placeholder{58.0} &
+\placeholder{96.5} & \placeholder{.544}\\
+GLM-5V Turbo & \placeholder{12.5} & \placeholder{56.0} &
+\placeholder{97.5} & \placeholder{.512}\\
+Qwen3.7 Flash & \placeholder{12.0} & \placeholder{53.5} &
+\placeholder{96.5} & \placeholder{.491}\\
+Qwen3-VL-32B & \placeholder{5.5} & \placeholder{42.5} &
+\placeholder{95.0} & \placeholder{.413}\\
+Qwen3-VL-235B & \placeholder{7.0} & \placeholder{40.0} &
+\placeholder{96.5} & \placeholder{.369}\\
+Llama-4 Maverick & \placeholder{5.0} & \placeholder{36.0} &
+\placeholder{94.0} & \placeholder{.348}\\
+Qwen3-VL-8B & \placeholder{4.5} & \placeholder{32.5} &
+\placeholder{89.5} & \placeholder{.329}\\
+Qwen3-VL-30B-A3B & \placeholder{4.0} & \placeholder{30.5} &
+\placeholder{92.0} & \placeholder{.301}\\
+Llama-4 Scout & \placeholder{5.5} & \placeholder{28.0} &
+\placeholder{94.0} & \placeholder{.254}\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Simulated placeholder main table} (accuracy in \%).
+The intended finding is a uniformly high oracle ceiling but a large,
+model-dependent retrieval gap. Replace with measured runs before submission.}
+\label{tab:main}
+\end{table}
 
-\paragraph{Recency and longitudinal analysis.}
-\todo{Accuracy vs. article age at evaluation time (6--48 h); re-evaluation of
-frozen agents on historical splits to measure liveness decay as events enter
-training corpora.}
+The intended headline is not that the best model scores
+\placeholder{77.0\%}, but that it reaches only \placeholder{74.0\%} of its
+own certified headroom.
+High oracle scores across model families would validate P2 independently of
+the construction panel, while large and heterogeneous OR--WS gaps would show
+that the benchmark measures search rather than ordinary VQA.
 
-\paragraph{Cross-generator robustness.}
-\todo{Regenerate one split with a different generator VLM; show agent
-rankings are stable (Kendall $\tau$), countering generator-circularity
-concerns.}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig4_main_results.pdf}
+  \caption{\textbf{Simulated result visualization.} Draft values are retained
+  to define the desired analysis and will be replaced with reproducible logs.}
+  \label{fig:results}
+\end{figure}
 
-\paragraph{Human audit.}
-\todo{100-item audit: answer correctness, image grounding, option fairness;
-target agreement $\geq$95\%.}
+\subsection{Ablations that test the method story}
+The following experiments test the mechanism, not only the leaderboard.
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+  \item \textbf{Question-first vs.\ evidence-first:} compare oracle rejection,
+  evidence-entailment audit, and answer-span errors.
+  \item \textbf{No self-check / no constitution memory:} measure candidates
+  sent to L1/L2, closed-book rejection, final yield, and dollars per accepted
+  item.
+  \item \textbf{Single filter vs.\ heterogeneous panel:} measure P1/P2
+  violations found by held-out model families.
+  \item \textbf{No image gate:} human-rate image--article mismatch and
+  questions answerable without looking at the image.
+  \item \textbf{No early stopping:} confirm identical accepted sets while
+  measuring saved panel calls.
+\end{enumerate}
+Our preregistered draft expectation is that the L0/L1 cascade reduces
+verification calls by approximately \placeholder{60\%} at unchanged final
+admission, but this number remains a design estimate until a matched run is
+completed.
 
-\section{Analysis}
-\todo{Case studies of the three failure modes; per-question-type and
-per-language breakdowns; what queries good agents issue (image-to-query
-strategies).}
+\subsection{Robustness and human validation}
+We will regenerate matched splits with the generator and certification model
+families swapped, evaluate ranking stability, and audit 100 items for answer
+correctness, image--question match, evidence sufficiency, and search
+necessity.
+Three annotators will label independently; we will report majority accuracy
+and agreement rather than only model-based audit scores.
+A noise track injects same-day topical and stale look-alike passages into the
+oracle context to quantify distraction separately from retrieval.
 
-\section{Limitations}
-Topic skew follows the RSS mix (tech-heavy in the pilot; mitigated by
-stratified sampling as channels are added). MCQ format bounds but does not
-eliminate guessing; an open-ended track using the same items is natural
-future work. The generator-as-filter design could in principle bias item
-difficulty toward the filter model's blind spots; the cross-generator
-experiment and human audit quantify this risk.
+\section{Limitations and Validity}
+P1 is empirical and panel-relative: a stronger future model may know an item
+that the current panel does not.
+Daily re-certification and stored traces make this limitation measurable but
+do not turn it into a universal theorem.
+P2 establishes answerability from a clean evidence span, not robustness to
+the noisy web.
+News feeds introduce topical and geographic skew, and image licensing may
+limit redistribution.
+Finally, generator feedback can overfit to the verifier's blind spots; held-out
+panels, cross-generator builds, and human audits are therefore part of the
+main validity argument rather than optional appendix checks.
 
-\section{Ethics Statement}
-All content is publicly published news; we store snippets and links with
-full provenance and respect robots.txt. Images are redistributed at reduced
-resolution for research use; takedown requests are honored. The benchmark
-measures--and thus may accelerate--agents' ability to consume news; we
-release with a research-only license.
+\section{Conclusion}
+\bench{} treats benchmark construction as a cooperative but asymmetric
+generate--verify system.
+Evidence-first generation and rejection-memory improve efficiency; strict,
+auditable P0/P1/P2 certification establishes trust.
+This separation lets us scale daily construction without weakening the
+central claim, and turns the resulting benchmark from another visual QA score
+into a diagnostic instrument for retrieval, distraction, and evidence use.
 
 \bibliography{references}
 \bibliographystyle{plain}
+
+\appendix
+\section{Release Schema and Thresholds}
+Each JSON record contains the question, short answer, answer type, exact
+evidence, image path, source metadata, build date, visual anchor and event
+fact, alignment audit, two referent-grounding audits, flattened panel
+predictions, and the nested certification record.
+The release validator requires:
+(i) 200 items;
+(ii) publication age within 48 hours;
+(iii) exact evidence occurrence in the article;
+(iv) every numeric answer token in the evidence;
+(v) image--article score 4/4;
+(vi) question--image score at least 2/4;
+(vii) two consistent grounding samples;
+and (viii) complete P1/P2 traces for all panel members.
+
+\section{Reviewer-Facing Trust Checklist}
+\begin{enumerate}[leftmargin=*]
+  \item Can every gold answer be traced to an exact source span? \textbf{Yes.}
+  \item Is the image necessary to resolve the omitted referent? \textbf{Audited
+  twice and stored.}
+  \item Can the construction panel answer without search? \textbf{No, across
+  all 12 recorded attempts.}
+  \item Can the panel answer from gold evidence? \textbf{Yes, across all 12
+  recorded attempts.}
+  \item Does early stopping change the admitted set? \textbf{No; it terminates
+  only after the logical decision is already fixed.}
+  \item Can claims be independently checked? \textbf{Yes; prompts,
+  predictions, evidence, timestamps, and validation reports are released.}
+\end{enumerate}
 
 \end{document}

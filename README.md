@@ -1,102 +1,80 @@
 # LiveSearchVQA
 
-**A daily-refreshed VQA benchmark for measuring the *web-search* capability of
-vision-language agents.**
+**A daily-refreshed, generate--verify benchmark for diagnosing the web-search
+capability of multimodal agents.**
 
-Every question is built from a news article published within the last 48
-hours, so no model can answer from training data — answering correctly
-*requires* searching the web. The pipeline is fully automated and can be run
-daily.
+[Public demo](https://hangeramber.github.io/LiveSearchVQA/demo.html)
 
-## Why
+## What is released
 
-Web search is now critical for VLM agents, but no benchmark measures it in a
-contamination-free way. Static benchmarks leak into training data within
-months. LiveSearchVQA is contamination-free *by construction* and additionally
-diagnoses **where** a search agent fails:
+The current v3 daily split contains 200 open-ended VQA items built from
+image-bearing news published within 48 hours. Each record includes a short
+answer, verbatim evidence, source provenance, image-alignment audits, and the
+complete closed-book/oracle certification trace.
 
-| Failure mode | How we measure it |
-|---|---|
-| Retrieval failure (crawl not accurate/complete) | agent fails, but succeeds when given gold evidence |
-| Distraction failure (drowned in retrieved noise) | agent retrieved the evidence but still answers wrong |
-| Utilization failure (can't use what it found) | agent fails even in the oracle-evidence setting |
+Measured properties of the 2026-08-15 build:
 
-## Three-way evaluation protocol
+- 200 items, 200 unique images, and 200 unique questions;
+- 100% English-language sources;
+- 157/200 (78.5%) numeric or temporal questions;
+- 23 source domains and five broad categories;
+- image--article match at least 4/4 and question--image grounding at least 2/4;
+- three certification models, four samples per condition;
+- offline validator: PASS with zero errors and zero warnings.
 
-For each of the 200 daily questions (image + 4-option MCQ + gold evidence +
-source URL):
+The primary release is **data/benchmark_v2.json**; **data/benchmark.json** is
+the legacy v1 multiple-choice split.
 
-1. **Closed-book** — image + question only. By construction accuracy is ~0
-   (items solvable closed-book are filtered out).
-2. **With-search** — the agent may search the web. This is the headline score.
-3. **Oracle-evidence** — the gold evidence snippet is provided. Upper bound.
+## Two-module pipeline
 
-The gap `oracle − with-search` decomposes into retrieval vs. distraction vs.
-utilization error using the agent's retrieval trace.
+### Generator module
 
-## Pipeline
+1. Crawl recent English-first RSS/news sources and obtain article text plus a
+   genuine content image.
+2. Select a new, event-specific evidence sentence before writing the question.
+3. Construct an image-dependent English question, preferring numeric or
+   temporal facts.
+4. Perform a same-call closed-book self-check and reject obvious violations.
 
-```
-RSS feeds (20+ channels, CN + EN)          src/crawler.py
-  └─ fresh articles (<48 h) + images        data/articles.json, data/images/
-      │   · perceptual-hash (dHash) image dedup, persistent across days
-      └─ VLM question generation            src/generate.py  (Stage A)
-          └─ closed-book filter             (Stage B: drop if solvable w/o search)
-              └─ oracle filter              (Stage C: drop if unsolvable w/ evidence)
-                  │   · 1 question per image · per-category quota (40/day)
-                  │   · category round-robin scheduling
-                  └─ benchmark              data/benchmark.json (200 items)
-                      └─ visualization      src/build_html.py → index.html
-```
+### Quality module
 
-VLM: Doubao Seed 2.0 Pro via Volcano Engine ARK (`src/ark_api.py`).
+1. Validate freshness, exact evidence, answer span, language, and question form.
+2. Audit image--article match and whether the image resolves the omitted
+   referent in the question.
+3. Certify P1 (all closed-book attempts fail) and P2 (all oracle attempts
+   succeed) with a three-model x four-sample panel.
+4. Deduplicate, enforce composition constraints, validate atomically, then
+   promote the build and regenerate the demo.
 
-## Daily automation
+Closed-book certification uses OR rejection and stops on the first correct
+answer. Oracle certification uses AND admission and stops on the first failure.
+Early stopping reduces work on rejected candidates but every released item
+still carries the complete P1/P2 certificate.
 
-`.github/workflows/daily.yml` runs `src/daily.py` every day at 08:30 Beijing
-time: it archives the previous split to `data/archive/<date>.json`, rebuilds
-the benchmark from scratch from that day's news, prunes unreferenced images,
-regenerates `index.html`, and pushes -- GitHub Pages then redeploys the site
-automatically. Requires the `ARK_API_KEY` repository secret.
+## Run locally
 
-Diversity guarantees:
-- **No repeated images, ever**: a persistent dHash registry
-  (`data/image_hashes.json`) rejects any image within Hamming distance 6 of
-  a previously used one, including re-published press photos.
-- **Domain balance**: articles are scheduled round-robin across categories,
-  each category is capped at 40 questions/day (relaxed only if supply runs
-  short), and each image contributes at most one question.
+Create a repository-local **.env** file with ARK_API_KEY and QWEN_API_KEY, then
+run:
 
-## Run
+    python src/crawler.py
+    python src/generate_v2.py 200
+    python src/validate_v2.py --input benchmark_v2.next.json --target 200 --promote
+    python src/build_demo.py
 
-```powershell
-# put your key in .env:  ARK_API_KEY=...
-python src/crawler.py        # crawl fresh articles (incremental)
-python src/generate.py 200   # generate + filter until 200 items (resumable)
-python src/build_html.py     # build index.html
-```
+Or execute the safe daily orchestration:
 
-Open `index.html` in a browser: stats, per-type/per-source charts, search,
-filtering, click-to-answer cards with gold evidence and source links.
+    python src/daily.py
 
-## Data format (`data/benchmark.json`)
+The daily workflow stages output first, validates all release invariants, and
+only then replaces the public split.
 
-```json
-{
-  "id": "a1b2c3d4e5f6-0",
-  "image": "images/a1b2c3d4e5f6.jpg",
-  "question": "...",
-  "options": ["...", "...", "...", "..."],
-  "answer": "B",
-  "evidence": "verbatim quote from the source article",
-  "qtype": "numerical",
-  "source": "ithome", "category": "tech",
-  "article_url": "...", "article_title": "...",
-  "pub_date": "2026-07-14T18:27:59+08:00",
-  "crawl_time": "2026-07-14T19:02:11+08:00",
-  "closed_book_pred": "C",
-  "oracle_pred": "B"
-}
-```
+## Paper
 
-`requirements.txt`: requests, Pillow.
+The ICLR-style draft is in **paper/main.tex**. It now presents the benchmark as
+a cooperative generator--quality system and includes four vector figures in
+**paper/figures/**.
+
+Experimental results explicitly marked in blue are simulated draft
+placeholders. The current-build audit table is measured from the released JSON
+and validation report. Replace all placeholders with reproducible evaluation
+logs before submission.
