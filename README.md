@@ -1,13 +1,13 @@
 # LiveSearchVQA
 
-**A daily-refreshed, generate--verify benchmark for diagnosing the web-search
+**An on-demand, generate--verify benchmark for diagnosing the web-search
 capability of multimodal agents.**
 
 [Public demo](https://hangeramber.github.io/LiveSearchVQA/demo.html)
 
 ## What is released
 
-The current v3 daily split contains 200 open-ended VQA items built from
+The current v3 release contains 200 open-ended VQA items built from
 image-bearing news published within 48 hours. Each record includes a short
 answer, verbatim evidence, source provenance, image-alignment audits, and the
 complete closed-book/oracle certification trace.
@@ -61,12 +61,13 @@ run:
     python src/validate_v2.py --input benchmark_v2.next.json --target 200 --promote
     python src/build_demo.py
 
-Or execute the safe daily orchestration:
+Or execute the safe on-demand orchestration:
 
     python src/daily.py
 
-The daily workflow stages output first, validates all release invariants, and
-only then replaces the public split.
+The workflow runs only when explicitly invoked, stages output first, validates
+all release invariants, and only then replaces the public split. The GitHub
+Actions workflow is manual-only (`workflow_dispatch`) and has no schedule.
 
 ## Paper
 

@@ -202,10 +202,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <!-- ===================== HERO ===================== -->
 <div class="hero"><div class="wrap">
-  <div class="live"><span class="dot"></span>LIVE &middot; REBUILT DAILY &middot; BUILD __BUILD__</div>
+  <div class="live"><span class="dot"></span>LIVE &middot; REFRESHED ON DEMAND &middot; BUILD __BUILD__</div>
   <h1>Live<span class="g">Search</span>VQA</h1>
   <div class="tag">A self-refreshing VQA benchmark for diagnosing <b>when</b>, <b>what</b>, and <b>how</b> web-search agents fail — built from news published within the last 48 hours, independently audited for image–question alignment, and certified <i>search-necessary</i> and <i>well-posed</i> item by item.</div>
-  <div class="zh">每日自动重建 · 图文强匹配门槛 · 英文数字型事件优先 · 3 模型多采样逐条认证「不搜必错、给证必对」</div>
+  <div class="zh">仅按明确指令手动刷新 · 图文强匹配门槛 · 英文数字型事件优先 · 3 模型多采样逐条认证「不搜必错、给证必对」</div>
   <div class="cta">
     <a class="btn btn-p" href="#challenge">Try the Challenge &rarr;</a>
     <a class="btn btn-o" href="#explorer">Browse __N__ Questions</a>
@@ -222,7 +222,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <!-- ===================== PIPELINE ===================== -->
 <section><div class="wrap">
-  <h2>Fully automated daily pipeline</h2>
+  <h2>On-demand certified construction pipeline</h2>
   <div class="accent"></div>
   <div class="pipe">
     <div class="stage"><i>L0</i><b>Evidence-first draft</b><p>lock a fresh event fact first; same-call closed-book self-check</p><div class="n keep">cost &asymp; 0</div></div>
@@ -303,7 +303,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </div></section>
 
 <footer><div class="wrap">
-  <div>LiveSearchVQA &middot; build __BUILD__ &middot; refreshed daily by CI</div>
+  <div>LiveSearchVQA &middot; build __BUILD__ &middot; refreshed only on explicit command</div>
   <div><a href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">Code &amp; data</a> &middot; <a href="index_v2.html">Full table view</a></div>
 </div></footer>
 
@@ -474,6 +474,6 @@ html = (PAGE
         .replace("__N__", str(n_items)))
 
 out = os.path.join(ROOT, "demo.html")
-with open(out, "w", encoding="utf-8") as f:
+with open(out, "w", encoding="utf-8", newline="\n") as f:
     f.write(html)
 print("saved", out, len(html) // 1024, "KB")
