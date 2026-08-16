@@ -1,15 +1,15 @@
-name: Daily benchmark rebuild
+name: Manual benchmark rebuild
 
 on:
-  schedule:
-    - cron: "30 0 * * *"   # 08:30 Beijing time, daily
+  # Intentionally manual-only: API-backed rebuilds run only after the owner
+  # explicitly dispatches this workflow.
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
 concurrency:
-  group: daily-build
+  group: manual-build
   cancel-in-progress: false
 
 jobs:
