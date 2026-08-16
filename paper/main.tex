@@ -1,10 +1,5 @@
 \documentclass{article}
-\IfFileExists{iclr2026_conference.sty}{
-  \usepackage{iclr2026_conference,times}
-}{
-  \usepackage[margin=1in]{geometry}
-  \usepackage{times}
-}
+\usepackage{iclr2026_conference,times}
 
 % =====================================================================
 % INTERNAL DRAFT NOTE -- REMOVE BEFORE SUBMISSION
@@ -20,8 +15,9 @@
 \usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage{url}
+\usepackage{microtype}
 \usepackage[hidelinks]{hyperref}
-\IfFileExists{natbib.sty}{\usepackage{natbib}}{}
+\usepackage{natbib}
 
 \newcommand{\bench}{\textsc{LiveSearchVQA}}
 \newcommand{\acb}{\mathrm{Acc}_{\mathrm{CB}}}
@@ -30,7 +26,7 @@
 \newcommand{\placeholder}[1]{\textcolor{blue!65!black}{#1}}
 \newcommand{\draftnote}{\textcolor{blue!65!black}{\textit{simulated draft value}}}
 
-\title{\bench: A Self-Refreshing Generate--Verify Benchmark\\
+\title{\bench: A Generate--Verify Benchmark\\
 for Diagnosing Web-Search Agents}
 
 \author{Anonymous Authors\\Affiliation withheld\\\texttt{email withheld}}
@@ -40,28 +36,26 @@ for Diagnosing Web-Search Agents}
 \maketitle
 
 \begin{abstract}
-Web-search capability is becoming central to vision--language agents, but
-existing benchmarks cannot reliably tell whether an agent knew an answer,
-found it, or merely failed to use evidence already retrieved.
-We introduce \bench{}, a daily-refreshed visual question answering benchmark
-built from image-bearing English news published within the preceding 48
-hours.
-Its core is a cooperative two-module data engine.
-The \emph{generator} proposes event-specific, image-grounded, open-ended
-questions by selecting verbatim evidence before writing the question and
-performing a same-call closed-book self-check.
-The independent \emph{quality module} then certifies every retained item
-against two complementary properties: a heterogeneous model panel must fail
-without search (P1: search necessity), yet every panel member must answer
-correctly when given the gold evidence (P2: evidence sufficiency).
-A cascade with logically exact early stopping reduces verification cost
-without weakening final per-item certification, while typed rejection logs
-feed the next generator version.
-Each released item includes the image, short answer, verbatim evidence,
-provenance, timestamps, multimodal alignment audits, and all certification
-traces.
-This supports a closed-book / with-search / oracle protocol that separates
-retrieval misses, distraction, and evidence-utilization failures.
+Fresh questions alone do not identify whether a vision--language agent knew
+an answer, retrieved it, or failed to use evidence already found.
+We introduce \bench{}, an on-demand visual question answering benchmark built
+from image-bearing English news published within the preceding 48 hours.
+Its core output is a \emph{certificate-carrying item}: the image must resolve
+the queried event (P0), a heterogeneous panel must fail without web evidence
+(P1: empirical search necessity), and every panel member must succeed when
+given the gold evidence (P2: evidence sufficiency).
+An asymmetric two-module engine constructs this contract.
+The \emph{generator} selects verbatim evidence before writing an
+event-specific question and performs a same-call closed-book self-check;
+the independent, rejection-only \emph{quality module} is the sole admission
+authority.
+Typed rejection logs improve later explicitly triggered builds, but never
+replace certification.
+A logically exact cascade reduces verification cost without changing the
+admitted set, and every release stores the complete provenance, alignment
+audits, and P1/P2 traces.
+The resulting closed-book / with-search / oracle protocol separates retrieval
+misses, distraction, and evidence-utilization failures.
 Our current public build contains 200 validated items from 23 English
 sources, of which 78.5\% ask for numeric or temporal facts.
 In our planned 12-agent study, the leading system realizes only
@@ -73,9 +67,8 @@ question answerability is the principal bottleneck.
 \section{Introduction}
 \label{sec:intro}
 
-Modern multimodal assistants do not answer only from model weights.
-They identify a pictured entity or event, formulate web queries, inspect
-pages, and ground a response in newly published evidence.
+Modern multimodal assistants identify a pictured entity or event, formulate
+web queries, inspect pages, and ground a response in newly published evidence.
 A useful benchmark must therefore answer a harder question than whether the
 final answer was correct: \emph{where did the search loop fail?}
 
@@ -89,10 +82,10 @@ answer in the image, or be guessed from its wording.
 At the opposite extreme, automatically generated questions may be fresh but
 ambiguous, visually unrelated, or unsupported by the cited article.
 
-We address both failure modes with a \emph{generate--verify} view of benchmark
-construction.
-Rather than treating generation and filtering as a loose sequence, we model
-them as two modules with different responsibilities:
+We address both failure modes by treating automatic construction as a
+\emph{generate--verify} contract rather than a loose generation--filtering
+sequence.
+The two modules have deliberately different responsibilities:
 \begin{itemize}[leftmargin=*,itemsep=2pt]
   \item The \textbf{generator module} shapes the proposal distribution toward
   questions likely to satisfy our contract. It starts from an event-specific
@@ -104,13 +97,13 @@ them as two modules with different responsibilities:
   It returns both an admission decision and a typed audit trail.
 \end{itemize}
 
-This asymmetry is deliberate: generation is optimized for recall and cost,
-whereas verification is optimized for precision and trust.
-The verifier's feedback becomes negative rules and positive exemplars for
-future generation, so the two stages form a cross-day learning loop rather
-than a one-way factory.
-Crucially, the feedback loop may improve efficiency, but it never replaces
-the final verifier; trust comes from the retained audit record.
+This asymmetry separates efficiency from validity.
+Generation is optimized for proposal recall and cost, whereas verification is
+optimized for precision and trust.
+The verifier's feedback becomes negative rules and positive exemplars for the
+next explicitly triggered build, but it never changes the admission rule.
+We therefore do not ask reviewers to trust the generator; trust comes from a
+frozen, replayable item contract and its retained audit record.
 
 The resulting item is pinned between two experimentally checked endpoints.
 Without evidence, every panel attempt is wrong; with the exact evidence,
@@ -123,10 +116,10 @@ If it fails, its retrieval trace lets us distinguish an absent gold fact
 
 Our contributions are:
 \begin{enumerate}[leftmargin=*,itemsep=2pt]
-  \item a daily, open-ended, image-grounded VQA benchmark whose freshness and
-  search necessity are re-established per item, rather than inferred only
-  from publication time;
-  \item a cooperative generator--quality architecture that combines
+  \item an on-demand, open-ended, image-grounded VQA benchmark whose freshness,
+  visual dependence, search necessity, and answerability are re-established
+  per item rather than inferred from publication time;
+  \item a certificate-carrying generator--quality architecture that combines
   evidence-first proposal, same-call self-screening, multimodal alignment,
   and panel-based necessity/sufficiency certification;
   \item a logically exact cascade: closed-book uses OR rejection and oracle
@@ -142,8 +135,8 @@ Our contributions are:
   \caption{\textbf{System overview.} The generator proposes evidence-first,
   image-dependent questions; the quality module certifies visual grounding,
   search necessity (P1), and evidence sufficiency (P2). Accepted items and
-  typed rejection logs are both useful outputs: the former forms the daily
-  benchmark, while the latter improves future proposals.}
+  typed rejection logs are both useful outputs: the former forms the released
+  benchmark, while the latter improves subsequent explicit builds.}
   \label{fig:overview}
 \end{figure}
 
@@ -159,7 +152,7 @@ counterfactual showing that search is necessary for current models.
 \paragraph{Fresh and dynamic evaluation.}
 FreshQA, Dyn-VQA, LiveBench, and LiveVQA reduce contamination through recent
 or changing content \citep{freshqa,dynvqa,livebench,livevqa}.
-\bench{} differs in combining a sub-48-hour collection window with daily
+\bench{} differs in combining a sub-48-hour collection window with on-demand
 re-certification, open-ended visual questions, verbatim evidence, and an
 oracle-conditioned sufficiency test.
 
@@ -182,7 +175,7 @@ OK-VQA / A-OKVQA & \checkmark & -- & -- & -- & --\\
 InfoSeek / MMSearch & \checkmark & -- & -- & -- & partial\\
 FreshQA / LiveBench & -- & periodic & -- & partial & --\\
 LiveVQA & \checkmark & snapshot & -- & partial & --\\
-\textbf{\bench{}} & \checkmark & \textbf{daily} & \checkmark & \checkmark & \checkmark\\
+\textbf{\bench{}} & \checkmark & \textbf{on demand} & \checkmark & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}
 \caption{Positioning of \bench{}. P1 denotes verified search necessity and P2
@@ -251,8 +244,8 @@ The prompt includes a compact question constitution derived from recurring
 rejection codes: no stable attributes, no image-only recognition, no
 historical dates framed as live facts, exact numeric units, and a visually
 resolvable omitted subject.
-Daily accepted items form positive exemplars; high-frequency rejection modes
-form negative rules for the next prompt version.
+Previously accepted items form positive exemplars; high-frequency rejection
+modes form negative rules for the next prompt version.
 We treat this feedback as proposal adaptation, not certification: all
 candidates still face the unchanged quality module.
 
@@ -288,10 +281,19 @@ so it stops as soon as any oracle failure is observed.
 Only survivors incur all $3\times4$ runs in both conditions, which is exactly
 the evidence required by Equations~\ref{eq:p1}--\ref{eq:p2}.
 
+\paragraph{Certification-preserving early stopping.}
+The cascade is not an approximation.
+The first true term fixes an OR rejection, and the first false term fixes an
+AND rejection; a retained candidate necessarily evaluates every remaining
+term.
+Consequently, the cascade and exhaustive evaluation admit exactly the same
+set, while compute is saved only on candidates already destined for
+rejection.
+
 \paragraph{L3: release invariants.}
 Perceptual image deduplication, question similarity checks, category caps,
 English and quantitative composition constraints, and atomic
-validate--then--promote prevent partial daily builds from reaching the demo.
+validate--then--promote prevent partial builds from reaching the demo.
 The released JSON stores the full panel, all predictions, alignment scores,
 grounding rationales, and provenance.
 
@@ -306,7 +308,8 @@ grounding rationales, and provenance.
 \end{figure}
 
 \subsection{Why the two modules are trustworthy together}
-The central trust argument is a separation of incentives and evidence.
+The central trust argument is a separation of incentives, labels, and
+evidence.
 The generator is rewarded for producing many plausible candidates; the
 quality module is rewarded for rejecting any candidate that violates the
 contract.
@@ -317,6 +320,10 @@ from the generator;
 (iii) universal quantification across models and samples makes admission
 strict, while early stopping changes only compute;
 and (iv) audit traces make every decision inspectable and re-certifiable.
+Formally, admission is the conjunction
+$P0(x)\land\neg\mathrm{Reject}_{\mathrm{CB}}(x)\land
+\mathrm{Accept}_{\mathrm{OR}}(x)$; generator confidence is never an input to
+this decision.
 Human audit and cross-generator/panel-swap experiments in
 Section~\ref{sec:experiments} test the residual risks rather than asking the
 reader to trust model self-evaluation.
@@ -398,9 +405,9 @@ full evaluation is complete.
 The target study compares proprietary search-native agents and open-weight
 VLMs under a unified ReAct scaffold, with identical search endpoints,
 top-$10$ retrieval, at most eight tool calls, and a frozen page snapshot.
-Primary evaluation uses one 200-item daily split; the final submission will
-repeat it across multiple days and report bootstrap confidence intervals and
-paired McNemar tests.
+Primary evaluation uses one 200-item on-demand build; the final submission
+will repeat it across multiple build dates and report bootstrap confidence
+intervals and paired McNemar tests.
 
 \subsection{Main result: retrieval is the limiting stage}
 \begin{table}[t]
@@ -449,6 +456,15 @@ own certified headroom.
 High oracle scores across model families would validate P2 independently of
 the construction panel, while large and heterogeneous OR--WS gaps would show
 that the benchmark measures search rather than ordinary VQA.
+The unchanged simulated pattern encodes three falsifiable predictions:
+closed-book accuracy remains well below oracle accuracy, oracle performance
+clusters near the ceiling, and with-search performance spreads widely across
+agents.
+Together these outcomes would show that items remain answerable while agent
+rankings are driven primarily by search execution.
+The scientific claim does not depend on which proprietary model wins; it
+depends on the separation between the three conditions and on whether trace
+labels explain the remaining gap.
 
 \begin{figure}[t]
   \centering
@@ -491,7 +507,7 @@ oracle context to quantify distraction separately from retrieval.
 \section{Limitations and Validity}
 P1 is empirical and panel-relative: a stronger future model may know an item
 that the current panel does not.
-Daily re-certification and stored traces make this limitation measurable but
+On-demand re-certification and stored traces make this limitation measurable but
 do not turn it into a universal theorem.
 P2 establishes answerability from a clean evidence span, not robustness to
 the noisy web.
@@ -502,16 +518,37 @@ panels, cross-generator builds, and human audits are therefore part of the
 main validity argument rather than optional appendix checks.
 
 \section{Conclusion}
-\bench{} treats benchmark construction as a cooperative but asymmetric
+\bench{} treats live benchmark construction as a cooperative but asymmetric
 generate--verify system.
 Evidence-first generation and rejection-memory improve efficiency; strict,
 auditable P0/P1/P2 certification establishes trust.
-This separation lets us scale daily construction without weakening the
-central claim, and turns the resulting benchmark from another visual QA score
-into a diagnostic instrument for retrieval, distraction, and evidence use.
+This separation lets us refresh on demand without weakening the central
+claim, and turns the resulting benchmark from another visual QA score into a
+diagnostic instrument for retrieval, distraction, and evidence use.
 
+\subsubsection*{Reproducibility Statement}
+Every released item stores its source span, timestamp, image provenance,
+alignment scores, panel predictions, and certification trace.
+The appendix specifies the release schema and thresholds; the final study will
+release frozen retrieval snapshots, evaluation prompts, and paired agent logs.
+
+\subsubsection*{Ethics and Data Use}
+The benchmark uses public news sources and event imagery for research
+evaluation.
+The release preserves source attribution and URLs, avoids sensitive personal
+inference, and documents image provenance; redistribution and long-term
+archiving remain subject to source licensing and takedown requirements.
+
+\subsubsection*{AI Use Statement}
+Generative AI tools assisted with language editing, code prototyping, and
+figure preparation.
+The authors designed the method, review all source data and code, and remain
+responsible for every scientific claim.
+No AI-generated output is treated as empirical evidence without independent
+validation, and all simulated values are explicitly marked in the draft.
+
+\bibliographystyle{iclr2026_conference}
 \bibliography{references}
-\bibliographystyle{plain}
 
 \appendix
 \section{Release Schema and Thresholds}

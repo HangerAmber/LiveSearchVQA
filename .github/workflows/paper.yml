@@ -1,0 +1,29 @@
+name: Build paper PDF
+
+on:
+  # Paper compilation is manual-only and never invokes benchmark APIs.
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile ICLR draft
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          working_directory: paper
+          texlive_version: 2025
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: LiveSearchVQA-ICLR-draft
+          path: paper/main.pdf
+          if-no-files-found: error

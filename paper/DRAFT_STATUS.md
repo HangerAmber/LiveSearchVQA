@@ -4,15 +4,15 @@
 
 The paper is organized around one claim: trustworthy automatic benchmark
 construction requires a cooperative but asymmetric **generate--verify**
-architecture.
+architecture and produces **certificate-carrying benchmark items**.
 
 - The generator improves proposal quality through evidence-first construction,
   image-dependent reference, quantitative preference, and same-call
   closed-book self-screening.
 - The quality module establishes trust through deterministic checks,
   multimodal alignment audits, and strict P1/P2 panel certification.
-- Typed rejection records connect the modules across days: failures improve
-  later prompts, but feedback never replaces final certification.
+- Typed rejection records connect explicitly triggered builds: failures
+  improve later prompts, but feedback never replaces final certification.
 
 This framing is stronger than a simple generate-then-filter pipeline because it
 separates efficiency from validity. Generator improvements reduce how many
@@ -37,7 +37,21 @@ Still simulated or planned:
 - the claimed approximately 60% matched cost reduction;
 - multi-day stability, human audit, panel-swap/cross-generator robustness;
 - distraction/noise stress results;
-- automatic daily constitution-memory updates.
+- automatic constitution-memory updates between explicitly triggered builds.
+
+## ICLR / Overleaf status
+
+- The manuscript follows the current ICLR 2027 anonymity, nine-page main-text,
+  reproducibility, ethics, and required AI-use expectations.
+- As of 2026-08-17, the ICLR 2027 author page links to `iclr2027.zip`, but the
+  official Master-Template repository has not published that file. The
+  Overleaf bundle therefore uses the latest available unmodified official
+  style (`iclr2026_conference.sty`) for draft compilation.
+- When the official 2027 kit is released, replace the official style/BST files
+  and change the two `iclr2026_conference` references in `main.tex`; do not
+  modify the conference style itself.
+- Blue numbers and Figure 4 remain simulated planning values and must be
+  replaced by reproducible logs before submission.
 
 ## Experiments needed to close the story
 
@@ -49,6 +63,6 @@ Still simulated or planned:
    construction panel.
 4. Conduct a three-annotator audit of answer correctness, visual grounding,
    evidence sufficiency, and search necessity.
-5. Evaluate agents over multiple daily splits with frozen retrieval snapshots,
+5. Evaluate agents over multiple dated builds with frozen retrieval snapshots,
    confidence intervals, paired significance tests, and trace-based error
    decomposition.
