@@ -52,14 +52,40 @@ def archive_previous():
         print(f"[archive] previous split -> archive_v2/{build_date}.json")
 
 
+def _snapshot_items():
+    """Yield items from the current split and every dated public snapshot."""
+    paths = [os.path.join(DATA_DIR, "benchmark_v2.json")]
+    if os.path.isdir(ARCHIVE_DIR):
+        paths.extend(
+            os.path.join(ARCHIVE_DIR, name)
+            for name in os.listdir(ARCHIVE_DIR)
+            if name.endswith(".json")
+        )
+    for path in paths:
+        if not os.path.exists(path):
+            continue
+        try:
+            with open(path, encoding="utf-8") as f:
+                payload = json.load(f)
+            if isinstance(payload, dict):
+                payload = payload.get("items", payload.get("questions", []))
+            yield from payload
+        except (OSError, ValueError, TypeError):
+            print(f"[prune] warning: could not read snapshot {path}")
+
+
 def prune_to_published_split():
-    """Keep published images and matching article records only."""
+    """Keep images needed by current and archived public splits."""
     benchmark_path = os.path.join(DATA_DIR, "benchmark_v2.json")
     article_path = os.path.join(DATA_DIR, "articles.json")
     image_dir = os.path.join(DATA_DIR, "images")
     with open(benchmark_path, encoding="utf-8") as f:
         items = json.load(f)
-    keep_images = {os.path.basename(item["image"]) for item in items}
+    keep_images = {
+        os.path.basename(item["image"])
+        for item in _snapshot_items()
+        if item.get("image")
+    }
     keep_articles = {item["article_id"] for item in items}
     removed = 0
     for name in os.listdir(image_dir):
@@ -72,7 +98,8 @@ def prune_to_published_split():
         articles = [a for a in articles if a.get("id") in keep_articles]
         with open(article_path, "w", encoding="utf-8") as f:
             json.dump(articles, f, ensure_ascii=False, indent=1)
-    print(f"[prune] removed {removed} images; kept {len(keep_images)} published")
+    print(f"[prune] removed {removed} images; kept {len(keep_images)} "
+          "current/archive images")
 
 
 def run(script, *args):

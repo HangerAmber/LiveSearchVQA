@@ -25,6 +25,10 @@ Measured properties of the 2026-08-15 build:
 The primary release is **data/benchmark_v2.json**; **data/benchmark.json** is
 the legacy v1 multiple-choice split.
 
+Every replaced v2 release is preserved under **data/archive_v2/YYYY-MM-DD.json**.
+The public demo exposes a dated-snapshot selector and loads the selected
+200-item split together with its original images and certification traces.
+
 ## Two-module pipeline
 
 ### Generator module

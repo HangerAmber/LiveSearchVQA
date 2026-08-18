@@ -22,6 +22,20 @@ english_pct = round(100 * sum(it.get("source_language") == "en" for it in items)
 quant_pct = round(100 * sum(it.get("answer_type") in {"numeric", "temporal"}
                           for it in items) / max(1, n_items))
 cert_profile = stats.get("certification_profile", "3-model-x-4")
+archive_dir = os.path.join(DATA, "archive_v2")
+archive_dates = []
+if os.path.isdir(archive_dir):
+    archive_dates = [
+        os.path.splitext(name)[0]
+        for name in os.listdir(archive_dir)
+        if name.endswith(".json")
+    ]
+snapshot_dates = sorted(set(archive_dates + [build_date]), reverse=True)
+date_options = "".join(
+    f'<option value="{date}"{(" selected" if date == build_date else "")}>'
+    f'{date}{(" (latest)" if date == build_date else "")}</option>'
+    for date in snapshot_dates
+)
 
 # slim payload for the page
 slim = []
@@ -194,6 +208,21 @@ h2{font-size:28px;font-weight:800;margin-bottom:8px}
 .brow .fill{height:100%;background:var(--grad);border-radius:6px;width:0;transition:width 1s ease}
 .brow .v{width:36px;font-weight:700;font-size:12.5px}
 
+/* dated snapshots */
+#archive{padding-top:12px}
+.archive-panel{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  background:linear-gradient(135deg,rgba(45,212,191,.08),rgba(96,165,250,.08));
+  border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+.archive-control{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.archive-control label{font-size:13px;color:var(--mut);font-weight:700;letter-spacing:.04em}
+#build-select{appearance:none;background:var(--card);color:var(--txt);border:1px solid var(--teal);
+  border-radius:10px;padding:10px 38px 10px 14px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--teal) 50%),linear-gradient(135deg,var(--teal) 50%,transparent 50%);
+  background-position:calc(100% - 17px) 16px,calc(100% - 11px) 16px;background-size:6px 6px;background-repeat:no-repeat}
+#build-select:disabled{opacity:.55;cursor:wait}
+#archive-status{font-size:13px;color:var(--teal);font-weight:600}
+.archive-note{max-width:520px;color:var(--mut);font-size:13px}
+
 footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </style>
@@ -202,20 +231,20 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <!-- ===================== HERO ===================== -->
 <div class="hero"><div class="wrap">
-  <div class="live"><span class="dot"></span>LIVE &middot; REFRESHED ON DEMAND &middot; BUILD __BUILD__</div>
+  <div class="live"><span class="dot"></span>LIVE &middot; REFRESHED ON DEMAND &middot; BUILD <span id="hero-build">__BUILD__</span></div>
   <h1>Live<span class="g">Search</span>VQA</h1>
-  <div class="tag">A self-refreshing VQA benchmark for diagnosing <b>when</b>, <b>what</b>, and <b>how</b> web-search agents fail — built from news published within the last 48 hours, independently audited for image–question alignment, and certified <i>search-necessary</i> and <i>well-posed</i> item by item.</div>
+  <div class="tag">An on-demand VQA benchmark for diagnosing <b>when</b>, <b>what</b>, and <b>how</b> web-search agents fail — built from news published within the last 48 hours, independently audited for image–question alignment, and certified <i>search-necessary</i> and <i>well-posed</i> item by item.</div>
   <div class="zh">仅按明确指令手动刷新 · 图文强匹配门槛 · 英文数字型事件优先 · 3 模型多采样逐条认证「不搜必错、给证必对」</div>
   <div class="cta">
     <a class="btn btn-p" href="#challenge">Try the Challenge &rarr;</a>
-    <a class="btn btn-o" href="#explorer">Browse __N__ Questions</a>
+    <a class="btn btn-o" id="browse-link" href="#explorer">Browse __N__ Questions</a>
     <a class="btn btn-o" href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">GitHub</a>
   </div>
   <div class="stats">
-    <div class="stat"><b data-n="__N__">0</b><span>QUESTIONS TODAY</span></div>
-    <div class="stat"><b data-n="__NCAT__">0</b><span>NEWS CATEGORIES</span></div>
-    <div class="stat"><b data-n="__ENPCT__" data-suf="%">0</b><span>ENGLISH SOURCES</span></div>
-    <div class="stat"><b data-n="__QPCT__" data-suf="%">0</b><span>NUMERIC / TEMPORAL</span></div>
+    <div class="stat"><b id="stat-items" data-n="__N__">0</b><span>QUESTIONS IN SPLIT</span></div>
+    <div class="stat"><b id="stat-cats" data-n="__NCAT__">0</b><span>NEWS CATEGORIES</span></div>
+    <div class="stat"><b id="stat-english" data-n="__ENPCT__" data-suf="%">0</b><span>ENGLISH SOURCES</span></div>
+    <div class="stat"><b id="stat-quant" data-n="__QPCT__" data-suf="%">0</b><span>NUMERIC / TEMPORAL</span></div>
     <div class="stat"><b data-n="48" data-suf="h">0</b><span>MAX EVENT AGE</span></div>
   </div>
 </div></div>
@@ -229,7 +258,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     <div class="stage"><i>L1</i><b>Alignment gate</b><p>independent image↔article and image↔question audit; reject image-only prompts</p><div class="n drop">4 scores &ge; 3/4</div></div>
     <div class="stage"><i>L1–L2</i><b>Cascade + early stop</b><p>cheap vision screen, then OR-logic closed-book / AND-logic oracle stopping</p><div class="n keep">fewer panel calls</div></div>
     <div class="stage"><i>L3</i><b>Full certification</b><p>__PROFILE__ panel: every CB sample fails and every oracle sample succeeds</p><div class="n keep">P1 + P2 intact</div></div>
-    <div class="stage"><i>PUBLISH</i><b>Hard composition gates</b><p>pHash/question dedup, &ge;85% English, &ge;65% numeric or temporal</p><div class="n keep">__N__ items/day</div></div>
+    <div class="stage"><i>PUBLISH</i><b>Hard composition gates</b><p>pHash/question dedup, &ge;85% English, &ge;65% numeric or temporal</p><div class="n keep"><span id="publish-count">__N__</span> items/build</div></div>
   </div>
 </div></section>
 
@@ -278,7 +307,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <!-- ===================== EXPLORER ===================== -->
 <section id="explorer" style="padding-bottom:0"><div class="wrap">
-  <h2>Explore today's split</h2>
+  <h2>Explore the selected split</h2>
   <div class="accent"></div>
 </div>
 <div class="filters"><div class="wrap frow">
@@ -294,7 +323,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <!-- ===================== STATS ===================== -->
 <section><div class="wrap">
-  <h2>Today's composition</h2>
+  <h2>Selected split composition</h2>
   <div class="accent"></div>
   <div class="bars">
     <div><div class="sub" style="margin-bottom:14px">Answer types</div><div id="bars-type"></div></div>
@@ -302,8 +331,22 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
 </div></section>
 
+<!-- ===================== DATED SNAPSHOTS ===================== -->
+<section id="archive"><div class="wrap">
+  <h2>Browse dated 200-item snapshots</h2>
+  <div class="accent"></div>
+  <div class="archive-panel">
+    <div class="archive-control">
+      <label for="build-select">BENCHMARK BUILD</label>
+      <select id="build-select" onchange="switchBuild(this.value)">__DATE_OPTIONS__</select>
+      <span id="archive-status">Viewing __BUILD__ · __N__ items</span>
+    </div>
+    <div class="archive-note">Each option is a frozen, separately certified VQA split. Select a date to replace the challenge, explorer, and composition views with that build's 200 items.</div>
+  </div>
+</div></section>
+
 <footer><div class="wrap">
-  <div>LiveSearchVQA &middot; build __BUILD__ &middot; refreshed only on explicit command</div>
+  <div>LiveSearchVQA &middot; build <span id="footer-build">__BUILD__</span> &middot; refreshed only on explicit command</div>
   <div><a href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">Code &amp; data</a> &middot; <a href="index_v2.html">Full table view</a></div>
 </div></footer>
 
@@ -333,9 +376,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </div>
 
 <script>
-const DATA = __DATA__;
-const CATS = __CATS__;
+const CURRENT_DATA = __DATA__;
+const CURRENT_DATE = "__BUILD__";
+const SNAPSHOT_DATES = __SNAPSHOTS__;
+const DEFAULT_PROFILE = "__PROFILE__";
 const TYPES = __TYPES__;
+let DATA = CURRENT_DATA;
+let CATS = __CATS__;
+let selectedDate = CURRENT_DATE;
 
 /* ---------- count-up ---------- */
 const io = new IntersectionObserver(es=>es.forEach(e=>{
@@ -352,6 +400,21 @@ document.querySelectorAll(".stat b").forEach(el=>io.observe(el));
 
 /* ---------- helpers ---------- */
 const esc = s => (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function normalizeItem(it){
+  if(Object.prototype.hasOwnProperty.call(it,"img")) return it;
+  let image = it.image || "";
+  if(image && !image.startsWith("data/")) image = "data/" + image.replace(/^\/+/,"");
+  return {
+    id:it.id, img:image, q:it.question, a:it.answer,
+    type:it.answer_type||"", cat:it.category||"", lang:it.source_language||"",
+    quant:Boolean(it.is_quantitative), ev:it.evidence||"", src:it.source||"",
+    url:it.article_url||"", title:it.article_title||"",
+    pub:(it.pub_date||"").slice(0,16).replace("T"," "),
+    cb:it.closed_book_preds||[], orp:it.oracle_preds||[],
+    profile:(it.certification||{}).profile||DEFAULT_PROFILE,
+    match:it.image_match_audit||{}
+  };
+}
 function chips(preds, gold, oracle){
   if(!preds || !preds.length) return "<span class='chip bad'>n/a</span>";
   return preds.map(p=>{
@@ -361,13 +424,13 @@ function chips(preds, gold, oracle){
 }
 
 /* ---------- challenge ---------- */
-let order = [...DATA.keys()].sort(()=>Math.random()-.5), oi = 0;
+let order = [], oi = 0;
 function loadQ(it){
   document.getElementById("c-img").src = it.img;
   document.getElementById("c-q").textContent = it.q;
   document.getElementById("c-cat").textContent = it.cat;
   document.getElementById("c-type").textContent = it.type;
-  document.getElementById("c-pub").textContent = it.lang.toUpperCase() + " · published " + it.pub;
+  document.getElementById("c-pub").textContent = (it.lang||"").toUpperCase() + " · published " + it.pub;
   document.getElementById("c-gold").textContent = it.a;
   document.getElementById("c-ev").innerHTML = "<b>Gold evidence:</b> " + esc(it.ev);
   document.getElementById("c-cb").innerHTML = chips(it.cb, it.a, false);
@@ -383,9 +446,14 @@ function revealAns(){
   document.getElementById("c-ans").style.display = "block";
   document.getElementById("c-reveal").style.display = "none";
 }
-function nextQ(){ oi = (oi+1)%order.length; loadQ(DATA[order[oi]]); }
-loadQ(DATA[order[0]]);
-if(new URLSearchParams(location.search).has("reveal")) revealAns();
+function resetChallenge(){
+  order = [...DATA.keys()].sort(()=>Math.random()-.5); oi = 0;
+  if(order.length) loadQ(DATA[order[0]]);
+}
+function nextQ(){
+  if(!order.length) return;
+  oi = (oi+1)%order.length; loadQ(DATA[order[oi]]);
+}
 
 /* ---------- explorer ---------- */
 let fc = new Set(), ft = new Set(), shown = 24, filtered = DATA;
@@ -398,7 +466,6 @@ function mkChips(id, vals, set){
     b.classList.toggle("on"); shown=24; applyFilters();
   });
 }
-mkChips("fcats", CATS, fc); mkChips("ftypes", TYPES, ft);
 function applyFilters(){
   const q = document.getElementById("search").value.toLowerCase();
   filtered = DATA.filter(it =>
@@ -413,14 +480,13 @@ function render(){
       <img loading="lazy" src="${it.img}">
       <div class="cbody">
         <div class="q">${esc(it.q)}</div>
-        <div class="meta"><span class="badge b-cat">${it.cat}</span><span class="badge b-type">${it.type}</span><span class="badge b-date">${it.lang.toUpperCase()}</span></div>
+        <div class="meta"><span class="badge b-cat">${it.cat}</span><span class="badge b-type">${it.type}</span><span class="badge b-date">${(it.lang||"").toUpperCase()}</span></div>
       </div>
     </div>`).join("");
   document.getElementById("count").textContent = `${filtered.length} / ${DATA.length} items`;
   document.getElementById("more").style.display = shown < filtered.length ? "block" : "none";
 }
 function showMore(){ shown += 24; render(); }
-render();
 
 /* ---------- modal ---------- */
 function openModal(i){
@@ -429,7 +495,7 @@ function openModal(i){
   document.getElementById("m-q").textContent = it.q;
   document.getElementById("m-cat").textContent = it.cat;
   document.getElementById("m-type").textContent = it.type;
-  document.getElementById("m-pub").textContent = it.lang.toUpperCase() + " · published " + it.pub;
+  document.getElementById("m-pub").textContent = (it.lang||"").toUpperCase() + " · published " + it.pub;
   document.getElementById("m-gold").textContent = it.a;
   document.getElementById("m-ev").innerHTML = "<b>Gold evidence:</b> " + esc(it.ev);
   document.getElementById("m-cb").innerHTML = chips(it.cb, it.a, false);
@@ -443,20 +509,85 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeModal(); });
 
 /* ---------- bars ---------- */
 function bars(id, counts){
-  const total = Math.max(...Object.values(counts));
+  const total = Math.max(1,...Object.values(counts));
   const el = document.getElementById(id);
   el.innerHTML = Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`
     <div class="brow"><span class="lbl">${k}</span>
       <div class="track"><div class="fill" data-w="${v/total*100}"></div></div>
       <span class="v">${v}</span></div>`).join("");
+  requestAnimationFrame(()=>el.querySelectorAll(".fill").forEach(fill=>{
+    fill.style.width = fill.dataset.w + "%";
+  }));
 }
-const tc={},cc={};
-DATA.forEach(it=>{tc[it.type]=(tc[it.type]||0)+1;cc[it.cat]=(cc[it.cat]||0)+1});
-bars("bars-type",tc); bars("bars-cat",cc);
-const io2 = new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){e.target.style.width=e.target.dataset.w+"%";io2.unobserve(e.target)}
-}),{threshold:.4});
-document.querySelectorAll(".fill").forEach(el=>io2.observe(el));
+function updateBars(){
+  const tc={},cc={};
+  DATA.forEach(it=>{tc[it.type]=(tc[it.type]||0)+1;cc[it.cat]=(cc[it.cat]||0)+1});
+  bars("bars-type",tc); bars("bars-cat",cc);
+}
+
+/* ---------- dated snapshots ---------- */
+function setStat(id, value, suffix=""){
+  const el = document.getElementById(id);
+  el.dataset.n = value; el.dataset.suf = suffix; el.textContent = value + suffix;
+}
+function updateOverview(date){
+  const cats = new Set(DATA.map(it=>it.cat).filter(Boolean));
+  const english = Math.round(100*DATA.filter(it=>it.lang==="en").length/Math.max(1,DATA.length));
+  const quant = Math.round(100*DATA.filter(it=>["numeric","temporal"].includes(it.type)).length/Math.max(1,DATA.length));
+  setStat("stat-items",DATA.length); setStat("stat-cats",cats.size);
+  setStat("stat-english",english,"%"); setStat("stat-quant",quant,"%");
+  document.getElementById("hero-build").textContent = date;
+  document.getElementById("footer-build").textContent = date;
+  document.getElementById("browse-link").textContent = `Browse ${DATA.length} Questions`;
+  document.getElementById("publish-count").textContent = DATA.length;
+  document.getElementById("archive-status").textContent = `Viewing ${date} · ${DATA.length} items`;
+}
+function resetViews(date){
+  selectedDate = date;
+  CATS = [...new Set(DATA.map(it=>it.cat).filter(Boolean))].sort();
+  fc.clear(); ft.clear(); shown=24; filtered=DATA;
+  document.getElementById("search").value = "";
+  mkChips("fcats",CATS,fc); mkChips("ftypes",TYPES,ft);
+  closeModal(); resetChallenge(); render(); updateBars(); updateOverview(date);
+}
+async function switchBuild(date, updateUrl=true){
+  if(!SNAPSHOT_DATES.includes(date) || date===selectedDate) return;
+  const select = document.getElementById("build-select");
+  const previous = selectedDate;
+  select.disabled = true;
+  document.getElementById("archive-status").textContent = `Loading ${date}…`;
+  try{
+    let raw = CURRENT_DATA;
+    if(date!==CURRENT_DATE){
+      const response = await fetch(`data/archive_v2/${encodeURIComponent(date)}.json`,{cache:"no-store"});
+      if(!response.ok) throw new Error(`HTTP ${response.status}`);
+      raw = await response.json();
+      if(!Array.isArray(raw)) raw = raw.items || raw.questions || [];
+    }
+    if(raw.length!==200) throw new Error(`expected 200 items, received ${raw.length}`);
+    DATA = raw.map(normalizeItem);
+    resetViews(date);
+    select.value = date;
+    if(updateUrl){
+      const u = new URL(location.href);
+      date===CURRENT_DATE ? u.searchParams.delete("date") : u.searchParams.set("date",date);
+      history.replaceState({},"",u);
+    }
+  }catch(error){
+    select.value = previous;
+    document.getElementById("archive-status").textContent = `Could not load ${date}: ${error.message}`;
+  }finally{ select.disabled=false; }
+}
+
+mkChips("fcats",CATS,fc); mkChips("ftypes",TYPES,ft);
+resetChallenge(); render(); updateBars(); updateOverview(CURRENT_DATE);
+const params = new URLSearchParams(location.search);
+const requestedDate = params.get("date");
+if(requestedDate && requestedDate!==CURRENT_DATE && SNAPSHOT_DATES.includes(requestedDate)){
+  document.getElementById("build-select").value=requestedDate;
+  switchBuild(requestedDate,false);
+}
+if(params.has("reveal")) revealAns();
 </script>
 </body>
 </html>
@@ -464,6 +595,8 @@ document.querySelectorAll(".fill").forEach(el=>io2.observe(el));
 
 html = (PAGE
         .replace("__DATA__", json.dumps(slim, ensure_ascii=False))
+        .replace("__SNAPSHOTS__", json.dumps(snapshot_dates))
+        .replace("__DATE_OPTIONS__", date_options)
         .replace("__CATS__", json.dumps(cats))
         .replace("__TYPES__", json.dumps(types))
         .replace("__BUILD__", build_date)

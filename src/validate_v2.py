@@ -228,7 +228,7 @@ def validate(input_name, target=200, english_ratio=0.85, quant_ratio=0.65):
         "status": "PASS" if not problems else "FAIL",
     }
     report_path = os.path.join(DATA_DIR, "quality_report_v2.json")
-    with open(report_path, "w", encoding="utf-8") as f:
+    with open(report_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(report, f, ensure_ascii=False, indent=1)
     print(json.dumps(report, ensure_ascii=False, indent=1))
     if problems:
