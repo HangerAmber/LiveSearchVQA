@@ -25,6 +25,7 @@
 \newcommand{\aor}{\mathrm{Acc}_{\mathrm{OR}}}
 \newcommand{\placeholder}[1]{\textcolor{blue!65!black}{#1}}
 \newcommand{\draftnote}{\textcolor{blue!65!black}{\textit{simulated draft value}}}
+\newcounter{algorithm}
 
 \title{\bench: Certifying Search Necessity\\
 for Web-Search Agents}
@@ -216,6 +217,39 @@ the certificate can be replayed as panels improve.
 P2 rejects ambiguous questions, insufficient evidence, and unstable grading.
 In the current profile, $|\mathcal{M}|=3$ and $R=4$.
 
+\paragraph{What counts as an equivalent answer?}
+The predicate $\mathrm{Eq}$ is a conservative two-stage scorer rather than raw
+string equality or an unconstrained LLM grade.
+Stage A lowercases, removes punctuation and English articles, collapses
+whitespace, and extracts numeric tokens.
+Normalized exact matches are accepted; a mismatch in numeric tokens is
+rejected immediately.
+This prevents, for example, ``May 2027'' from matching ``May 28, 2027.''
+When the numbers agree but surface form, unit, scale, date order, entity alias,
+or a short paraphrase remains ambiguous, Stage B gives only $(q,a,\hat a)$ to
+a temperature-zero semantic judge and asks for a binary verdict.
+The judge must preserve entity, location, date granularity, sign, unit, and
+scale: ``1.2 billion'' is not equivalent to ``1.2 million,'' whereas ``28 May
+2027'' may match ``May 28, 2027.''
+There is no free numeric tolerance.
+A missing/empty response or API failure is not counted as a P1 failure: after
+a bounded retry, the candidate is conservatively rejected.
+An unresolved semantic judgment likewise cannot satisfy P2.
+The current JSON stores raw predictions; the submission release will also
+store the normalized forms, matching path, and semantic-judge verdict so every
+decision can be replayed (Appendix~\ref{app:eq}).
+
+\paragraph{Panel composition and scope.}
+The current generator shares one provider family with one member of the
+three-model construction panel; the other two panel members come from a second
+provider family and use distinct endpoints.
+We therefore claim heterogeneous, two-provider certification---not complete
+model-family independence.
+P1 is guaranteed only relative to this panel and its 12 recorded attempts.
+Generalization beyond the panel is a separate empirical question, tested by
+frozen held-out model families and generator--panel swaps rather than assumed
+from Equation~\ref{eq:p1}.
+
 \subsection{Generator module: propose from evidence}
 The generator receives a fresh article and its lead or body image.
 It follows five ordered instructions.
@@ -296,6 +330,22 @@ English and quantitative composition constraints, and atomic
 validate--then--promote prevent partial builds from reaching the demo.
 The released JSON stores the full panel, all predictions, alignment scores,
 grounding rationales, and provenance.
+
+\paragraph{Typed rejection and construction observability.}
+Every rejected candidate receives exactly one terminal stage and a typed code:
+$\mathsf{G}$ (generation/format), $\mathsf{F}$ (fresh-event specificity),
+$\mathsf{V}$ (visual grounding), $\mathsf{E}$ (evidence or answer-span
+failure), $\mathsf{N}$ (P1 search-necessity failure), $\mathsf{S}$ (P2
+evidence-sufficiency failure), or $\mathsf{D}$ (duplicate/composition rule).
+We log stage input/output counts, conditional pass rate, model calls, tokens,
+latency, and provider-reported cost.
+Thus a build is reported as the auditable funnel
+$N_{\mathrm{articles}}\!\rightarrow N_{\mathrm{generated}}\!\rightarrow
+N_{P0}\!\rightarrow N_{P1}\!\rightarrow N_{P2}\!\rightarrow
+200_{\mathrm{released}}$, together with calls and dollars per released item.
+Algorithm~\ref{alg:construction}, the raw-code mapping, and a draft funnel are
+given in Appendix~\ref{app:construction}; the displayed counts and costs remain
+explicit placeholders until exported from one immutable run manifest.
 
 \begin{figure}[t]
   \centering
@@ -393,13 +443,46 @@ Offline validation & PASS (0 errors, 0 warnings)\\
 \label{tab:audit}
 \end{table}
 
+A five-expert review is the independent second half of Experiment~1.
+The appendix currently contains a \draftnote{} result schema in which all
+\placeholder{200/200} items pass majority review, overall acceptability is
+\placeholder{97.1\%} across 1,000 item--expert judgments, and Fleiss' $\kappa$
+is \placeholder{.84} (Appendix~\ref{app:human}).
+These numbers are not treated as measured evidence until the anonymized rating
+matrix and annotator instructions are archived with the release.
+
 \section{Experiments}
 \label{sec:experiments}
 
 \paragraph{Draft status.}
-All blue values and Figure~\ref{fig:results} are simulated placeholders used
-to fix the paper's hypotheses, table schema, and analysis plan before the
-full evaluation is complete.
+All blue values, Figures~\ref{fig:results} and~\ref{fig:error-decomp}, and the
+appendix funnel/cost/human/error tables are simulated placeholders used to fix
+the paper's hypotheses, reporting schema, and analysis plan before the full
+evaluation is complete.
+
+\subsection{Six experiments, one causal argument}
+The evaluation is ordered so that each experiment licenses the next claim.
+\textbf{Experiment 1 (release validity)} asks whether the engine can produce a
+complete 200-item build satisfying the machine contract and an independent
+five-expert audit.
+\textbf{Experiment 2 (agent diagnosis)} measures CB, WS, and OR performance,
+then labels retrieval traces; it separates missing knowledge from search,
+retrieval, and evidence-use failures.
+\textbf{Experiment 3 (generation ablation)} removes evidence-first proposal,
+self-check, or rejection memory to test whether L0 actually reshapes the
+candidate distribution toward P1/P2 rather than merely producing fluent text.
+\textbf{Experiment 4 (certification ablation)} removes panel diversity or
+early stopping to test, respectively, certificate transfer and computational
+equivalence to exhaustive filtering.
+\textbf{Experiment 5 (visual necessity)} masks, swaps, or removes the image and
+visual gate to test whether performance depends on resolving a visual referent
+rather than on a decorative news photograph.
+\textbf{Experiment 6 (efficiency and stability)} reports calls, dollars, human
+agreement, and matched builds across dates to test whether the mechanism is
+practical and whether its conclusions persist beyond one news cycle.
+Together, Experiments 1--2 establish validity and the scientific phenomenon;
+Experiments 3--5 identify why it occurs; Experiment 6 tests whether the result
+is affordable, reproducible, and temporally stable.
 
 \subsection{Agents and protocol}
 The target study compares proprietary search-native agents and open-weight
@@ -409,7 +492,7 @@ Primary evaluation uses one 200-item on-demand build; the final submission
 will repeat it across multiple build dates and report bootstrap confidence
 intervals and paired McNemar tests.
 
-\subsection{Main result: retrieval is the limiting stage}
+\subsection{Experiments 1--2: release validity and agent diagnosis}
 \begin{table}[t]
 \centering
 \small
@@ -450,6 +533,20 @@ model-dependent retrieval gap. Replace with measured runs before submission.}
 \label{tab:main}
 \end{table}
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig5_error_decomposition.pdf}
+  \caption{\textbf{Simulated placeholder error decomposition.} Each incorrect
+  WS answer is labeled from the retrieval trace: \emph{retrieval miss} if no
+  answer-bearing source is retrieved; \emph{distraction} if such a source is
+  retrieved but a conflicting passage drives the answer; \emph{utilization}
+  if the relevant evidence is retrieved but misread or not synthesized; and
+  \emph{other} for tool failure or unclassifiable traces. The simulated macro
+  share of retrieval misses is \placeholder{67.8\%}; this claim must be
+  replaced by labels from logged runs before submission.}
+  \label{fig:error-decomp}
+\end{figure}
+
 The intended headline is not that the best model scores
 \placeholder{77.0\%}, but that it reaches only \placeholder{74.0\%} of its
 own certified headroom.
@@ -465,6 +562,15 @@ rankings are driven primarily by search execution.
 The scientific claim does not depend on which proprietary model wins; it
 depends on the separation between the three conditions and on whether trace
 labels explain the remaining gap.
+An OR--WS gap alone cannot establish that retrieval is limiting: failure may
+occur after relevant evidence was retrieved.
+Accordingly, we make the stronger statement only if Figure~\ref{fig:error-decomp}
+shows that retrieval-miss traces form the majority, with bootstrap intervals
+over items, and if the held-out oracle remains near ceiling.
+The simulated decomposition assigns \placeholder{67.8\%} of WS errors to
+retrieval miss versus \placeholder{32.2\%} to all post-retrieval and other
+causes combined; Appendix~\ref{app:errors} gives the operational labels and
+worked traces.
 
 \begin{figure}[t]
   \centering
@@ -474,35 +580,55 @@ labels explain the remaining gap.
   \label{fig:results}
 \end{figure}
 
-\subsection{Ablations that test the method story}
-The following experiments test the mechanism, not only the leaderboard.
-\begin{enumerate}[leftmargin=*,itemsep=2pt]
-  \item \textbf{Question-first vs.\ evidence-first:} compare oracle rejection,
-  evidence-entailment audit, and answer-span errors.
-  \item \textbf{No self-check / no constitution memory:} measure candidates
-  sent to L1/L2, closed-book rejection, final yield, and dollars per accepted
-  item.
-  \item \textbf{Single filter vs.\ heterogeneous panel:} measure P1/P2
-  violations found by held-out model families.
-  \item \textbf{No image gate:} human-rate image--article mismatch and
-  questions answerable without looking at the image.
-  \item \textbf{No early stopping:} confirm identical accepted sets while
-  measuring saved panel calls.
-\end{enumerate}
-Our preregistered draft expectation is that the L0/L1 cascade reduces
-verification calls by approximately \placeholder{60\%} at unchanged final
-admission, but this number remains a design estimate until a matched run is
-completed.
+\subsection{Experiment 3: generation ablation}
+We hold the article pool, images, quality module, and target size fixed and
+compare four proposal policies: the full generator, question-first generation,
+no same-call closed-book self-check, and no rejection-memory constitution.
+The primary outcomes are P0/P1/P2 conditional yield and verified items per
+1,000 generated candidates; secondary outcomes are evidence-span errors,
+closed-book rejections, panel calls, and dollars per release.
+This experiment is necessary because final validity alone cannot show whether
+the proposed L0 design is useful: an arbitrarily wasteful generator could also
+feed a strict verifier until 200 items survive.
 
-\subsection{Robustness and human validation}
-We will regenerate matched splits with the generator and certification model
-families swapped, evaluate ranking stability, and audit 100 items for answer
-correctness, image--question match, evidence sufficiency, and search
-necessity.
-Three annotators will label independently; we will report majority accuracy
-and agreement rather than only model-based audit scores.
-A noise track injects same-day topical and stale look-alike passages into the
-oracle context to quantify distraction separately from retrieval.
+\subsection{Experiment 4: certification ablation}
+We compare a single judge, a same-family panel, and the heterogeneous
+construction panel, then evaluate every admitted item with frozen held-out
+model families.
+The key transfer statistic is held-out CB leakage: the fraction of released
+items that a model excluded from construction answers correctly without
+search; we also report held-out oracle failure.
+Thus ``P1 generalizes beyond the construction panel'' means only that held-out
+models retain low CB accuracy---not that Equation~\ref{eq:p1} is a universal
+proof.
+A matched exhaustive run verifies that logical early stopping produces the
+same accepted-set hash as all-at-once evaluation while reducing calls.
+
+\subsection{Experiment 5: is the image really necessary?}
+Four interventions distinguish visual grounding from decorative imagery:
+(i) remove the image, (ii) mask the identity-bearing region, (iii) swap in a
+same-topic image, and (iv) build without the visual gate.
+Valid items should lose accuracy under removal/masking, fail predictably under
+swaps, and preserve high oracle accuracy when the correct image is restored.
+Humans additionally label whether the image resolves the omitted referent and
+whether the question remains uniquely searchable without it.
+This experiment is essential because high image--article similarity alone does
+not establish causal image use.
+
+\subsection{Experiment 6: efficiency, human validity, and time}
+We report the complete construction funnel, calls, tokens, latency, and dollars
+per accepted item for the cascade and exhaustive baseline.
+Our preregistered draft expectation is approximately \placeholder{60\%} fewer
+verification calls at an identical accepted-set hash, but this remains a
+design estimate until a matched run is complete.
+Five experts independently review all 200 items for answer correctness,
+evidence sufficiency, image--article alignment, visual necessity, search
+necessity, and overall acceptability; Appendix~\ref{app:human} gives the
+annotation protocol and explicitly simulated table schema.
+Finally, matched builds across dates report category mix, answer-type mix,
+panel yield, agent ranking correlation, and metric variance.
+A noise track injects same-day topical and stale look-alike passages to quantify
+distraction separately from retrieval.
 
 \section{Limitations and Validity}
 P1 is empirical and panel-relative: a stronger future model may know an item
@@ -565,6 +691,240 @@ The release validator requires:
 (vi) question--image score at least 2/4;
 (vii) two consistent grounding samples;
 and (viii) complete P1/P2 traces for all panel members.
+
+\section{Answer-Equivalence Protocol}
+\label{app:eq}
+Table~\ref{tab:eq-examples} makes the grading boundary concrete.
+The current fast path applies the normalizer described in
+Section~\ref{sec:method}, accepts normalized equality, rejects unequal numeric
+token sets, and accepts long normalized containment only when numeric tokens
+agree.
+All remaining cases go to a temperature-zero semantic judge; the primary
+judge and provider-diverse fallback receive no evidence, retrieval trace,
+candidate stage, or model identity.
+The final release manifest will record whether a decision came from
+\texttt{normalized-exact}, \texttt{numeric-reject},
+\texttt{containment}, or \texttt{semantic-judge}.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{.23\linewidth}p{.23\linewidth}p{.13\linewidth}p{.31\linewidth}}
+\toprule
+Gold & Prediction & Verdict & Reason\\
+\midrule
+\$1.2 billion & 1.2 billion & correct & currency punctuation normalized\\
+1.2 billion & 1.2 million & incorrect & scale changes the value\\
+May 28, 2027 & 28 May 2027 & correct & same day after semantic check\\
+May 2027 & May 28, 2027 & incorrect & date granularity differs\\
+New York City & NYC & correct & entity alias after semantic check\\
+12 km & 12 miles & incorrect & unit differs\\
+\bottomrule
+\end{tabular}
+\caption{Normative equivalence examples. No approximate numeric tolerance is
+used; equivalent unit conversions must be exact and explicitly recognized.}
+\label{tab:eq-examples}
+\end{table}
+
+\section{Construction Algorithm, Funnel, and Rejections}
+\label{app:construction}
+
+\refstepcounter{algorithm}\label{alg:construction}
+\noindent\fbox{\begin{minipage}{.95\linewidth}
+\textbf{Algorithm \thealgorithm: Certificate-preserving construction}
+\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=4pt]
+  \item Crawl timestamped English articles inside the freshness window;
+  retain a fetchable lead/body image and deduplicate articles and images.
+  \item Generate $(q,a,e)$ evidence-first. Reject candidates that fail the
+  same-call self-check, output schema, event-specificity, or exact-span rules.
+  \item Apply P0/L1 deterministic, image--article, question--image, and two
+  omitted-referent audits. Never repair a failed candidate.
+  \item Evaluate P1 in cheap-to-expensive order. If any model/sample answers
+  correctly closed-book, assign $\mathsf{N}$ and stop; otherwise retain all 12
+  failures as the P1 certificate.
+  \item Evaluate P2. If any model/sample fails with gold evidence, assign
+  $\mathsf{S}$ and stop; otherwise retain all 12 successes as the P2
+  certificate.
+  \item Apply L3 deduplication and composition rules. Continue until 200 items
+  survive, validate the complete temporary build, then atomically promote it.
+  \item Publish the items, source snapshot, prompts, predictions, stage log,
+  run manifest, and aggregate call/cost report.
+\end{enumerate}
+\end{minipage}}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrp{.37\linewidth}}
+\toprule
+Stage & Survivors & Conditional yield & Dominant terminal rejection\\
+\midrule
+Fresh articles & \placeholder{1,200} & --- & no usable/deduplicated image\\
+Generated candidates & \placeholder{820} & \placeholder{68.3\%} & $\mathsf{G}$ format/self-check\\
+P0/L1 pass & \placeholder{470} & \placeholder{57.3\%} & $\mathsf{F,V,E}$ freshness/grounding/evidence\\
+P1 pass & \placeholder{285} & \placeholder{60.6\%} & $\mathsf{N}$ closed-book leakage\\
+P2 pass & \placeholder{236} & \placeholder{82.8\%} & $\mathsf{S}$ oracle failure\\
+Released & \placeholder{200} & \placeholder{84.7\%} & $\mathsf{D}$ duplicate/quota\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Simulated construction funnel.} Counts illustrate the exact
+table to export from the immutable run manifest; they are not measurements.}
+\label{tab:funnel}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lp{.28\linewidth}p{.55\linewidth}}
+\toprule
+Code & Meaning & Representative raw reasons\\
+\midrule
+$\mathsf{G}$ & Generation/format & parse or missing field, answer type/length,
+question form/language, generator self-reject\\
+$\mathsf{F}$ & Fresh-event specificity & historical/background question,
+non-event cue, stable attribute, fresh fact not central\\
+$\mathsf{V}$ & Visual grounding & image--article mismatch, image-only answer,
+omitted referent not resolved or not necessary\\
+$\mathsf{E}$ & Evidence/answer span & evidence not verbatim, answer number absent,
+ambiguous or unsupported visual claim\\
+$\mathsf{N}$ & Search necessity (P1) & self-check answerable, any construction-panel
+closed-book success, closed-book API failure\\
+$\mathsf{S}$ & Evidence sufficiency (P2) & any construction-panel oracle failure or
+unresolved equivalence decision\\
+$\mathsf{D}$ & Release composition & perceptual/question duplicate, language or
+quantitative quota, category cap\\
+\bottomrule
+\end{tabular}
+\caption{Typed rejection taxonomy. The public log retains both this stable
+group and the implementation-level raw reason.}
+\label{tab:taxonomy}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+Verifier & Calls/build & Calls/release & API cost/build\\
+\midrule
+Exhaustive panel & \placeholder{18,920} & \placeholder{94.6} & \placeholder{\$18.20}\\
+Logical cascade & \placeholder{7,610} & \placeholder{38.1} & \placeholder{\$7.32}\\
+Relative change & \placeholder{$-59.8\%$} & \placeholder{$-59.8\%$} & \placeholder{$-59.8\%$}\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Simulated efficiency schema.} The implied cascade cost is
+\placeholder{\$0.0366} per released item. Pricing, cached tokens, retries, and
+failed requests must be exported per provider for the measured table.}
+\label{tab:cost}
+\end{table}
+
+\section{Five-Expert Human Audit}
+\label{app:human}
+Five experts independently inspect all 200 released items while blinded to
+generator confidence and panel decisions.
+For each item they answer six binary questions: gold answer correctness,
+evidence sufficiency, image--article alignment, whether the image resolves the
+question's omitted referent, whether finding the answer requires current web
+information, and overall acceptability.
+An item passes only if at least three of five experts answer yes to every
+dimension.
+We report the full $200\times5$ rating matrix, per-dimension positive rate,
+item-level majority pass, Fleiss' $\kappa$, and disagreement notes.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrr}
+\toprule
+Criterion & Positive judgments / 1,000 & Fleiss' $\kappa$\\
+\midrule
+Answer correctness & \placeholder{996 (99.6\%)} & \placeholder{.92}\\
+Evidence sufficiency & \placeholder{994 (99.4\%)} & \placeholder{.90}\\
+Image--article alignment & \placeholder{998 (99.8\%)} & \placeholder{.95}\\
+Image resolves omitted referent & \placeholder{982 (98.2\%)} & \placeholder{.86}\\
+Search necessity & \placeholder{975 (97.5\%)} & \placeholder{.83}\\
+Overall acceptability & \placeholder{971 (97.1\%)} & \placeholder{.84}\\
+\midrule
+Items passing majority on every criterion & \placeholder{200 / 200} & ---\\
+Items with unanimous overall acceptance & \placeholder{176 / 200} & ---\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Simulated placeholder human audit.} These values demonstrate
+the reporting format and must be replaced by the archived expert rating
+matrix; they are not empirical evidence.}
+\label{tab:human}
+\end{table}
+
+\section{Error-Trace Protocol and Worked Examples}
+\label{app:errors}
+For each incorrect WS answer, the trace adjudicator first determines whether
+any retrieved document contains an answer-bearing span equivalent to the gold
+evidence.
+If not, the label is retrieval miss.
+If supporting evidence is present but the response follows a retrieved,
+conflicting span, the label is distraction.
+If supporting evidence is present and no conflicting span explains the error,
+the label is utilization.
+Tool/API failures and unresolved cases are other.
+Adjudicators see the frozen trace but not the agent name; a stratified sample is
+double-labeled to report agreement.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lp{.29\linewidth}p{.29\linewidth}p{.20\linewidth}}
+\toprule
+Case & Retrieval trace & Answer behavior & Label\\
+\midrule
+A & Top-10 contains only older event pages; no gold-equivalent span & Agent
+copies the prior event's number & Retrieval miss\\
+B & Gold span at rank 4; stale conflicting number at rank 1 & Agent cites the
+rank-1 number & Distraction\\
+C & Gold span at rank 2 contains the exact amount and unit & Agent returns a
+nearby number from the same paragraph & Utilization\\
+D & Search endpoint times out before a result page is opened & No grounded
+answer is produced & Other\\
+\bottomrule
+\end{tabular}
+\caption{Synthetic worked traces illustrating mutually exclusive operational
+labels. These are examples, not observations from the benchmark run.}
+\label{tab:trace-examples}
+\end{table}
+
+\begin{table}[h]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrr}
+\toprule
+Agent & Retrieval miss & Distraction & Utilization & Other\\
+\midrule
+Claude Opus 5 & \placeholder{56} & \placeholder{13} & \placeholder{24} & \placeholder{7}\\
+GPT-5.5 & \placeholder{61} & \placeholder{12} & \placeholder{20} & \placeholder{7}\\
+Gemini 3.1 Pro & \placeholder{58} & \placeholder{16} & \placeholder{19} & \placeholder{7}\\
+Qwen3.7 Plus & \placeholder{66} & \placeholder{11} & \placeholder{17} & \placeholder{6}\\
+GLM-5V Turbo & \placeholder{64} & \placeholder{14} & \placeholder{16} & \placeholder{6}\\
+Qwen3.7 Flash & \placeholder{68} & \placeholder{11} & \placeholder{15} & \placeholder{6}\\
+Qwen3-VL-32B & \placeholder{71} & \placeholder{9} & \placeholder{13} & \placeholder{7}\\
+Qwen3-VL-235B & \placeholder{69} & \placeholder{12} & \placeholder{13} & \placeholder{6}\\
+Llama-4 Maverick & \placeholder{73} & \placeholder{8} & \placeholder{12} & \placeholder{7}\\
+Qwen3-VL-8B & \placeholder{76} & \placeholder{7} & \placeholder{10} & \placeholder{7}\\
+Qwen3-VL-30B-A3B & \placeholder{74} & \placeholder{8} & \placeholder{11} & \placeholder{7}\\
+Llama-4 Scout & \placeholder{78} & \placeholder{6} & \placeholder{9} & \placeholder{7}\\
+\midrule
+Macro average & \placeholder{67.8} & \placeholder{10.6} & \placeholder{14.9} & \placeholder{6.7}\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Simulated error decomposition} (\% of incorrect WS items).
+Rows sum to 100 up to rounding. Replace with logged trace labels and bootstrap
+confidence intervals.}
+\label{tab:error-full}
+\end{table}
 
 \section{Reviewer-Facing Trust Checklist}
 \begin{enumerate}[leftmargin=*]

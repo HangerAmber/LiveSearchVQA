@@ -29,11 +29,17 @@ Measured and already implemented:
 - exact evidence and numeric-span checks;
 - strict image/article and referent-grounding audits;
 - three-model x four-sample P1/P2 certification;
+- conservative normalized/numeric matching with a semantic-judge fallback;
 - cascade early stopping, atomic validation, demo generation.
 
 Still simulated or planned:
 
-- the 12-agent main-result table and Figure 4;
+- the 12-agent main-result table and main-results figure;
+- the error-decomposition figure and full
+  retrieval/distraction/utilization labels;
+- the construction-funnel counts, calls, costs, and conditional pass rates;
+- the five-expert human-audit table (the paper currently contains a clearly
+  labeled simulated reporting schema, not an archived rating matrix);
 - the claimed approximately 60% matched cost reduction;
 - multi-day stability, human audit, panel-swap/cross-generator robustness;
 - distraction/noise stress results;
@@ -50,8 +56,9 @@ Still simulated or planned:
 - When the official 2027 kit is released, replace the official style/BST files
   and change the two `iclr2026_conference` references in `main.tex`; do not
   modify the conference style itself.
-- Blue numbers and Figure 4 remain simulated planning values and must be
-  replaced by reproducible logs before submission.
+- Blue numbers, the main-results and error-decomposition figures, and the
+  appendix funnel/cost/human/error tables remain simulated planning values and
+  must be replaced by reproducible logs before submission.
 
 ## Experiments needed to close the story
 
@@ -61,8 +68,11 @@ Still simulated or planned:
    accepted sets are identical while panel calls decrease.
 3. Use held-out model families to estimate how well P1/P2 generalize beyond the
    construction panel.
-4. Conduct a three-annotator audit of answer correctness, visual grounding,
-   evidence sufficiency, and search necessity.
+4. Archive the completed five-expert, 200-item rating matrix and compute
+   per-dimension positive rates, majority-pass rates, Fleiss' kappa, and
+   disagreement notes using the appendix protocol.
 5. Evaluate agents over multiple dated builds with frozen retrieval snapshots,
    confidence intervals, paired significance tests, and trace-based error
    decomposition.
+6. Export one immutable construction manifest with per-stage survivors,
+   rejection codes, calls, tokens, latency, and provider-reported cost.
