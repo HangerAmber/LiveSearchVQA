@@ -29,6 +29,10 @@ jobs:
         env:
           ARK_API_KEY: ${{ secrets.ARK_API_KEY }}
           QWEN_API_KEY: ${{ secrets.QWEN_API_KEY }}
+          ARK_MAX_CONCURRENCY: "2"
+          QWEN_MAX_CONCURRENCY: "2"
+          ARK_REQUEST_TIMEOUT: "60"
+          QWEN_REQUEST_TIMEOUT: "60"
           LSVQA_CERT_SAMPLES: "4"
           LSVQA_ENGLISH_RATIO: "0.85"
           LSVQA_QUANT_RATIO: "0.65"

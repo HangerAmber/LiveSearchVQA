@@ -41,6 +41,10 @@ QWEN_KEY = _load_key()
 CURL_BIN = "curl.exe" if os.name == "nt" else "curl"
 _requests_broken = False
 _lock = threading.Lock()
+_max_concurrency = max(1, int(os.environ.get("QWEN_MAX_CONCURRENCY", "2")))
+_api_slots = threading.BoundedSemaphore(_max_concurrency)
+_request_timeout = max(20, int(os.environ.get("QWEN_REQUEST_TIMEOUT", "60")))
+_curl_timeout = _request_timeout + 30
 
 
 def _b64_file(path: str) -> str:
@@ -56,7 +60,7 @@ def _post_requests(body: dict) -> dict:
             "Content-Type": "application/json",
         },
         json=body,
-        timeout=180,
+        timeout=_request_timeout,
     )
     response.raise_for_status()
     return response.json()
@@ -69,12 +73,13 @@ def _post_curl(body: dict) -> dict:
             json.dump(body, f, ensure_ascii=False)
         result = subprocess.run(
             [
-                CURL_BIN, "-sS", "--max-time", "240", "-X", "POST", QWEN_URL,
+                CURL_BIN, "-sS", "--max-time", str(_curl_timeout),
+                "-X", "POST", QWEN_URL,
                 "-H", f"Authorization: Bearer {QWEN_KEY}",
                 "-H", "Content-Type: application/json", "-d", f"@{tmp}",
             ],
             capture_output=True,
-            timeout=260,
+            timeout=_curl_timeout + 20,
         )
         return json.loads(result.stdout.decode("utf-8", errors="replace"))
     finally:
@@ -97,8 +102,8 @@ def _content_text(data: dict) -> str:
     return str(content or "")
 
 
-def _call(messages, model: str, temperature=0.1, max_tokens=1024,
-          retries=3, json_object=False) -> str:
+def _call_inner(messages, model: str, temperature=0.1, max_tokens=1024,
+                retries=3, json_object=False) -> str:
     """Call a Qwen model through the OpenAI-compatible Chat API."""
     global _requests_broken
     if not QWEN_KEY:
@@ -136,6 +141,16 @@ def _call(messages, model: str, temperature=0.1, max_tokens=1024,
         time.sleep(2.0 * (attempt + 1))
     print("[qwen api fail]", str(last_err)[:240])
     return ""
+
+
+def _call(messages, model: str, temperature=0.1, max_tokens=1024,
+          retries=3, json_object=False) -> str:
+    """Call DashScope behind a small process-wide concurrency cap."""
+    with _api_slots:
+        return _call_inner(
+            messages, model=model, temperature=temperature,
+            max_tokens=max_tokens, retries=retries, json_object=json_object,
+        )
 
 
 def call_text(prompt: str, model=TEXT_MODEL, **kwargs) -> str:

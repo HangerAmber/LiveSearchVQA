@@ -37,6 +37,10 @@ ARK_KEY = _load_key()
 
 _requests_broken = False
 _lock = threading.Lock()
+_max_concurrency = max(1, int(os.environ.get("ARK_MAX_CONCURRENCY", "2")))
+_api_slots = threading.BoundedSemaphore(_max_concurrency)
+_request_timeout = max(20, int(os.environ.get("ARK_REQUEST_TIMEOUT", "60")))
+_curl_timeout = _request_timeout + 30
 
 
 def _b64_file(path: str) -> str:
@@ -59,7 +63,7 @@ def _post_requests(body: dict) -> dict:
         ARK_URL,
         headers={"Authorization": f"Bearer {ARK_KEY}",
                  "Content-Type": "application/json"},
-        json=body, timeout=120,
+        json=body, timeout=_request_timeout,
     )
     return r.json()
 
@@ -73,18 +77,19 @@ def _post_curl(body: dict) -> dict:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
             json.dump(body, f, ensure_ascii=False)
         r = subprocess.run(
-            [CURL_BIN, "-s", "--max-time", "180", "-X", "POST", ARK_URL,
+            [CURL_BIN, "-s", "--max-time", str(_curl_timeout),
+             "-X", "POST", ARK_URL,
              "-H", f"Authorization: Bearer {ARK_KEY}",
              "-H", "Content-Type: application/json",
              "-d", f"@{tmp}"],
-            capture_output=True, timeout=200,
+            capture_output=True, timeout=_curl_timeout + 20,
         )
         return json.loads(r.stdout.decode("utf-8", errors="replace"))
     finally:
         os.unlink(tmp)
 
 
-def _call(content, temperature=0.1, max_tokens=1024, retries=3) -> str:
+def _call_inner(content, temperature=0.1, max_tokens=1024, retries=3) -> str:
     global _requests_broken
     body = {
         "model": MODEL,
@@ -118,6 +123,19 @@ def _call(content, temperature=0.1, max_tokens=1024, retries=3) -> str:
         time.sleep(1.5 * (i + 1))
     print("[api fail]", str(last_err)[:200])
     return ""
+
+
+def _call(content, temperature=0.1, max_tokens=1024, retries=3) -> str:
+    """Call ARK with a small process-wide concurrency cap.
+
+    The responses endpoint becomes unreliable under bursty image requests on
+    this pipeline.  Limiting only ARK calls keeps Qwen audits parallel while
+    preventing empty-response storms; it does not change any certification
+    sample or acceptance rule.
+    """
+    with _api_slots:
+        return _call_inner(content, temperature=temperature,
+                           max_tokens=max_tokens, retries=retries)
 
 
 def _parse(txt: str):

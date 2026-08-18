@@ -12,12 +12,12 @@ image-bearing news published within 48 hours. Each record includes a short
 answer, verbatim evidence, source provenance, image-alignment audits, and the
 complete closed-book/oracle certification trace.
 
-Measured properties of the 2026-08-15 build:
+Measured properties of the 2026-08-18 build:
 
 - 200 items, 200 unique images, and 200 unique questions;
-- 100% English-language sources;
-- 157/200 (78.5%) numeric or temporal questions;
-- 23 source domains and five broad categories;
+- 171/200 (85.5%) English-language sources;
+- 155/200 (77.5%) numeric or temporal questions;
+- 29 source domains and six broad categories;
 - image--article match at least 4/4 and question--image grounding at least 2/4;
 - three certification models, four samples per condition;
 - offline validator: PASS with zero errors and zero warnings.

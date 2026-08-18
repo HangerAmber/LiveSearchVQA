@@ -96,7 +96,7 @@ def prune_to_published_split():
         with open(article_path, encoding="utf-8") as f:
             articles = json.load(f)
         articles = [a for a in articles if a.get("id") in keep_articles]
-        with open(article_path, "w", encoding="utf-8") as f:
+        with open(article_path, "w", encoding="utf-8", newline="\n") as f:
             json.dump(articles, f, ensure_ascii=False, indent=1)
     print(f"[prune] removed {removed} images; kept {len(keep_images)} "
           "current/archive images")

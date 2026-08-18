@@ -53,6 +53,8 @@ FUTURE_TOLERANCE_HOURS = 6
 CERT_SAMPLES = max(1, int(os.environ.get("LSVQA_CERT_SAMPLES", "4")))
 TARGET_ENGLISH_RATIO = float(os.environ.get("LSVQA_ENGLISH_RATIO", "0.85"))
 TARGET_QUANT_RATIO = float(os.environ.get("LSVQA_QUANT_RATIO", "0.65"))
+BUILD_DATE = os.environ.get("LSVQA_BUILD_DATE", "").strip() or \
+    time.strftime("%Y-%m-%d")
 QUESTION_SIM_THRESHOLD = 0.76
 MATCH_SCORE_MIN = 3
 
@@ -634,7 +636,7 @@ def process_article(article, stats):
         "article_title": article["title"],
         "pub_date": article.get("pub_date"),
         "crawl_time": article["crawl_time"],
-        "build_date": time.strftime("%Y-%m-%d"),
+        "build_date": BUILD_DATE,
         "image_summary": candidate["image_summary"],
         "visual_anchor": candidate["visual_anchor"],
         "visual_anchor_type": candidate["visual_anchor_type"],
@@ -676,17 +678,22 @@ def _interleave_category(articles):
     return output
 
 
+def _within_freshness_window(record, now=None):
+    now = now or datetime.now(timezone.utc)
+    try:
+        dt = datetime.fromisoformat(record.get("pub_date") or "")
+        age = now - dt.astimezone(timezone.utc)
+    except Exception:
+        return False
+    return (-timedelta(hours=FUTURE_TOLERANCE_HOURS) <= age <=
+            timedelta(hours=FRESH_HOURS))
+
+
 def _fresh_articles(all_articles):
     now = datetime.now(timezone.utc)
     output = []
     for article in all_articles:
-        try:
-            dt = datetime.fromisoformat(article.get("pub_date") or "")
-            age = now - dt.astimezone(timezone.utc)
-        except Exception:
-            continue
-        if not (-timedelta(hours=FUTURE_TOLERANCE_HOURS) <= age <=
-                timedelta(hours=FRESH_HOURS)):
+        if not _within_freshness_window(article, now=now):
             continue
         article = dict(article)
         article["canonical_category"] = CATEGORY_MAP.get(
@@ -704,7 +711,7 @@ def _fresh_articles(all_articles):
 
 def _atomic_json(path, value):
     tmp = path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         json.dump(value, f, ensure_ascii=False, indent=1)
     os.replace(tmp, path)
 
@@ -726,6 +733,14 @@ def build(target=200, workers=8, output_name="benchmark_v2.next.json",
     if resume and os.path.exists(output_path):
         with open(output_path, encoding="utf-8") as f:
             bench = json.load(f)
+        before = len(bench)
+        now = datetime.now(timezone.utc)
+        bench = [item for item in bench
+                 if _within_freshness_window(item, now=now)]
+        if len(bench) != before:
+            print(f"[resume] removed {before-len(bench)} stale checkpoint items; "
+                  f"{len(bench)} remain")
+            _atomic_json(output_path, bench)
     elif not resume:
         for stale in (output_path, stats_path):
             if os.path.exists(stale):
@@ -734,7 +749,7 @@ def build(target=200, workers=8, output_name="benchmark_v2.next.json",
     articles = [a for a in articles if a["id"] not in used_articles]
 
     stats = {
-        "build_date": time.strftime("%Y-%m-%d"),
+        "build_date": BUILD_DATE,
         "target": target,
         "certification_profile": f"3-model-x-{CERT_SAMPLES}",
         "panel": [m["id"] for m in PANEL],

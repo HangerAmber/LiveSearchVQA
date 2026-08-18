@@ -375,7 +375,7 @@ _hash_registry = _load_hash_registry()
 
 def _save_hash_registry():
     with _hash_lock:
-        with open(HASH_REG_PATH, "w", encoding="utf-8") as f:
+        with open(HASH_REG_PATH, "w", encoding="utf-8", newline="\n") as f:
             json.dump({k: format(v, "x") for k, v in _hash_registry.items()},
                       f, indent=0)
 
@@ -553,7 +553,7 @@ def crawl(max_articles=1400):
         # Cancel queued URLs after the target is reached; wait only for the
         # small set that had already started.
         ex.shutdown(wait=True, cancel_futures=True)
-    with open(out, "w", encoding="utf-8") as fp:
+    with open(out, "w", encoding="utf-8", newline="\n") as fp:
         json.dump(articles, fp, ensure_ascii=False, indent=1)
     _save_hash_registry()
     print(f"[done] +{new_count} new, {len(articles)} total -> {out}")
