@@ -1,0 +1,1384 @@
+[
+ {
+  "id": "b8e031a930fd-0",
+  "article_id": "b8e031a930fd",
+  "image": "images/b8e031a930fd.jpg",
+  "question": "What percentage surge did the manufacturer of the pictured demonstration robots see on its first day of public trading?",
+  "answer": "more than 460%",
+  "answer_type": "numeric",
+  "is_quantitative": true,
+  "evidence": "Shares in Unitree, one of China's largest manufacturers of humanoid robots, closed their first day of trading by more than 460%, showing strong investor appetite for China's robotics sector.",
+  "category": "business",
+  "source_category": "business",
+  "source": "fortune",
+  "source_language": "en",
+  "article_url": "https://fortune.com/2026/08/19/unitree-china-dancing-robots-ipo-trading-surge-valuation/",
+  "article_title": "Unitree, famous for its dancing robots, surges by 460% on its trading debut, lifting valuation to $66 billion, far ahead of U.S. competitors",
+  "pub_date": "2026-08-19T12:51:35+00:00",
+  "crawl_time": "2026-08-19T21:28:02.958871+08:00",
+  "build_date": "2026-08-19",
+  "image_summary": "Two Unitree humanoid robots wearing boxing gloves perform a fighting demonstration inside a fenced exhibition area, with a crowd of onlookers observing from behind the barrier.",
+  "visual_anchor": "Unitree robot fighting demonstration at an exhibition",
+  "visual_anchor_type": "event_scene",
+  "event_fact": "Unitree's shares surged 460% on its trading debut on August 19, 2026, lifting its valuation to $66 billion, the same date this robot demonstration was held.",
+  "freshness_relation": "new_result",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 3,
+   "event_specificity": 4,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 4,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image clearly depicts Unitree robots (labeled 'UNITREE' on the helmet), matching the article's subject. The question asks for a specific financial statistic ('percentage surge') which is not visible in the image and requires reading the article text. The image grounds the entity 'Unitree' but does not provide the answer itself. The question is clear and specific about the event (first day of trading)."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "Unitree",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Unitree",
+     "grounding_reason": "The question asks about 'the manufacturer of the pictured demonstration robots'; the image shows Unitree robots but doesn't name Unitree, so the manufacturer is omitted and required to search for its first-day trading surge."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Unitree",
+     "grounding_reason": "The question asks about 'the manufacturer of the pictured demonstration robots', but 'Unitree' is not named in the text—only visually implied by the robots' branding and context."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: 460%",
+   "qwen3.5-flash: 460%",
+   "qwen3.5-flash: 460%",
+   "qwen3.5-flash: 460%",
+   "qwen3-vl-plus: 460%",
+   "qwen3-vl-plus: 460%",
+   "qwen3-vl-plus: 460%",
+   "qwen3-vl-plus: 460%",
+   "doubao-seed-2.0-pro: 460%",
+   "doubao-seed-2.0-pro: 460%",
+   "doubao-seed-2.0-pro: 460%",
+   "doubao-seed-2.0-pro: 460%"
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "qwen3-vl-plus": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "doubao-seed-2.0-pro": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "460%",
+     "460%",
+     "460%",
+     "460%"
+    ],
+    "qwen3-vl-plus": [
+     "460%",
+     "460%",
+     "460%",
+     "460%"
+    ],
+    "doubao-seed-2.0-pro": [
+     "460%",
+     "460%",
+     "460%",
+     "460%"
+    ]
+   }
+  },
+  "showcase_rank": 1,
+  "showcase_theme": "Public markets",
+  "showcase_note": "A first-day stock surge tied to the robot manufacturer identified by the demonstration image."
+ },
+ {
+  "id": "bad0e26546ff-0",
+  "article_id": "bad0e26546ff",
+  "image": "images/bad0e26546ff.jpg",
+  "question": "As of August 18 2026, what chance do Polymarket traders give that the next model from the company behind the app shown on the pictured smartphone will launch by September 15 2026?",
+  "answer": "59%",
+  "answer_type": "numeric",
+  "is_quantitative": true,
+  "evidence": "A market for the most likely release date of OpenAI's upcoming model Astra, the company's internal name for GPT-6, gives a 59% chance of launching by September 15 and roughly 72% by month's end on Polymarket .",
+  "category": "business",
+  "source_category": "business",
+  "source": "decrypt",
+  "source_language": "en",
+  "article_url": "https://decrypt.co/375892/openai-next-ai-model-gpt6-astra-prediction",
+  "article_title": "Markets Confident OpenAI Releases Its Next AI Model in Weeks",
+  "pub_date": "2026-08-18T19:15:26+00:00",
+  "crawl_time": "2026-08-19T21:26:41.823152+08:00",
+  "build_date": "2026-08-19",
+  "image_summary": "A smartphone with the ChatGPT/OpenAI logo displayed on its screen is placed on top of a computer keyboard, with pink graphical overlays on the sides and Decrypt watermark at the bottom left.",
+  "visual_anchor": "Smartphone displaying OpenAI logo",
+  "visual_anchor_type": "object",
+  "event_fact": "Polymarket prediction market traders assign a 59% chance of OpenAI's next model Astra (GPT-6) releasing by September 15, 2026, despite the company pausing its rollout due to cyber safety risks.",
+  "freshness_relation": "new_result",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 4,
+   "event_specificity": 4,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 4,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image features the OpenAI logo on a smartphone screen. The article discusses the release of the next model from OpenAI (GPT-6/Astra). The question asks about the probability of this specific company's next model launching by a certain date. The image is essential to identify 'the company behind the app' as OpenAI, making it a strong grounding element. The answer (59%) is found in the text and requires external knowledge (Polymarket) not visible in the image."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "OpenAI",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "OpenAI",
+     "grounding_reason": "The question refers to 'the company behind the app shown', which is unnamed in text but visually identified as OpenAI via the logo."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "OpenAI",
+     "grounding_reason": "The question refers to 'the company behind the app shown', which is unnamed in text but visually identified as OpenAI via the logo; that company is the answer target for Polymarket odds."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: 59%",
+   "qwen3.5-flash: 59%",
+   "qwen3.5-flash: 59%",
+   "qwen3.5-flash: 59%",
+   "qwen3-vl-plus: 59%",
+   "qwen3-vl-plus: 59%",
+   "qwen3-vl-plus: 59%",
+   "qwen3-vl-plus: 59%",
+   "doubao-seed-2.0-pro: 59%",
+   "doubao-seed-2.0-pro: 59%",
+   "doubao-seed-2.0-pro: 59%",
+   "doubao-seed-2.0-pro: 59%"
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "qwen3-vl-plus": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "doubao-seed-2.0-pro": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "59%",
+     "59%",
+     "59%",
+     "59%"
+    ],
+    "qwen3-vl-plus": [
+     "59%",
+     "59%",
+     "59%",
+     "59%"
+    ],
+    "doubao-seed-2.0-pro": [
+     "59%",
+     "59%",
+     "59%",
+     "59%"
+    ]
+   }
+  },
+  "showcase_rank": 2,
+  "showcase_theme": "AI & prediction markets",
+  "showcase_note": "A time-sensitive launch probability that cannot be recovered from stable model knowledge."
+ },
+ {
+  "id": "fifa-kevin-lamour-20260818-0",
+  "article_id": "fifa-kevin-lamour-20260818",
+  "image": "images/fifa-kevin-lamour-20260818.jpg",
+  "question": "What plan had the pictured FIFA chief operating officer publicly criticized before his August 2026 contract termination was reported?",
+  "answer": "create a semi-private subsidiary of FIFA",
+  "answer_type": "outcome",
+  "is_quantitative": false,
+  "evidence": "In a scathing statement, Lamour criticized Infantino's plan to create a semi-private subsidiary of FIFA, a project Infantino ultimately abandoned on August 1.",
+  "category": "sports",
+  "source_category": "sports",
+  "source": "le-monde",
+  "source_language": "en",
+  "article_url": "https://www.lemonde.fr/en/sports/article/2026/08/18/fifa-s-number-three-fired-after-criticizing-infantino_6756621_9.html",
+  "article_title": "FIFA's number three fired after criticizing Infantino",
+  "pub_date": "2026-08-18T09:24:51+00:00",
+  "crawl_time": "2026-08-19T14:27:54.209930+00:00",
+  "build_date": "2026-08-19",
+  "image_summary": "Kevin Lamour is pictured at center beside UEFA president Aleksander Ceferin at Euro 2024.",
+  "source_image_caption": "Kevin Lamour, then-UEFA deputy general secretary (center), alongside UEFA president Aleksander Ceferin (right), during the Euro in Germany, on June 18, 2024.",
+  "visual_anchor": "Kevin Lamour, the pictured FIFA chief operating officer",
+  "visual_anchor_type": "person",
+  "event_fact": "FIFA terminated Kevin Lamour's contract after he publicly criticized Infantino's governance plan.",
+  "freshness_relation": "current_event",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 4,
+   "event_specificity": 3,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 4,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image correctly depicts the named entities (Lamour and Ceferin) in the context of the article. The question relies on the image to identify 'the pictured FIFA chief operating officer' (Kevin Lamour), as the text does not name him in the query itself. The answer requires external knowledge from the provided article snippet regarding the specific plan criticized."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "Kevin Lamour",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Kevin Lamour",
+     "grounding_reason": "The question refers to 'the pictured FIFA chief operating officer'—but no name is given in text; image is sole source of his identity."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Kevin Lamour",
+     "grounding_reason": "The question refers to 'the pictured FIFA chief operating officer', but Kevin Lamour is not named in the text—image is sole source of his identity."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: to create a semi-private subsidiary of FIFA",
+   "qwen3.5-flash: to create a semi-private subsidiary of FIFA",
+   "qwen3.5-flash: to create a semi-private subsidiary of FIFA",
+   "qwen3.5-flash: to create a semi-private subsidiary of FIFA",
+   "qwen3-vl-plus: Infantino's plan to create a semi-private subsidiary of FIFA",
+   "qwen3-vl-plus: Infantino's plan to create a semi-private subsidiary of FIFA",
+   "qwen3-vl-plus: Infantino's plan to create a semi-private subsidiary of FIFA",
+   "qwen3-vl-plus: Infantino's plan to create a semi-private subsidiary of FIFA",
+   "doubao-seed-2.0-pro: Infantino's plan to create a semi-private subsidiary of FIFA.",
+   "doubao-seed-2.0-pro: Infantino's plan to create a semi-private subsidiary of FIFA.",
+   "doubao-seed-2.0-pro: Infantino's plan to create a semi-private subsidiary of FIFA.",
+   "doubao-seed-2.0-pro: Infantino's plan to create a semi-private subsidiary of FIFA."
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "qwen3-vl-plus": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "doubao-seed-2.0-pro": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "to create a semi-private subsidiary of FIFA",
+     "to create a semi-private subsidiary of FIFA",
+     "to create a semi-private subsidiary of FIFA",
+     "to create a semi-private subsidiary of FIFA"
+    ],
+    "qwen3-vl-plus": [
+     "Infantino's plan to create a semi-private subsidiary of FIFA",
+     "Infantino's plan to create a semi-private subsidiary of FIFA",
+     "Infantino's plan to create a semi-private subsidiary of FIFA",
+     "Infantino's plan to create a semi-private subsidiary of FIFA"
+    ],
+    "doubao-seed-2.0-pro": [
+     "Infantino's plan to create a semi-private subsidiary of FIFA.",
+     "Infantino's plan to create a semi-private subsidiary of FIFA.",
+     "Infantino's plan to create a semi-private subsidiary of FIFA.",
+     "Infantino's plan to create a semi-private subsidiary of FIFA."
+    ]
+   }
+  },
+  "showcase_theme": "World Cup / FIFA governance",
+  "showcase_note": "A deliberately tricky backward reference from a fresh dismissal to an earlier FIFA governance plan.",
+  "showcase_rank": 3
+ },
+ {
+  "id": "0302147dc8b8-showcase",
+  "article_id": "0302147dc8b8",
+  "image": "images/0302147dc8b8.jpg",
+  "question": "What treatable neurological condition was the pictured Bayern Munich player newly reported to have after collapsing twice in four days?",
+  "answer": "absence seizures",
+  "answer_type": "entity",
+  "is_quantitative": false,
+  "evidence": "I have been diagnosed with brief, temporary — but treatable —absence seizures caused by a neurological dysfunction.",
+  "category": "health",
+  "source_category": "health",
+  "source": "cbs-sports",
+  "source_language": "en",
+  "article_url": "https://www.cbssports.com/soccer/news/bayern-munich-star-jamal-musiala-reveals-neurological-condition-collapsing-on-pitch-2026/",
+  "article_title": "Bayern Munich star Jamal Musiala reveals neurological condition resulting in multiple collapses on pitch",
+  "pub_date": "2026-08-18T19:43:20+00:00",
+  "crawl_time": "2026-08-19T14:32:06.811287+00:00",
+  "build_date": "2026-08-19",
+  "image_summary": "Jamal Musiala, pictured at left in a Bayern Munich kit, is escorted from the pitch by team staff.",
+  "source_image_caption": "Bayern Munich player Jamal Musiala (left) leaves the pitch with team staff during a match.",
+  "visual_anchor": "Jamal Musiala, the pictured Bayern Munich player",
+  "visual_anchor_type": "person",
+  "event_fact": "Musiala newly disclosed the treatable neurological condition behind two recent on-pitch collapses.",
+  "freshness_relation": "new_announcement",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 2,
+   "event_specificity": 3,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 4,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image correctly depicts the named entity (Musiala) and event context (leaving pitch with staff). However, the question is under-identified without the image because it refers to 'the pictured Bayern Munich player' rather than naming him directly; thus, the image is necessary to resolve the referent. The answer requires external knowledge not visible in the image."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "Jamal Musiala",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Jamal Musiala",
+     "grounding_reason": "Question refers to 'the pictured Bayern Munich player' without naming him; image is sole source of his identity, required to search for his condition."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Jamal Musiala",
+     "grounding_reason": "The question refers to 'the pictured Bayern Munich player' without naming him; the image is necessary to identify Musiala as the subject of the medical report."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: The pictured player is Jamal Musiala, and the newly reported treatable neurological condition is vas",
+   "doubao-seed-2.0-pro: UNKNOWNN.\n\n### Correction:\nThe pictured player is Jamal Musiala, and the condition reported after hi",
+   "doubao-seed-2.0-pro: Epilepsy"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: absence seizures",
+   "qwen3.5-flash: absence seizures",
+   "qwen3.5-flash: absence seizures",
+   "qwen3.5-flash: absence seizures",
+   "qwen3-vl-plus: brief, temporary — but treatable — absence seizures caused by a neurological dysfunction",
+   "qwen3-vl-plus: brief, temporary — but treatable — absence seizures caused by a neurological dysfunction",
+   "qwen3-vl-plus: brief, temporary — but treatable — absence seizures caused by a neurological dysfunction",
+   "qwen3-vl-plus: brief, temporary — but treatable — absence seizures caused by a neurological dysfunction",
+   "doubao-seed-2.0-pro: Absence seizures caused by a neurological dysfunction.",
+   "doubao-seed-2.0-pro: Absence seizures.",
+   "doubao-seed-2.0-pro: Absence seizures.",
+   "doubao-seed-2.0-pro: Absence seizures."
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "qwen3-vl-plus": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "doubao-seed-2.0-pro": [
+     "UNKNOWN",
+     "The pictured player is Jamal Musiala, and the newly reported treatable neurological condition is vas",
+     "UNKNOWNN.\n\n### Correction:\nThe pictured player is Jamal Musiala, and the condition reported after hi",
+     "Epilepsy"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "absence seizures",
+     "absence seizures",
+     "absence seizures",
+     "absence seizures"
+    ],
+    "qwen3-vl-plus": [
+     "brief, temporary — but treatable — absence seizures caused by a neurological dysfunction",
+     "brief, temporary — but treatable — absence seizures caused by a neurological dysfunction",
+     "brief, temporary — but treatable — absence seizures caused by a neurological dysfunction",
+     "brief, temporary — but treatable — absence seizures caused by a neurological dysfunction"
+    ],
+    "doubao-seed-2.0-pro": [
+     "Absence seizures caused by a neurological dysfunction.",
+     "Absence seizures.",
+     "Absence seizures.",
+     "Absence seizures."
+    ]
+   }
+  },
+  "showcase_theme": "Sports medicine",
+  "showcase_note": "The image identifies the player; current reporting is needed to recover the newly disclosed diagnosis.",
+  "showcase_rank": 4
+ },
+ {
+  "id": "2616d6aa9caa-0",
+  "article_id": "2616d6aa9caa",
+  "image": "images/2616d6aa9caa.jpg",
+  "question": "How many of the pictured electric trucks did freight company Einride announce it would deploy in the largest public order for this vehicle model?",
+  "answer": "500",
+  "answer_type": "numeric",
+  "is_quantitative": true,
+  "evidence": "Einride is putting 500 Tesla Semis on US roads, the largest commitment to Tesla's electric truck that anyone has made public.",
+  "category": "scitech",
+  "source_category": "technology",
+  "source": "electrek",
+  "source_language": "en",
+  "article_url": "https://electrek.co/2026/08/18/einride-500-tesla-semi-deployment-largest-order/",
+  "article_title": "Einride to deploy 500 Tesla Semis in biggest electric truck order yet",
+  "pub_date": "2026-08-18T13:29:22+00:00",
+  "crawl_time": "2026-08-18T22:37:11.298283+08:00",
+  "build_date": "2026-08-19",
+  "image_summary": "Three Tesla Semi electric trucks are parked inside a large industrial warehouse/factory space.",
+  "visual_anchor": "Tesla Semi electric trucks",
+  "visual_anchor_type": "object",
+  "event_fact": "Einride announced an order of 500 Tesla Semis, the largest public order for the vehicle to date, for deployment across five US states.",
+  "freshness_relation": "new_announcement",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 2,
+   "event_specificity": 4,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 4,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image clearly depicts the Tesla Semi trucks mentioned in the article title and text. The question asks for a specific number (500) which is the central fact of the news story. While the question mentions 'pictured electric trucks', the answer itself (the quantity ordered) cannot be derived from counting the three visible trucks in the warehouse; it requires reading the article. Therefore, the image provides context/grounding but is not strictly necessary to resolve the referent if the entity name 'Tesla Semis' is already known, though it helps confirm the subject matter."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "Tesla Semi electric trucks",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Tesla Semi electric trucks",
+     "grounding_reason": "Question asks about 'the pictured electric trucks', but 'Tesla Semi' is not named in text—image is sole source of vehicle model identity needed to search for Einride's order."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Einride",
+     "grounding_reason": "Einride is unnamed in the question but is the subject whose announcement must be searched; image anchors the vehicle but not the company."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: 500",
+   "qwen3.5-flash: 500",
+   "qwen3.5-flash: 500",
+   "qwen3.5-flash: 500",
+   "qwen3-vl-plus: 500",
+   "qwen3-vl-plus: 500",
+   "qwen3-vl-plus: 500",
+   "qwen3-vl-plus: 500",
+   "doubao-seed-2.0-pro: 500.",
+   "doubao-seed-2.0-pro: 500",
+   "doubao-seed-2.0-pro: 500",
+   "doubao-seed-2.0-pro: 500."
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "qwen3-vl-plus": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "doubao-seed-2.0-pro": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "500",
+     "500",
+     "500",
+     "500"
+    ],
+    "qwen3-vl-plus": [
+     "500",
+     "500",
+     "500",
+     "500"
+    ],
+    "doubao-seed-2.0-pro": [
+     "500.",
+     "500",
+     "500",
+     "500."
+    ]
+   }
+  },
+  "showcase_rank": 5,
+  "showcase_theme": "Electric mobility",
+  "showcase_note": "A record fleet order whose quantity is not visible in the pictured truck."
+ },
+ {
+  "id": "d596e55ceca1-0",
+  "article_id": "d596e55ceca1",
+  "image": "images/d596e55ceca1.jpg",
+  "question": "As of August 2026, how many people have been killed by the Ebola outbreak that the pictured public information sign is warning about in the DRC?",
+  "answer": "2,325",
+  "answer_type": "numeric",
+  "is_quantitative": true,
+  "evidence": "According to local authorities on Monday, the Ebola Bundibugyo outbreak has killed 2,325 people, surpassing the 2,299 deaths recorded in the DRC's 2018-2020 outbreak, previously the most lethal.",
+  "category": "politics",
+  "source_category": "world",
+  "source": "un-news",
+  "source_language": "en",
+  "article_url": "https://news.un.org/feed/view/en/story/2026/08/1168157",
+  "article_title": "Ebola: Motorbike riders carrying the sick may hold key to response boost",
+  "pub_date": "2026-08-18T12:00:00+00:00",
+  "crawl_time": "2026-08-19T21:26:07.224615+08:00",
+  "build_date": "2026-08-19",
+  "image_summary": "An Ebola public health awareness poster stands beside a dirt rural road in a settlement, with local residents walking and travelling along the road, and tall trees lining the opposite side of the road.",
+  "visual_anchor": "Ebola public health awareness poster",
+  "visual_anchor_type": "object",
+  "event_fact": "The Ebola Bundibugyo outbreak in the DRC has killed 2,325 people, surpassing the death toll of the country's 2018-2020 Ebola outbreak to become its deadliest ever.",
+  "freshness_relation": "new_result",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 4,
+   "event_specificity": 4,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 4,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image depicts a public health sign in the DRC warning about Ebola (specifically mentioning 'Ebola' and 'Tujikinga na Tombatela na'). The article discusses an Ebola outbreak in the DRC. The question asks for a specific statistic regarding the outbreak depicted by the sign. The answer requires external knowledge from the provided text as it is not visible in the image."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "the specific Ebola outbreak in the DRC referenced by the poster",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "the specific Ebola outbreak in the DRC referenced by the poster",
+     "grounding_reason": "The question asks about a particular Ebola outbreak, but no outbreak is named or dated in text—only implied by the pictured poster in the DRC."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "the specific Ebola outbreak in the DRC referenced by the poster",
+     "grounding_reason": "The question asks about a particular Ebola outbreak, but no outbreak is named or dated in text—only implied by the pictured poster in the DRC."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: 2,325",
+   "qwen3.5-flash: 2,325",
+   "qwen3.5-flash: 2,325",
+   "qwen3.5-flash: 2,325",
+   "qwen3-vl-plus: 2,325",
+   "qwen3-vl-plus: 2,325",
+   "qwen3-vl-plus: 2,325",
+   "qwen3-vl-plus: 2,325",
+   "doubao-seed-2.0-pro: 2,325",
+   "doubao-seed-2.0-pro: 2,325",
+   "doubao-seed-2.0-pro: 2,325",
+   "doubao-seed-2.0-pro: 2,325"
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "qwen3-vl-plus": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "doubao-seed-2.0-pro": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "2,325",
+     "2,325",
+     "2,325",
+     "2,325"
+    ],
+    "qwen3-vl-plus": [
+     "2,325",
+     "2,325",
+     "2,325",
+     "2,325"
+    ],
+    "doubao-seed-2.0-pro": [
+     "2,325",
+     "2,325",
+     "2,325",
+     "2,325"
+    ]
+   }
+  },
+  "showcase_rank": 6,
+  "showcase_theme": "Global health",
+  "showcase_note": "A live outbreak statistic grounded by a public-health image and a dated UN report."
+ },
+ {
+  "id": "75fd63f110aa-0",
+  "article_id": "75fd63f110aa",
+  "image": "images/75fd63f110aa.jpg",
+  "question": "By what percentage are the types of natural gas power plants pictured projected to lift U.S. power sector emissions when operated at standard industry rates for data center use?",
+  "answer": "20%",
+  "answer_type": "numeric",
+  "is_quantitative": true,
+  "evidence": "The entire US electric power industry emitted about 1,485 million metric tons of carbon last year, according to Energy Information Administration data , meaning one slice of data center infrastructure has the potential to lift US power sector emissions by 20%, and as much as a third should the new plants run flat out.",
+  "category": "business",
+  "source_category": "business",
+  "source": "fortune",
+  "source_language": "en",
+  "article_url": "https://fortune.com/2026/08/18/data-center-gas-plants-to-boost-u-s-power-emissions-by-20/",
+  "article_title": "Data center gas plants to boost U.S. power emissions by 20%",
+  "pub_date": "2026-08-18T13:25:53+00:00",
+  "crawl_time": "2026-08-18T22:37:11.936418+08:00",
+  "build_date": "2026-08-19",
+  "image_summary": "The image displays natural gas power plant infrastructure including a large exhaust stack, cooling towers, and associated industrial equipment, the type of on-site generation facility proposed for powering data centers.",
+  "visual_anchor": "natural gas power plant facility infrastructure",
+  "visual_anchor_type": "venue",
+  "event_fact": "Proposed on-site natural gas plants for data centers are projected to increase U.S. power sector emissions by 20% at standard operating rates.",
+  "freshness_relation": "new_result",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 2,
+   "event_specificity": 4,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 3,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image plausibly depicts the subject of the article (gas power plants). The question asks for a specific statistic (20%) found in the text. However, the question is slightly ambiguous regarding 'standard industry rates' vs 'flat out' mentioned in the text, and the phrasing 'types of natural gas power plants pictured' implies the image defines the type, whereas the text refers to them generally as 'data center infrastructure'. While the image provides context, the answer relies entirely on the text. The question clarity is reduced by the potential confusion between the two percentages mentioned (20% vs 1/3)."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "specific types of natural gas power plants",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "specific types of natural gas power plants",
+     "grounding_reason": "Image identifies the *types* (e.g., CCGT, reciprocating) needed to locate their emissions projections; question omits them and they are essential for the search."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "types of natural gas power plants",
+     "grounding_reason": "Image identifies the specific plant types; question asks for their projected emissions impact, requiring those types to be uniquely searchable."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: 20%",
+   "qwen3.5-flash: 20%",
+   "qwen3.5-flash: 20%",
+   "qwen3.5-flash: 20%",
+   "qwen3-vl-plus: 20%",
+   "qwen3-vl-plus: 20%",
+   "qwen3-vl-plus: 20%",
+   "qwen3-vl-plus: 20%",
+   "doubao-seed-2.0-pro: 20%",
+   "doubao-seed-2.0-pro: 20%",
+   "doubao-seed-2.0-pro: 20%",
+   "doubao-seed-2.0-pro: 20%"
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "qwen3-vl-plus": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "doubao-seed-2.0-pro": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "20%",
+     "20%",
+     "20%",
+     "20%"
+    ],
+    "qwen3-vl-plus": [
+     "20%",
+     "20%",
+     "20%",
+     "20%"
+    ],
+    "doubao-seed-2.0-pro": [
+     "20%",
+     "20%",
+     "20%",
+     "20%"
+    ]
+   }
+  },
+  "showcase_rank": 7,
+  "showcase_theme": "Climate & energy",
+  "showcase_note": "A quantitative emissions consequence attached to the type of power plant shown."
+ },
+ {
+  "id": "ae2cbbf34462-0",
+  "article_id": "ae2cbbf34462",
+  "image": "images/ae2cbbf34462.jpg",
+  "question": "What newly announced operating system version for the pictured laptop places the battery percentage inside the battery icon when the display percentage option is enabled?",
+  "answer": "macOS 27 Golden Gate",
+  "answer_type": "entity",
+  "is_quantitative": false,
+  "evidence": "If you flip the 'show percentage' toggle on in macOS 27 Golden Gate, it puts the number inside the battery.",
+  "category": "scitech",
+  "source_category": "technology",
+  "source": "9to5mac",
+  "source_language": "en",
+  "article_url": "https://9to5mac.com/2026/08/18/macos-27-golden-gate-makes-one-design-decision-that-i-would-change-for-macbooks/",
+  "article_title": "macOS 27 Golden Gate makes one design decision that I would change for MacBooks",
+  "pub_date": "2026-08-18T16:56:43+00:00",
+  "crawl_time": "2026-08-19T21:26:31.046226+08:00",
+  "build_date": "2026-08-19",
+  "image_summary": "A dark-colored MacBook laptop is displayed against a smooth, curved gradient background, showing a macOS system interface on its screen.",
+  "visual_anchor": "MacBook laptop",
+  "visual_anchor_type": "object",
+  "event_fact": "The newly announced macOS 27 Golden Gate for MacBooks displays battery percentage inside the battery menu bar icon by default when the show percentage toggle is enabled.",
+  "freshness_relation": "new_announcement",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 4,
+   "event_specificity": 4,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 4,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image depicts a MacBook running macOS (specifically the 'Golden Gate' concept/leak shown in the wallpaper and UI), which is the exact subject of the article. The question asks for the specific OS version responsible for a new feature described in the text. The image is necessary to identify the product context (MacBook) implied by the question's phrasing about the 'pictured laptop', even though the answer itself comes from the article text."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "MacBook laptop",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "MacBook laptop",
+     "grounding_reason": "The question refers to 'the pictured laptop' without naming the device; 'MacBook' is omitted and required to search for its OS version's battery icon behavior."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "MacBook laptop",
+     "grounding_reason": "The question asks about a 'pictured laptop' but doesn't name the device; image identifies it as a MacBook, which is essential to search for its OS version."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: macOS Sequoia",
+   "qwen3.5-flash: macOS Sequoia",
+   "qwen3.5-flash: macOS Sequoia",
+   "qwen3.5-flash: macOS Sequoia",
+   "qwen3-vl-plus: macOS Sonoma",
+   "qwen3-vl-plus: macOS Sonoma",
+   "qwen3-vl-plus: macOS Sonoma",
+   "qwen3-vl-plus: macOS Sonoma",
+   "doubao-seed-2.0-pro: macOS Sequoia",
+   "doubao-seed-2.0-pro: macOS Sequoia",
+   "doubao-seed-2.0-pro: macOS Sequoia",
+   "doubao-seed-2.0-pro: macOS Sequoia"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: macOS 27 Golden Gate",
+   "qwen3.5-flash: macOS 27 Golden Gate",
+   "qwen3.5-flash: macOS 27 Golden Gate",
+   "qwen3.5-flash: macOS 27 Golden Gate",
+   "qwen3-vl-plus: macOS 27 Golden Gate",
+   "qwen3-vl-plus: macOS 27 Golden Gate",
+   "qwen3-vl-plus: macOS 27 Golden Gate",
+   "qwen3-vl-plus: macOS 27 Golden Gate",
+   "doubao-seed-2.0-pro: macOS 27 Golden Gate",
+   "doubao-seed-2.0-pro: macOS 27 Golden Gate",
+   "doubao-seed-2.0-pro: macOS 27 Golden Gate",
+   "doubao-seed-2.0-pro: macOS 27 Golden Gate"
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "macOS Sequoia",
+     "macOS Sequoia",
+     "macOS Sequoia",
+     "macOS Sequoia"
+    ],
+    "qwen3-vl-plus": [
+     "macOS Sonoma",
+     "macOS Sonoma",
+     "macOS Sonoma",
+     "macOS Sonoma"
+    ],
+    "doubao-seed-2.0-pro": [
+     "macOS Sequoia",
+     "macOS Sequoia",
+     "macOS Sequoia",
+     "macOS Sequoia"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "macOS 27 Golden Gate",
+     "macOS 27 Golden Gate",
+     "macOS 27 Golden Gate",
+     "macOS 27 Golden Gate"
+    ],
+    "qwen3-vl-plus": [
+     "macOS 27 Golden Gate",
+     "macOS 27 Golden Gate",
+     "macOS 27 Golden Gate",
+     "macOS 27 Golden Gate"
+    ],
+    "doubao-seed-2.0-pro": [
+     "macOS 27 Golden Gate",
+     "macOS 27 Golden Gate",
+     "macOS 27 Golden Gate",
+     "macOS 27 Golden Gate"
+    ]
+   }
+  },
+  "showcase_rank": 8,
+  "showcase_theme": "Consumer technology",
+  "showcase_note": "The pictured laptop anchors a newly announced operating-system detail that requires current reporting."
+ },
+ {
+  "id": "a4c3f8d6f1e1-0",
+  "article_id": "a4c3f8d6f1e1",
+  "image": "images/a4c3f8d6f1e1.jpg",
+  "question": "How much funding is the WFP seeking to provide food aid to people affected by the disaster that the pictured temporary shelter was set up for?",
+  "answer": "$23 million",
+  "answer_type": "numeric",
+  "is_quantitative": true,
+  "evidence": "The World Food Programme ( WFP ) is seeking $23 million to provide food assistance to 100,000 people over the next three months.",
+  "category": "politics",
+  "source_category": "world",
+  "source": "un-news",
+  "source_language": "en",
+  "article_url": "https://news.un.org/feed/view/en/story/2026/08/1168161",
+  "article_title": "Colombia earthquake: UN ramps up aid for 100,000 people",
+  "pub_date": "2026-08-18T12:00:00+00:00",
+  "crawl_time": "2026-08-19T21:26:08.895031+08:00",
+  "build_date": "2026-08-19",
+  "image_summary": "A woman with an infant rests on tiered seating at a temporary shelter filled with personal belongings including blankets, bags, and other supplies.",
+  "visual_anchor": "Temporary shelter for people displaced by the Colombia earthquake",
+  "visual_anchor_type": "event_scene",
+  "event_fact": "The World Food Programme is seeking $23 million to provide food assistance to 100,000 people affected by the August 2026 Colombia earthquake over the next three months.",
+  "freshness_relation": "new_announcement",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 4,
+   "event_specificity": 4,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 4,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image depicts a woman and child in what appears to be a temporary shelter or evacuation center, consistent with the context of an earthquake disaster relief scenario described in the article. The question asks for specific funding details related to the event shown (earthquake aid), which requires external knowledge from the article rather than visual analysis. All properties score highly as the image genuinely grounds the event, the question is clear and specific about quantified outcomes, and the answer represents fresh factual information central to the news report."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "Colombia earthquake",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Colombia earthquake",
+     "grounding_reason": "Image anchors 'temporary shelter' to the Colombia earthquake; without it, the disaster is unnamed and search for WFP funding cannot be uniquely formulated."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Colombia earthquake",
+     "grounding_reason": "Image anchors 'temporary shelter' to the Colombia earthquake; without it, the disaster is unnamed and search for WFP funding cannot be uniquely formulated."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: $23 million",
+   "qwen3.5-flash: $23 million",
+   "qwen3.5-flash: $23 million",
+   "qwen3.5-flash: $23 million",
+   "qwen3-vl-plus: $23 million",
+   "qwen3-vl-plus: $23 million",
+   "qwen3-vl-plus: $23 million",
+   "qwen3-vl-plus: $23 million",
+   "doubao-seed-2.0-pro: $23 million",
+   "doubao-seed-2.0-pro: $23 million",
+   "doubao-seed-2.0-pro: $23 million",
+   "doubao-seed-2.0-pro: $23 million"
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "qwen3-vl-plus": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "doubao-seed-2.0-pro": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "$23 million",
+     "$23 million",
+     "$23 million",
+     "$23 million"
+    ],
+    "qwen3-vl-plus": [
+     "$23 million",
+     "$23 million",
+     "$23 million",
+     "$23 million"
+    ],
+    "doubao-seed-2.0-pro": [
+     "$23 million",
+     "$23 million",
+     "$23 million",
+     "$23 million"
+    ]
+   }
+  },
+  "showcase_rank": 9,
+  "showcase_theme": "Humanitarian response",
+  "showcase_note": "A current funding requirement linked to the disaster represented by the temporary shelter."
+ },
+ {
+  "id": "166523985283-0",
+  "article_id": "166523985283",
+  "image": "images/166523985283.jpg",
+  "question": "The pictured person shared new pitches for a future Star Wars project while appearing at what event in August 2026?",
+  "answer": "Edinburgh International Film Festival",
+  "answer_type": "entity",
+  "is_quantitative": false,
+  "evidence": "Speaking at the Variety Lounge at Edinburgh International Film Festival, the Scottish star said he'd got as far as taking his ideas to Lucasfilm boss Dave Filoni, who was shooting \"Ahsoka\" with his wife Mary Elizabeth Winstead at the time.",
+  "category": "culture",
+  "source_category": "culture",
+  "source": "variety",
+  "source_language": "en",
+  "article_url": "https://variety.com/2026/film/global/ewan-mcgregor-obi-wan-kenobi-project-ideas-yoda-ahsoka-1236838079/",
+  "article_title": "Ewan McGregor Says Next Obi-Wan Kenobi Project Could Be Tracking Down Yoda or a ‘Big Love Story’ With Wife Mary Elizabeth Winstead’s ‘Ahsoka’ Character: ‘There’s Got to Be Something’",
+  "pub_date": "2026-08-19T12:14:37+00:00",
+  "crawl_time": "2026-08-19T21:27:55.623429+08:00",
+  "build_date": "2026-08-19",
+  "image_summary": "Ewan McGregor is seated in a blue upholstered armchair, smiling, with a small table holding glasses beside him, in an indoor setting.",
+  "visual_anchor": "Ewan McGregor",
+  "visual_anchor_type": "person",
+  "event_fact": "Ewan McGregor shared pitch ideas for a future Obi-Wan Kenobi Star Wars project during an interview at the Variety Lounge at the Edinburgh International Film Festival.",
+  "freshness_relation": "new_announcement",
+  "l0_self_answer": "UNKNOWN",
+  "image_match_audit": {
+   "image_article_match": 4,
+   "question_image_grounding": 4,
+   "event_specificity": 4,
+   "search_necessity": 4,
+   "fresh_fact_centrality": 4,
+   "question_clarity": 4,
+   "explicit_event_question": true,
+   "image_only_answerable": false,
+   "visual_claim_supported": true,
+   "audit_note": "The image clearly depicts Ewan McGregor, matching the subject of the article. The question asks for a specific event (Edinburgh International Film Festival) mentioned in the text where the pictured person was speaking. The answer is not visually available and requires reading the article. The question correctly identifies the subject as 'the pictured person'."
+  },
+  "referent_grounding_audit": {
+   "profile": "qwen-plus-all-2",
+   "image_resolves_omitted_subject": true,
+   "omitted_subject_is_answer_target": true,
+   "omitted_subject": "Ewan McGregor",
+   "samples": [
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Ewan McGregor",
+     "grounding_reason": "Question asks about 'the pictured person'—no name given in text; image is sole source of identity."
+    },
+    {
+     "image_resolves_omitted_subject": true,
+     "omitted_subject_is_answer_target": true,
+     "omitted_subject": "Ewan McGregor",
+     "grounding_reason": "Question asks about 'the pictured person'—no name given textually; image is sole source of identity needed to search for his August 2026 event."
+    }
+   ]
+  },
+  "closed_book_preds": [
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3.5-flash: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "qwen3-vl-plus: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN",
+   "doubao-seed-2.0-pro: UNKNOWN"
+  ],
+  "oracle_preds": [
+   "qwen3.5-flash: Edinburgh International Film Festival",
+   "qwen3.5-flash: Edinburgh International Film Festival",
+   "qwen3.5-flash: Edinburgh International Film Festival",
+   "qwen3.5-flash: Edinburgh International Film Festival",
+   "qwen3-vl-plus: Variety Lounge at Edinburgh International Film Festival",
+   "qwen3-vl-plus: Variety Lounge at Edinburgh International Film Festival",
+   "qwen3-vl-plus: Variety Lounge at Edinburgh International Film Festival",
+   "qwen3-vl-plus: Variety Lounge at Edinburgh International Film Festival",
+   "doubao-seed-2.0-pro: Variety Lounge at Edinburgh International Film Festival",
+   "doubao-seed-2.0-pro: Variety Lounge at Edinburgh International Film Festival",
+   "doubao-seed-2.0-pro: Variety Lounge at Edinburgh International Film Festival",
+   "doubao-seed-2.0-pro: Variety Lounge at Edinburgh International Film Festival"
+  ],
+  "certification": {
+   "profile": "3-model-x-4",
+   "panel": [
+    "qwen3.5-flash",
+    "qwen3-vl-plus",
+    "doubao-seed-2.0-pro"
+   ],
+   "closed_book_logic": "all samples must be incorrect",
+   "oracle_logic": "all samples must be correct",
+   "closed_book": {
+    "qwen3.5-flash": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "qwen3-vl-plus": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ],
+    "doubao-seed-2.0-pro": [
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN",
+     "UNKNOWN"
+    ]
+   },
+   "oracle": {
+    "qwen3.5-flash": [
+     "Edinburgh International Film Festival",
+     "Edinburgh International Film Festival",
+     "Edinburgh International Film Festival",
+     "Edinburgh International Film Festival"
+    ],
+    "qwen3-vl-plus": [
+     "Variety Lounge at Edinburgh International Film Festival",
+     "Variety Lounge at Edinburgh International Film Festival",
+     "Variety Lounge at Edinburgh International Film Festival",
+     "Variety Lounge at Edinburgh International Film Festival"
+    ],
+    "doubao-seed-2.0-pro": [
+     "Variety Lounge at Edinburgh International Film Festival",
+     "Variety Lounge at Edinburgh International Film Festival",
+     "Variety Lounge at Edinburgh International Film Festival",
+     "Variety Lounge at Edinburgh International Film Festival"
+    ]
+   }
+  },
+  "showcase_rank": 10,
+  "showcase_theme": "Film & entertainment",
+  "showcase_note": "The pictured actor anchors a fresh Star Wars pitch to a specific festival appearance."
+ }
+]

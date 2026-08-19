@@ -14,6 +14,12 @@ items = json.load(open(os.path.join(DATA, "benchmark_v2.json"), encoding="utf-8"
 if isinstance(items, dict):
     items = items.get("items", items.get("questions", []))
 stats = json.load(open(os.path.join(DATA, "stats_v2.json"), encoding="utf-8"))
+showcase_path = os.path.join(DATA, "showcase_cases.json")
+showcase_items = json.load(open(showcase_path, encoding="utf-8"))
+if isinstance(showcase_items, dict):
+    showcase_items = showcase_items.get("items", showcase_items.get("questions", []))
+if len(showcase_items) != 10:
+    raise ValueError(f"homepage showcase requires exactly 10 cases, got {len(showcase_items)}")
 
 build_date = stats.get("build_date", datetime.date.today().isoformat())
 n_items = len(items)
@@ -37,10 +43,8 @@ date_options = "".join(
     for date in snapshot_dates
 )
 
-# slim payload for the page
-slim = []
-for it in items:
-    slim.append({
+def slim_item(it):
+    return {
         "id": it["id"],
         "img": "data/" + it["image"],
         "q": it["question"],
@@ -58,7 +62,14 @@ for it in items:
         "orp": it.get("oracle_preds", []),
         "profile": (it.get("certification") or {}).get("profile", cert_profile),
         "match": it.get("image_match_audit", {}),
-    })
+        "theme": it.get("showcase_theme", ""),
+        "note": it.get("showcase_note", ""),
+    }
+
+
+# Slim, self-contained payloads for the selected split and fixed showcase.
+slim = [slim_item(it) for it in items]
+showcase_slim = [slim_item(it) for it in showcase_items]
 
 cats = sorted({s["cat"] for s in slim})
 types = ["numeric", "entity", "location", "outcome", "temporal"]
@@ -138,6 +149,25 @@ h2{font-size:28px;font-weight:800;margin-bottom:8px}
   padding:18px 24px;font-size:15px;color:var(--mut)}
 .formula code{color:var(--gold);font-size:17px;font-family:Consolas,monospace}
 
+/* representative showcase */
+#showcase{background:linear-gradient(180deg,var(--bg),var(--bg2))}
+.showcase-head{display:flex;justify-content:space-between;gap:28px;align-items:end;flex-wrap:wrap}
+.showcase-head .sub{max-width:720px;margin-bottom:0}
+.showcase-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:30px}
+.showcase-card{display:grid;grid-template-columns:180px minmax(0,1fr);min-height:176px;width:100%;
+  overflow:hidden;text-align:left;color:var(--txt);font-family:inherit;background:var(--card);
+  border:1px solid var(--line);border-radius:16px;cursor:pointer;transition:.2s}
+.showcase-card:hover,.showcase-card:focus-visible{transform:translateY(-3px);border-color:var(--teal);
+  box-shadow:0 12px 30px rgba(0,0,0,.28);outline:none}
+.showcase-card img{width:100%;height:100%;min-height:176px;object-fit:cover;display:block}
+.showcase-copy{padding:17px 18px;display:flex;flex-direction:column}
+.showcase-kicker{font-size:11px;letter-spacing:.1em;color:var(--teal);font-weight:700;text-transform:uppercase}
+.case-q{display:block;font-size:15.5px;line-height:1.4;margin-top:7px;font-weight:700}
+.case-note{display:block;font-size:12.5px;color:var(--mut);margin-top:9px;line-height:1.45}
+.showcase-meta{margin-top:auto;padding-top:12px;display:flex;gap:7px;flex-wrap:wrap}
+@media(max-width:900px){.showcase-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.showcase-card{grid-template-columns:1fr}.showcase-card img{height:180px}}
+
 /* challenge */
 #challenge{background:var(--bg2)}
 .arena{display:grid;grid-template-columns:minmax(280px,460px) 1fr;gap:26px;align-items:start}
@@ -199,9 +229,16 @@ h2{font-size:28px;font-weight:800;margin-bottom:8px}
 @media(max-width:760px){.mgrid{grid-template-columns:1fr}}
 .mgrid img{width:100%;border-radius:12px;border:1px solid var(--line)}
 
-/* dist bars */
-.bars{display:grid;grid-template-columns:1fr 1fr;gap:36px}
-@media(max-width:760px){.bars{grid-template-columns:1fr}}
+/* distribution chart */
+.dist-layout{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(320px,1.1fr);gap:52px;align-items:center}
+@media(max-width:760px){.dist-layout{grid-template-columns:1fr;gap:34px}}
+.donut-panel{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:24px;align-items:center}
+@media(max-width:520px){.donut-panel{grid-template-columns:1fr}.type-legend{grid-template-columns:1fr 1fr}}
+#type-chart{display:block;width:100%;height:auto;overflow:visible}
+.type-legend{display:grid;gap:9px}
+.legend-row{display:grid;grid-template-columns:12px 1fr auto;gap:9px;align-items:center;font-size:13px;color:var(--mut)}
+.legend-row i{width:10px;height:10px;border-radius:2px;display:block}
+.legend-row b{color:var(--txt);font-variant-numeric:tabular-nums}
 .brow{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13px}
 .brow .lbl{width:88px;color:var(--mut);text-align:right}
 .brow .track{flex:1;height:12px;background:var(--card2);border-radius:6px;overflow:hidden}
@@ -274,10 +311,22 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="formula">Search Realization Ratio&nbsp;&nbsp;<code>&rho; = (Acc<sub>WS</sub> &minus; Acc<sub>CB</sub>) / (Acc<sub>OR</sub> &minus; Acc<sub>CB</sub>)</code>&nbsp;&nbsp;— the fraction of certified headroom an agent's own search realizes. Every miss is auto-attributed to <span style="color:var(--blue)">retrieval</span>, <span style="color:var(--red)">evidence contradiction</span>, or <span style="color:var(--gold)">distraction</span>.</div>
 </div></section>
 
+<!-- ===================== REPRESENTATIVE CASES ===================== -->
+<section id="showcase"><div class="wrap">
+  <div class="showcase-head">
+    <div>
+      <h2>10 representative certified cases</h2>
+      <div class="accent"></div>
+    </div>
+    <div class="sub">A curated cross-section of markets, AI, FIFA governance, medicine, mobility, public health, climate, consumer technology, humanitarian response, and culture. Click any case to inspect its evidence and panel certificate.</div>
+  </div>
+  <div class="showcase-grid" id="showcase-grid"></div>
+</div></section>
+
 <!-- ===================== CHALLENGE ===================== -->
 <section id="challenge"><div class="wrap">
   <h2>Can you beat the agents?</h2>
-  <div class="sub">Fresh questions no model can answer from memory — the closed-book panel already tried and failed. Guess, then reveal.</div>
+  <div class="sub">Try the ten representative cases above. The closed-book panel already tried and failed; guess first, then reveal the evidence-backed answer.</div>
   <div class="arena">
     <img id="c-img" src="" alt="news image">
     <div class="qbox">
@@ -323,11 +372,18 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <!-- ===================== STATS ===================== -->
 <section><div class="wrap">
-  <h2>Selected split composition</h2>
+  <h2>Data type distribution</h2>
+  <div class="sub">Counts and shares for the selected dated 200-item split; the chart updates when you switch builds.</div>
   <div class="accent"></div>
-  <div class="bars">
-    <div><div class="sub" style="margin-bottom:14px">Answer types</div><div id="bars-type"></div></div>
-    <div><div class="sub" style="margin-bottom:14px">Categories</div><div id="bars-cat"></div></div>
+  <div class="dist-layout">
+    <div class="donut-panel">
+      <svg id="type-chart" viewBox="0 0 280 280" role="img" aria-labelledby="type-chart-title type-chart-desc">
+        <title id="type-chart-title">Answer type distribution</title>
+        <desc id="type-chart-desc">Donut chart showing the number and share of numeric, temporal, outcome, entity, and location questions.</desc>
+      </svg>
+      <div class="type-legend" id="type-legend" aria-label="Answer type legend"></div>
+    </div>
+    <div><div class="sub" style="margin-bottom:14px">Topic categories</div><div id="bars-cat"></div></div>
   </div>
 </div></section>
 
@@ -377,6 +433,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <script>
 const CURRENT_DATA = __DATA__;
+const SHOWCASE_DATA = __SHOWCASE__;
 const CURRENT_DATE = "__BUILD__";
 const SNAPSHOT_DATES = __SNAPSHOTS__;
 const DEFAULT_PROFILE = "__PROFILE__";
@@ -423,6 +480,21 @@ function chips(preds, gold, oracle){
   }).join("");
 }
 
+/* ---------- representative showcase ---------- */
+function renderShowcase(){
+  const grid = document.getElementById("showcase-grid");
+  grid.innerHTML = SHOWCASE_DATA.map((it,i)=>`
+    <button class="showcase-card" type="button" onclick="openShowcase(${i})" aria-label="Open representative case ${i+1}: ${esc(it.theme)}">
+      <img loading="lazy" src="${it.img}" alt="Visual anchor for ${esc(it.theme)} case">
+      <span class="showcase-copy">
+        <span class="showcase-kicker">Case ${String(i+1).padStart(2,"0")} · ${esc(it.theme)}</span>
+        <span class="case-q">${esc(it.q)}</span>
+        <span class="case-note">${esc(it.note)}</span>
+        <span class="showcase-meta"><span class="badge b-type">${esc(it.type)}</span><span class="badge b-date">${esc(it.src)}</span></span>
+      </span>
+    </button>`).join("");
+}
+
 /* ---------- challenge ---------- */
 let order = [], oi = 0;
 function loadQ(it){
@@ -447,12 +519,12 @@ function revealAns(){
   document.getElementById("c-reveal").style.display = "none";
 }
 function resetChallenge(){
-  order = [...DATA.keys()].sort(()=>Math.random()-.5); oi = 0;
-  if(order.length) loadQ(DATA[order[0]]);
+  order = [...SHOWCASE_DATA.keys()].sort(()=>Math.random()-.5); oi = 0;
+  if(order.length) loadQ(SHOWCASE_DATA[order[0]]);
 }
 function nextQ(){
   if(!order.length) return;
-  oi = (oi+1)%order.length; loadQ(DATA[order[oi]]);
+  oi = (oi+1)%order.length; loadQ(SHOWCASE_DATA[order[oi]]);
 }
 
 /* ---------- explorer ---------- */
@@ -489,8 +561,7 @@ function render(){
 function showMore(){ shown += 24; render(); }
 
 /* ---------- modal ---------- */
-function openModal(i){
-  const it = DATA[i];
+function openItem(it){
   document.getElementById("m-img").src = it.img;
   document.getElementById("m-q").textContent = it.q;
   document.getElementById("m-cat").textContent = it.cat;
@@ -504,6 +575,8 @@ function openModal(i){
     `Source: <a href="${it.url}" target="_blank">${esc(it.title||it.src)}</a>`;
   document.getElementById("modal").classList.add("open");
 }
+function openModal(i){ openItem(DATA[i]); }
+function openShowcase(i){ openItem(SHOWCASE_DATA[i]); }
 function closeModal(){ document.getElementById("modal").classList.remove("open"); }
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeModal(); });
 
@@ -519,10 +592,35 @@ function bars(id, counts){
     fill.style.width = fill.dataset.w + "%";
   }));
 }
+function renderTypeChart(counts){
+  const total = Math.max(1,Object.values(counts).reduce((a,b)=>a+b,0));
+  const palette = ["var(--teal)","var(--blue)","var(--gold)","var(--green)","var(--red)"];
+  const ordered = TYPES.filter(type=>counts[type]).map((type,i)=>({
+    type, count:counts[type], pct:100*counts[type]/total, color:palette[i%palette.length]
+  }));
+  let offset = 0;
+  const rings = ordered.map(row=>{
+    const ring = `<circle cx="140" cy="140" r="86" fill="none" stroke="${row.color}" stroke-width="30"
+      pathLength="100" stroke-dasharray="${row.pct} ${100-row.pct}" stroke-dashoffset="${-offset}"
+      transform="rotate(-90 140 140)"><title>${esc(row.type)}: ${row.count} (${row.pct.toFixed(1)}%)</title></circle>`;
+    offset += row.pct;
+    return ring;
+  }).join("");
+  document.getElementById("type-chart").innerHTML = `
+    <title id="type-chart-title">Answer type distribution</title>
+    <desc id="type-chart-desc">${ordered.map(r=>`${r.type} ${r.count}`).join(", ")}</desc>
+    <circle cx="140" cy="140" r="86" fill="none" stroke="var(--card2)" stroke-width="30"></circle>
+    ${rings}
+    <text x="140" y="132" text-anchor="middle" fill="var(--txt)" font-size="32" font-weight="800">${total}</text>
+    <text x="140" y="158" text-anchor="middle" fill="var(--mut)" font-size="12">CERTIFIED ITEMS</text>`;
+  document.getElementById("type-legend").innerHTML = ordered.map(row=>`
+    <div class="legend-row"><i style="background:${row.color}"></i><span>${esc(row.type)}</span>
+      <b>${row.count} · ${row.pct.toFixed(1)}%</b></div>`).join("");
+}
 function updateBars(){
   const tc={},cc={};
   DATA.forEach(it=>{tc[it.type]=(tc[it.type]||0)+1;cc[it.cat]=(cc[it.cat]||0)+1});
-  bars("bars-type",tc); bars("bars-cat",cc);
+  renderTypeChart(tc); bars("bars-cat",cc);
 }
 
 /* ---------- dated snapshots ---------- */
@@ -579,6 +677,7 @@ async function switchBuild(date, updateUrl=true){
   }finally{ select.disabled=false; }
 }
 
+renderShowcase();
 mkChips("fcats",CATS,fc); mkChips("ftypes",TYPES,ft);
 resetChallenge(); render(); updateBars(); updateOverview(CURRENT_DATE);
 const params = new URLSearchParams(location.search);
@@ -595,6 +694,7 @@ if(params.has("reveal")) revealAns();
 
 html = (PAGE
         .replace("__DATA__", json.dumps(slim, ensure_ascii=False))
+        .replace("__SHOWCASE__", json.dumps(showcase_slim, ensure_ascii=False))
         .replace("__SNAPSHOTS__", json.dumps(snapshot_dates))
         .replace("__DATE_OPTIONS__", date_options)
         .replace("__CATS__", json.dumps(cats))

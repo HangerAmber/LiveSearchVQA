@@ -5,6 +5,10 @@ capability of multimodal agents.**
 
 [Public demo](https://hangeramber.github.io/LiveSearchVQA/demo.html)
 
+The homepage includes a fixed set of ten representative certified cases under
+**10 representative certified cases**. Each card opens its evidence, source,
+and complete 12-run closed-book plus 12-run oracle certificate.
+
 ## What is released
 
 The current v3 release contains 200 open-ended VQA items built from

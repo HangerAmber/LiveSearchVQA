@@ -53,8 +53,11 @@ def archive_previous():
 
 
 def _snapshot_items():
-    """Yield items from the current split and every dated public snapshot."""
+    """Yield items from current, archived, and homepage showcase releases."""
     paths = [os.path.join(DATA_DIR, "benchmark_v2.json")]
+    showcase_path = os.path.join(DATA_DIR, "showcase_cases.json")
+    if os.path.exists(showcase_path):
+        paths.append(showcase_path)
     if os.path.isdir(ARCHIVE_DIR):
         paths.extend(
             os.path.join(ARCHIVE_DIR, name)
@@ -75,7 +78,7 @@ def _snapshot_items():
 
 
 def prune_to_published_split():
-    """Keep images needed by current and archived public splits."""
+    """Keep images needed by current, archived, and showcase releases."""
     benchmark_path = os.path.join(DATA_DIR, "benchmark_v2.json")
     article_path = os.path.join(DATA_DIR, "articles.json")
     image_dir = os.path.join(DATA_DIR, "images")
@@ -99,7 +102,7 @@ def prune_to_published_split():
         with open(article_path, "w", encoding="utf-8", newline="\n") as f:
             json.dump(articles, f, ensure_ascii=False, indent=1)
     print(f"[prune] removed {removed} images; kept {len(keep_images)} "
-          "current/archive images")
+          "current/archive/showcase images")
 
 
 def run(script, *args):
