@@ -343,6 +343,22 @@ def _verbatim_evidence(article_text, evidence):
 
 def _recover_verbatim(article_text, evidence):
     """Map a near-verbatim model quote back to the exact source sentence."""
+    # Keep a source-position map while normalizing typography and whitespace.
+    # This avoids losing otherwise exact curly-quote / NBSP excerpts at release.
+    chars, starts, ends = [], [], []
+    for index, char in enumerate(article_text):
+        char = char.replace('\u00a0',' ').replace('“','"').replace('”','"').replace('‘',"'").replace('’',"'")
+        if char.isspace():
+            if chars and chars[-1] == ' ':
+                ends[-1] = index + 1
+                continue
+            char = ' '
+        for value in char.lower():
+            chars.append(value); starts.append(index); ends.append(index + 1)
+    needle = _clean_ws(evidence).lower()
+    found_at = ''.join(chars).find(needle) if needle else -1
+    if found_at >= 0:
+        return article_text[starts[found_at]:ends[found_at + len(needle) - 1]]
     if _verbatim_evidence(article_text, evidence):
         pattern = r'\s+'.join(re.escape(p) for p in _clean_ws(evidence).split())
         found = re.search(pattern, article_text, re.I)
@@ -369,6 +385,23 @@ def _short_excerpt(evidence, answer, limit=25):
     center = next((i for i, w in enumerate(words) if w.end() > answer_at), 0)
     start = max(0, min(center - 10, len(words) - limit))
     return evidence[words[start].start():words[start + limit - 1].end()]
+
+
+def _recover_answer_span(evidence, answer):
+    """Map a canonically formatted quantity to an equivalent exact source span.
+
+    This only repairs proposal formatting, before P0/P1/P2. It never changes a
+    certified record or accepts approximate values. Uncertain matches stay as-is.
+    """
+    if str(answer).casefold() in evidence.casefold():
+        return str(answer)
+    words=list(re.finditer(r'\S+', evidence))
+    for length in range(1,9):
+        for start in range(len(words)-length+1):
+            span=evidence[words[start].start():words[start+length-1].end()].strip('.,;:!?\"“”')
+            if fast_match(answer,span) is True:
+                return span
+    return str(answer)
 
 
 def _looks_english(text):
@@ -596,6 +629,12 @@ def process_article(article, stats):
         category=article["category"], pub_date=article.get("pub_date") or "today",
         text=article["text"][:6000],
     )
+    feedback = article.get('generation_feedback')
+    if feedback:
+        prompt += ('\nA previous proposal was rejected. Propose a DIFFERENT newly reported '
+            'numeric or temporal fact and question, not a rephrasing of the same target. '
+            'If no other suitable fact exists, reject. Previous proposal and reason:\n' +
+            json.dumps(feedback, ensure_ascii=False))
     raw = ark_api.call_image(
         image_path, prompt, temperature=0.45, max_tokens=1400
     )
@@ -606,6 +645,7 @@ def process_article(article, stats):
         recovered = _recover_verbatim(article["text"], candidate["evidence"])
         if recovered:
             candidate["evidence"] = recovered
+        candidate['answer'] = _recover_answer_span(candidate['evidence'], candidate.get('answer',''))
         before = candidate['evidence']
         candidate['evidence'] = _short_excerpt(before, candidate.get('answer', ''))
         if candidate['evidence'] != before:
@@ -616,6 +656,11 @@ def process_article(article, stats):
         candidate['question'] = f'As reported on {date_anchor}, ' + question[:1].lower() + question[1:]
         run_audit._state.evidence = candidate['evidence']
     _bump(stats, "articles_generated")
+    if feedback and isinstance(candidate, dict) and not candidate.get('reject_reason'):
+        if (_norm(candidate.get('question','')) == _norm(feedback.get('question','')) or
+            _norm(candidate.get('evidence','')) == _norm(feedback.get('evidence',''))):
+            _bump(stats, 'drop_repeated_proposal')
+            return None
     ok, reason = _sanity(candidate, article)
     if not ok:
         _bump(stats, f"drop_{reason}")
@@ -705,6 +750,7 @@ def process_article(article, stats):
         "evidence_offsets": [evidence_start, evidence_start + len(evidence)],
         "image_url": article.get('image_url'),
         "human_review_status": "not_yet_audited",
+        "proposal_parent": hashlib.sha256(json.dumps(feedback,sort_keys=True).encode()).hexdigest() if feedback else None,
         "image_summary": candidate["image_summary"],
         "visual_anchor": candidate["visual_anchor"],
         "visual_anchor_type": candidate["visual_anchor_type"],

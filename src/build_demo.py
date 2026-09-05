@@ -5,15 +5,35 @@ Reads data/benchmark_v2.json + data/stats_v2.json and emits a single
 self-contained HTML file at the repo root (images referenced relatively,
 so it works both locally and on GitHub Pages).
 """
-import json, os, datetime
+import json, os, datetime, argparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
+parser = argparse.ArgumentParser()
+parser.add_argument('--preview', help='Relative path to a clearly labeled incomplete split')
+args = parser.parse_args()
+preview_mode = bool(args.preview)
+current_json = args.preview.replace('\\','/') if preview_mode else 'data/benchmark_v2.json'
+input_path = os.path.abspath(os.path.join(ROOT,current_json))
+if os.path.commonpath([input_path,DATA]) != DATA:
+    raise ValueError('Demo input must be inside data/')
 
-items = json.load(open(os.path.join(DATA, "benchmark_v2.json"), encoding="utf-8"))
+items = json.load(open(input_path, encoding="utf-8"))
 if isinstance(items, dict):
     items = items.get("items", items.get("questions", []))
 stats = json.load(open(os.path.join(DATA, "stats_v2.json"), encoding="utf-8"))
+if preview_mode:
+    stats = {'build_date':items[0]['build_date'], 'certification_profile':'3-model-x-4'}
+attempt_path = os.path.join(DATA, 'releases', 'latest_attempt.json')
+attempt = json.load(open(attempt_path,encoding='utf-8')) if os.path.exists(attempt_path) else {}
+preview_date = attempt.get('build_date','') if attempt.get('status') in ('shortfall','in_progress') else ''
+attempt_banner = ''
+if preview_date:
+    attempt_banner = (f'<div class="formula" style="margin-top:24px;border-color:var(--gold)">'
+        f'Latest attempt · {preview_date}: <b>{int(attempt.get("preview_items",0))}/200 items</b>. '
+        'Incomplete build, not an official 200-item release. '
+        '<a href="preview.html">Inspect the new-item preview →</a> · '
+        '<a href="data/releases/latest_attempt.json">Build audit</a></div>')
 showcase_path = os.path.join(DATA, "showcase_cases.json")
 showcase_items = json.load(open(showcase_path, encoding="utf-8"))
 if isinstance(showcase_items, dict):
@@ -36,10 +56,10 @@ if os.path.isdir(archive_dir):
         for name in os.listdir(archive_dir)
         if name.endswith(".json")
     ]
-snapshot_dates = sorted(set(archive_dates + [build_date]), reverse=True)
+snapshot_dates = sorted(set(archive_dates + [build_date] + ([preview_date] if preview_date else [])), reverse=True)
 date_options = "".join(
     f'<option value="{date}"{(" selected" if date == build_date else "")}>'
-    f'{date}{(" (latest)" if date == build_date else "")}</option>'
+    f'{date}{(" (incomplete preview)" if date == preview_date else (" (published)" if date == build_date else ""))}</option>'
     for date in snapshot_dates
 )
 
@@ -62,6 +82,8 @@ def slim_item(it):
         "orp": it.get("oracle_preds", []),
         "profile": (it.get("certification") or {}).get("profile", cert_profile),
         "match": it.get("image_match_audit", {}),
+        "traced": len((it.get('certification') or {}).get('trials',[])) == 24,
+        "human": it.get('human_review_status','not_reported'),
         "theme": it.get("showcase_theme", ""),
         "note": it.get("showcase_note", ""),
     }
@@ -209,7 +231,7 @@ h2{font-size:28px;font-weight:800;margin-bottom:8px}
 #search:focus{border-color:var(--teal)}
 #count{font-size:12.5px;color:var(--dim);white-space:nowrap}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px;margin-top:26px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:.2s}
+.card{font:inherit;text-align:left;color:var(--txt);background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:.2s}
 .card:hover{transform:translateY(-4px);border-color:var(--blue);box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .card img{width:100%;height:150px;object-fit:cover;display:block}
 .card .cbody{padding:13px 15px}
@@ -294,7 +316,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <h2>How the data is built</h2>
   <div class="accent"></div>
   <picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/construction-poster.png"><img src="assets/construction.gif" width="1280" height="660" style="width:100%;height:auto;border-radius:12px" alt="Illustrated construction: collect a timestamped source, generate an evidence-first question, check visual grounding, require all 12 no-web failures and 12 gold-evidence successes, then validate and freeze a release."></picture>
-  <p class="sub" style="margin-top:18px">Illustrated process, not a live run recording. <a href="assets/construction-poster.png">Static version</a> · <a href="https://github.com/HangerAmber/LiveSearchVQA/blob/main/docs/PROTOCOL.md">Detailed protocol</a>. The selected published snapshot contains <span id="publish-count">__N__</span> items.</p>
+  <p class="sub" style="margin-top:18px">Illustrated process, not a live run recording. <a href="assets/construction-poster.png">Static version</a> · <a href="https://github.com/HangerAmber/LiveSearchVQA/blob/main/docs/PROTOCOL.md">Detailed protocol</a>. The selected snapshot contains <span id="publish-count">__N__</span> items.</p>
   <div class="formula">Research status: the September 2026 working paper contains <b>synthetic numerical demonstrations</b>, not a measured model leaderboard. Live construction records are separate. Human review and held-out transfer are not established by these panel certificates. Older archived splits retain their original audit schema.</div>
 </div></section>
 
@@ -319,6 +341,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     </div>
     <div class="sub">A curated cross-section of markets, AI, FIFA governance, medicine, mobility, public health, climate, consumer technology, humanitarian response, and culture. Click any case to inspect its evidence and panel certificate.</div>
   </div>
+  __ATTEMPT_BANNER__
   <div class="showcase-grid" id="showcase-grid"></div>
 </div></section>
 
@@ -346,7 +369,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <div class="pv"><b>CLOSED-BOOK PANEL (no search)</b><div id="c-cb"></div></div>
           <div class="pv"><b>ORACLE PANEL (given evidence)</b><div id="c-or"></div></div>
         </div>
-        <div class="cert" id="c-cert">&#10003; image–question aligned &nbsp;&middot;&nbsp; &#10003; certified search-necessary &nbsp;&middot;&nbsp; &#10003; certified well-posed</div>
+        <div class="cert" id="c-cert">Recorded visual checks &nbsp;&middot;&nbsp; P1/P2: construction-panel observations</div>
         <div class="srcline" id="c-src"></div>
       </div>
     </div>
@@ -372,7 +395,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <!-- ===================== STATS ===================== -->
 <section><div class="wrap">
   <h2>Data type distribution</h2>
-  <div class="sub">Counts and shares for the selected dated 200-item split; the chart updates when you switch builds.</div>
+  <div class="sub">Actual counts and shares for the selected dated split; the chart updates when you switch builds.</div>
   <div class="accent"></div>
   <div class="dist-layout">
     <div class="donut-panel">
@@ -388,7 +411,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <!-- ===================== DATED SNAPSHOTS ===================== -->
 <section id="archive"><div class="wrap">
-  <h2>Browse dated 200-item snapshots</h2>
+  <h2>Browse dated snapshots</h2>
   <div class="accent"></div>
   <div class="archive-panel">
     <div class="archive-control">
@@ -396,13 +419,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <select id="build-select" onchange="switchBuild(this.value)">__DATE_OPTIONS__</select>
       <span id="archive-status">Viewing __BUILD__ · __N__ items</span>
     </div>
-    <div class="archive-note">Each option is a frozen, separately certified VQA split. Select a date to replace the challenge, explorer, and composition views with that build's 200 items.</div>
+    <div class="archive-note">Published snapshots contain 200 items. An explicitly labeled incomplete preview is work in progress, not a completed release. The selected date updates questions, answers, downloads, and charts.</div>
   </div>
 </div></section>
 
 <footer><div class="wrap">
   <div>LiveSearchVQA &middot; build <span id="footer-build">__BUILD__</span> &middot; refreshed only on explicit command</div>
-  <div><a href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">Code &amp; data</a> &middot; <a href="data/benchmark_v2.json">Current JSON</a> · Source images belong to their respective owners</div>
+  <div><a href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">Code &amp; data</a> &middot; <a id="footer-json" href="__CURRENT_JSON__">Selected JSON</a> · Source images belong to their respective owners</div>
 </div></footer>
 
 <!-- ===================== MODAL ===================== -->
@@ -425,6 +448,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <div class="pv"><b>ORACLE PANEL</b><div id="m-or"></div></div>
         </div>
         <div class="srcline" id="m-src"></div>
+        <div class="srcline" id="m-audit-status"></div>
       </div>
     </div>
   </div>
@@ -434,6 +458,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 const CURRENT_DATA = __DATA__;
 const SHOWCASE_DATA = __SHOWCASE__;
 const CURRENT_DATE = "__BUILD__";
+const CURRENT_JSON = "__CURRENT_JSON__";
+const IS_PREVIEW = __IS_PREVIEW__;
+const PREVIEW_DATE = "__PREVIEW_DATE__";
 const SNAPSHOT_DATES = __SNAPSHOTS__;
 const DEFAULT_PROFILE = "__PROFILE__";
 const TYPES = __TYPES__;
@@ -472,7 +499,8 @@ function normalizeItem(it){
     pub:(it.pub_date||"").slice(0,16).replace("T"," "),
     cb:it.closed_book_preds||[], orp:it.oracle_preds||[],
     profile:(it.certification||{}).profile||DEFAULT_PROFILE,
-    match:it.image_match_audit||{}
+    match:it.image_match_audit||{}, traced:((it.certification||{}).trials||[]).length===24,
+    human:it.human_review_status||'not_reported'
   };
 }
 function chips(preds, gold, oracle){
@@ -510,8 +538,9 @@ function loadQ(it){
   document.getElementById("c-ev").innerHTML = "<b>Gold evidence:</b> " + esc(it.ev);
   document.getElementById("c-cb").innerHTML = chips(it.cb, it.a, false);
   document.getElementById("c-or").innerHTML = chips(it.orp, it.a, true);
-  document.getElementById("c-cert").innerHTML =
-    `&#10003; alignment audit passed &nbsp;&middot;&nbsp; &#10003; ${esc(it.profile)} P1/P2 certification`;
+  document.getElementById("c-cert").textContent = it.traced ?
+    '24 recorded panel verdicts · Human review: '+it.human :
+    'Legacy audit snapshot · Not re-certified under the September 2026 trace schema';
   document.getElementById("c-src").innerHTML =
     `Source: <a href="${safeUrl(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.title||it.src)}</a>`;
   document.getElementById("c-ans").style.display = "none";
@@ -551,13 +580,13 @@ function applyFilters(){
 function render(){
   const g = document.getElementById("grid");
   g.innerHTML = filtered.slice(0,shown).map((it,i)=>`
-    <div class="card" onclick="openModal(${DATA.indexOf(it)})">
-      <img loading="lazy" src="${it.img}">
+    <button type="button" class="card" onclick="openModal(${DATA.indexOf(it)})" aria-label="Inspect question: ${esc(it.q)}">
+      <img loading="lazy" src="${esc(it.img)}" alt="Visual cue for the question">
       <div class="cbody">
         <div class="q">${esc(it.q)}</div>
         <div class="meta"><span class="badge b-cat">${it.cat}</span><span class="badge b-type">${it.type}</span><span class="badge b-date">${(it.lang||"").toUpperCase()}</span></div>
       </div>
-    </div>`).join("");
+    </button>`).join("");
   document.getElementById("count").textContent = `${filtered.length} / ${DATA.length} items`;
   document.getElementById("more").style.display = shown < filtered.length ? "block" : "none";
 }
@@ -576,6 +605,8 @@ function openItem(it){
   document.getElementById("m-or").innerHTML = chips(it.orp, it.a, true);
   document.getElementById("m-src").innerHTML =
     `Source: <a href="${safeUrl(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.title||it.src)}</a>`;
+  document.getElementById('m-audit-status').textContent = it.traced ?
+    '24 recorded panel verdicts · Human review: '+it.human : 'Legacy audit schema; not retroactively re-certified.';
   document.getElementById("modal").classList.add("open");
 }
 function openModal(i){ openItem(DATA[i]); }
@@ -642,7 +673,8 @@ function updateOverview(date){
   document.getElementById("browse-link").textContent = `Browse ${DATA.length} Questions`;
   document.getElementById("publish-count").textContent = DATA.length;
   document.getElementById("archive-status").textContent = `Viewing ${date} · ${DATA.length} items`;
-  document.getElementById("download-split").href = date===CURRENT_DATE ? 'data/benchmark_v2.json' : `data/archive_v2/${encodeURIComponent(date)}.json`;
+  document.getElementById("download-split").href = date===CURRENT_DATE ? CURRENT_JSON : `data/archive_v2/${encodeURIComponent(date)}.json`;
+  document.getElementById('footer-json').href = document.getElementById('download-split').href;
 }
 function resetViews(date){
   selectedDate = date;
@@ -653,6 +685,7 @@ function resetViews(date){
   closeModal(); resetChallenge(); render(); updateBars(); updateOverview(date);
 }
 async function switchBuild(date, updateUrl=true){
+  if(!IS_PREVIEW && PREVIEW_DATE && date===PREVIEW_DATE){ location.href='preview.html'; return; }
   if(!SNAPSHOT_DATES.includes(date) || date===selectedDate) return;
   const select = document.getElementById("build-select");
   const previous = selectedDate;
@@ -666,7 +699,7 @@ async function switchBuild(date, updateUrl=true){
       raw = await response.json();
       if(!Array.isArray(raw)) raw = raw.items || raw.questions || [];
     }
-    if(raw.length!==200) throw new Error(`expected 200 items, received ${raw.length}`);
+    if(raw.length!==200 && !(IS_PREVIEW && date===CURRENT_DATE)) throw new Error(`expected 200 published items, received ${raw.length}`);
     DATA = raw.map(normalizeItem);
     resetViews(date);
     select.value = date;
@@ -697,6 +730,10 @@ if(params.has("reveal")) revealAns();
 """
 
 html = (PAGE
+        .replace('__ATTEMPT_BANNER__', attempt_banner)
+        .replace('__CURRENT_JSON__', current_json)
+        .replace('__IS_PREVIEW__', 'true' if preview_mode else 'false')
+        .replace('__PREVIEW_DATE__', preview_date)
         .replace("__DATA__", json.dumps(slim, ensure_ascii=False).replace('<', '\\u003c'))
         .replace("__SHOWCASE__", json.dumps(showcase_slim, ensure_ascii=False).replace('<', '\\u003c'))
         .replace("__SNAPSHOTS__", json.dumps(snapshot_dates))
@@ -710,7 +747,7 @@ html = (PAGE
         .replace("__PROFILE__", cert_profile)
         .replace("__N__", str(n_items)))
 
-for name in ('demo.html', 'index.html'):
+for name in (('preview.html',) if preview_mode else ('demo.html', 'index.html')):
     out = os.path.join(ROOT, name)
     with open(out, "w", encoding="utf-8", newline="\n") as f:
         f.write(html)

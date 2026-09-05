@@ -6,6 +6,8 @@
  · [Download the current split](data/benchmark_v2.json)
  · [Construction protocol](docs/PROTOCOL.md)
  · [Current manuscript](docs/manuscript.pdf)
+ · [Latest build attempt](data/releases/latest_attempt.json)
+ · [New-item preview](https://hangeramber.github.io/LiveSearchVQA/preview.html)
 
 [![How a news article becomes a certified visual question](assets/construction.gif)](https://hangeramber.github.io/LiveSearchVQA/#construction)
 
@@ -20,6 +22,12 @@ The target is **200 items per requested build**, from English news published
 within **48 hours of construction and release**, with at least **65% numeric or
 temporal answers**. A target is not a guarantee of yield: a shortfall must not be
 filled with old items or weaker certification.
+
+The [September 5 build report](docs/BUILD_2026-09-05.md) records **121/200 items**
+and a shortfall of 79, with machine-readable audits under `data/releases/`.
+When its target is not met, newly constructed items appear only in a clearly
+labeled **incomplete preview**. The previous complete 200-item release stays
+the default. The preview is not a claim of stable 200-item/day throughput.
 
 | Gate | Required for a new release |
 | --- | --- |
@@ -55,6 +63,7 @@ the new audit implementation.
 | `src/daily.py` | **Manually invoked** orchestration; historical filename only |
 | `src/build_demo.py` | Reproducibly builds both the project homepage and demo |
 | `src/build_construction_gif.py` | Rebuilds the illustrated construction animation |
+| `src/supplement_v2.py` | Explicit bounded alternatives or exact-source formatting repair; no automatic promotion |
 | `data/benchmark_v2.json` | Current published open-ended split |
 | `data/archive_v2/` | Frozen dated snapshots |
 | `data/releases/` | Public release manifests and audit summaries |

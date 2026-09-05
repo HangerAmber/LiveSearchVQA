@@ -7,7 +7,8 @@ from answer_equivalence import fast_match
 
 class EqTests(unittest.TestCase):
     def test_exact_quantity(self):
-        self.assertTrue(fast_match('$1,250', 'USD 1250'))
+        self.assertTrue(fast_match('$1,250', '$1250'))
+        self.assertTrue(fast_match('US$1,250', 'USD 1250'))
         self.assertTrue(fast_match('5.70%', '5.7 percent'))
         self.assertTrue(fast_match('Third', 'third'))
 
@@ -18,6 +19,7 @@ class EqTests(unittest.TestCase):
 
     def test_context_requires_judge(self):
         for gold, answer in [('5 percent', '5 percentage points'),
+                             ('$1250', 'USD 1250'),
                              ('$5', '5'), ('5 million', '5 billion'),
                              ('Aug. 14, 2026', 'Aug. 14, 2025'),
                              ('Q2 FY2027', 'Q1 FY2027'),

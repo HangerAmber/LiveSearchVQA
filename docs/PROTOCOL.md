@@ -42,6 +42,11 @@ go to a logged semantic judge using the question, gold answer, and evidence.
 An unresolved verdict is not silently counted as a P1 failure: it rejects the
 candidate pending review. The judge is not an independent expert audit.
 
+The `eq-conservative-20260905-v2` code also avoids treating every bare `$` as
+USD: explicit currency changes require contextual grading. Earlier September 5
+run records retain their original grader version and executed-code hashes;
+they are not silently relabeled as runs of newer code.
+
 ## Provenance and limits
 
 New records include build time, publication time, source hash, evidence offsets,
@@ -72,3 +77,26 @@ construction-panel responses alone do not establish them.
 
 Raw rejection codes are also preserved. Auxiliary score-failure counters can
 overlap; never sum them as if they were disjoint rejected items.
+
+## Bounded supplementation and incomplete previews
+
+The optional `supplement_v2.py` command is manual. `alternative-fact` attempts
+one different newly reported fact/question for previously rejected articles.
+It does not reroll an unchanged failed question until it happens to pass.
+`typography-repair` can reuse a real logged proposal rejected because an exact
+source span could not be located, repair quote/space normalization, and rerun
+all P0/P1/P2 checks. These actions do not relax the admission thresholds.
+Every supplement records its source run, eligible article IDs and executed code
+hashes. Claims of cross-family generalization still require independent tests.
+
+Example explicit command, using local private ledgers and locally configured keys:
+
+```bash
+python src/supplement_v2.py --source-run RUN_ID --mode alternative-fact --output benchmark_v2.retry.json
+```
+
+The 200-item release gate is separate from per-item validation. A short build
+may be exposed under `data/previews/` with its true count, set-level shortfall,
+unreviewed-human status, and a read-only audit. It must never silently replace
+`data/benchmark_v2.json`. Source images and questions are deduplicated again
+when combining independent supplementary runs.

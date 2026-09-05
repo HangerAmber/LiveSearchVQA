@@ -1,0 +1,12 @@
+{
+  "scope": "offline linkage to private recorded API responses and verdicts; not an independent model or human reassessment",
+  "checked_at": "2026-09-05T15:54:51.660813+00:00",
+  "items": 121,
+  "trials_checked": 2904,
+  "expected_trials": 2904,
+  "status": "PASS",
+  "problem_count": 0,
+  "explicit_USD_vs_bare_dollar_cases": 0,
+  "grader_note": "Retains the executed grader version; newer code is not retroactively attributed to these runs.",
+  "preview_sha256": "ef82148eb18d18fbe25833d8b9b8e59dc7a831fc6487cd2116468dd84dd5de09"
+}

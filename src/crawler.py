@@ -186,8 +186,18 @@ EXTRA_NEWS_TOPICS = {
 if os.environ.get('LSVQA_EXPANDED_DISCOVERY') == '1':
     from urllib.parse import quote_plus
     FEEDS.extend(('bing-news', category,
-        'https://www.bing.com/news/search?q=' + quote_plus(topic) + '&format=rss&count=50', 'en')
+        'https://www.bing.com/news/search?q=' + quote_plus(topic.replace('September 2026', time.strftime('%B %Y')).replace('2026', time.strftime('%Y'))) + '&format=rss&count=50', 'en')
         for category, topics in EXTRA_NEWS_TOPICS.items() for topic in topics)
+    # ESPN's own feed directory: https://www.espn.com/espn/news/story?page=rssinfo
+    FEEDS.extend(('espn','sports',f'https://www.espn.com/espn/rss/{sport}/news','en')
+        for sport in ['nfl','nba','mlb','nhl','rpm','soccer','espnu','ncb','ncf'])
+    # Guardian documents section + /rss feeds at https://www.theguardian.com/help/feeds
+    FEEDS.extend(('guardian',category,f'https://www.theguardian.com/{section}/rss','en')
+        for section,category in [('us-news','world'),('uk-news','world'),('australia-news','world'),
+            ('football','sports'),('sport/tennis','sports'),('sport/cricket','sports'),
+            ('sport/cycling','sports'),('sport/formulaone','sports'),('film','culture'),
+            ('music','culture'),('books','culture'),('education','education'),
+            ('money','business'),('global-development','world')])
 
 
 def _get_one(sess, url, timeout=15, binary=False):
@@ -394,10 +404,16 @@ def _load_hash_registry():
     if os.path.exists(HASH_REG_PATH):
         with open(HASH_REG_PATH, encoding="utf-8") as f:
             return {k: int(v, 16) for k, v in json.load(f).items()}
-    return {}
-
-
-_hash_registry = _load_hash_registry()
+    # Reconstruct the private index on clean CI checkouts from published images.
+    registry = {}
+    from pathlib import Path
+    for path in Path(IMG_DIR).glob('*.jpg'):
+        try:
+            with Image.open(path) as image:
+                registry[path.stem] = _dhash(image)
+        except (OSError, ValueError):
+            continue
+    return registry
 
 
 def _save_hash_registry():
@@ -416,6 +432,9 @@ def _dhash(im, size=8):
         for x in range(size):
             bits = (bits << 1) | (px[row + x + 1] > px[row + x])
     return bits
+
+
+_hash_registry = _load_hash_registry()
 
 
 def _is_duplicate_image(im, item_id):

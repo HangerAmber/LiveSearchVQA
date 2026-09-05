@@ -7,10 +7,10 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def stage():
     files=[]
-    for pattern in ['index.html','demo.html','data/benchmark_v2.json','data/stats_v2.json',
-                    'data/quality_report_v2.json','data/archive_v2/*.json','data/releases/*.json']:
+    for pattern in ['index.html','demo.html','preview.html','data/benchmark_v2.json','data/stats_v2.json',
+                    'data/quality_report_v2.json','data/archive_v2/*.json','data/previews/*.json','data/releases/*.json']:
         files.extend(ROOT.glob(pattern))
-    json_files=[p for p in files if p.name=='benchmark_v2.json' or p.parent.name=='archive_v2']
+    json_files=[p for p in files if p.name=='benchmark_v2.json' or p.parent.name in ('archive_v2','previews')]
     showcase=ROOT/'data/showcase_cases.json'
     if showcase.exists(): json_files.append(showcase)
     for path in json_files:

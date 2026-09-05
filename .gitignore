@@ -7,6 +7,10 @@
 data/articles.json
 data/image_hashes.json
 data/quality_report_v2.next.json
+data/benchmark_v2.retry.json
+data/stats_v2.retry.json
+data/benchmark_v2.recovered.json
+data/stats_v2.recovered.json
 __pycache__/
 *.pyc
 paper/*.aux
