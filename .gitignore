@@ -1,4 +1,12 @@
 .env
+.env.*
+!.env.example
+.runs/
+*.log
+*.tmp
+data/articles.json
+data/image_hashes.json
+data/quality_report_v2.next.json
 __pycache__/
 *.pyc
 paper/*.aux

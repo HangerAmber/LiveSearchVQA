@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Strict offline validation and atomic promotion for a v2 staging split."""
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -18,6 +19,8 @@ REQUIRED = (
     "category", "source", "source_language", "article_url", "article_title",
     "pub_date", "build_date", "image_match_audit", "certification",
     "visual_anchor_type", "freshness_relation", "referent_grounding_audit",
+    "build_timestamp", "source_sha256", "evidence_offsets", "item_version",
+    "event_id", "human_review_status",
 )
 VISUAL_RE = re.compile(
     r"\b(pictured|shown|in (?:this|the) image|visible in|depicted|photographed)\b",
@@ -68,7 +71,7 @@ def _dhash(path, size=8):
     return bits
 
 
-def validate(input_name, target=200, english_ratio=0.85, quant_ratio=0.65):
+def validate(input_name, target=200, english_ratio=1.0, quant_ratio=0.65):
     path = os.path.join(DATA_DIR, input_name)
     with open(path, encoding="utf-8") as f:
         items = json.load(f)
@@ -144,14 +147,29 @@ def validate(input_name, target=200, english_ratio=0.85, quant_ratio=0.65):
         try:
             published = datetime.fromisoformat(item["pub_date"])
             age = now - published.astimezone(timezone.utc)
-            if not (-timedelta(hours=6) <= age <= timedelta(hours=48)):
+            if not (timedelta(0) <= age <= timedelta(hours=48)):
                 problems.append(f"{tag}: article age {age.total_seconds()/3600:.1f}h")
+            built = datetime.fromisoformat(item['build_timestamp'])
+            if built.tzinfo is None or published.tzinfo is None:
+                problems.append(f'{tag}: timestamp missing timezone')
+            if not (timedelta(0) <= built - published <= timedelta(hours=48)):
+                problems.append(f'{tag}: publication outside build-time freshness window')
         except Exception:
             problems.append(f"{tag}: invalid pub_date")
 
         article = article_map.get(item.get("article_id"))
-        if article and _clean(item.get("evidence")) not in _clean(article.get("text")):
-            problems.append(f"{tag}: evidence is not verbatim")
+        if not article:
+            problems.append(f'{tag}: source snapshot unavailable for validation')
+        else:
+            text = article.get('text', '')
+            evidence = item.get('evidence', '')
+            offsets = item.get('evidence_offsets', [])
+            if len(offsets) != 2 or text[offsets[0]:offsets[1]] != evidence:
+                problems.append(f'{tag}: exact evidence offsets do not match source')
+            if hashlib.sha256(text.encode()).hexdigest() != item.get('source_sha256'):
+                problems.append(f'{tag}: source hash mismatch')
+            if len(evidence.split()) > 25:
+                problems.append(f'{tag}: excerpt exceeds 25 words')
 
         answer_nums = re.findall(r"\d+(?:\.\d+)?", _clean(item.get("answer")))
         evidence_nums = re.findall(r"\d+(?:\.\d+)?", _clean(item.get("evidence")))
@@ -185,11 +203,13 @@ def validate(input_name, target=200, english_ratio=0.85, quant_ratio=0.65):
         if len(cert.get("panel", [])) != 3:
             problems.append(f"{tag}: certification panel size != 3")
         expected_samples = 4
-        match = re.fullmatch(r"3-model-x-(\d+)", cert.get("profile", ""))
-        if match:
-            expected_samples = int(match.group(1))
-        else:
-            problems.append(f"{tag}: invalid certification profile")
+        if cert.get('profile') != '3-model-x-4':
+            problems.append(f'{tag}: release requires exactly 3-model-x-4')
+        if not cert.get('run_id') or not cert.get('grader_version'):
+            problems.append(f'{tag}: missing run or grader provenance')
+        trials = cert.get('trials', [])
+        if len(trials) != 24:
+            problems.append(f'{tag}: expected 24 recorded certification verdicts')
         for condition in ("closed_book", "oracle"):
             detail = cert.get(condition) or {}
             if set(detail) != set(cert.get("panel", [])):
@@ -201,6 +221,20 @@ def validate(input_name, target=200, english_ratio=0.85, quant_ratio=0.65):
                         f"{tag}: {condition}/{member} has {len(predictions)} "
                         f"samples, expected {expected_samples}"
                     )
+                recorded = [t for t in trials if t.get('condition') == condition
+                            and t.get('member') == member]
+                if len(recorded) != 4 or [t.get('prediction') for t in recorded] != predictions:
+                    problems.append(f'{tag}: {condition}/{member} trial mismatch')
+                for trial in recorded:
+                    if not str(trial.get('prediction', '')).strip() or not trial.get('api_record_id'):
+                        problems.append(f'{tag}: empty or untraceable panel response')
+                    if trial.get('correct') is not (condition == 'oracle'):
+                        problems.append(f'{tag}: {condition} verdict violates admission rule')
+                    expected_temp = 0.7 if condition == 'closed_book' else 0.2
+                    if trial.get('temperature') != expected_temp or trial.get('top_p') != 0.95:
+                        problems.append(f'{tag}: decoding profile mismatch')
+                    if condition == 'closed_book' and item.get('evidence', '') in trial.get('prompt', ''):
+                        problems.append(f'{tag}: gold evidence leaked into closed-book prompt')
 
     english_count = sum(item.get("source_language") == "en" for item in items)
     quant_count = sum(item.get("answer_type") in {"numeric", "temporal"}
@@ -227,7 +261,7 @@ def validate(input_name, target=200, english_ratio=0.85, quant_ratio=0.65):
         "warnings": warnings,
         "status": "PASS" if not problems else "FAIL",
     }
-    report_path = os.path.join(DATA_DIR, "quality_report_v2.json")
+    report_path = os.path.join(DATA_DIR, "quality_report_v2.next.json")
     with open(report_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(report, f, ensure_ascii=False, indent=1)
     print(json.dumps(report, ensure_ascii=False, indent=1))
@@ -245,6 +279,9 @@ def promote(input_path):
     next_stats = os.path.join(DATA_DIR, "stats_v2.next.json")
     if os.path.exists(next_stats):
         shutil.copy2(next_stats, os.path.join(DATA_DIR, "stats_v2.json"))
+    next_report = os.path.join(DATA_DIR, 'quality_report_v2.next.json')
+    if os.path.exists(next_report):
+        shutil.copy2(next_report, os.path.join(DATA_DIR, 'quality_report_v2.json'))
     print("promoted ->", destination)
 
 

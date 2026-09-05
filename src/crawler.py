@@ -162,6 +162,33 @@ MAX_AGE_HOURS = 48
 MIN_TEXT_CHARS = 300
 MIN_IMG_W, MIN_IMG_H = 260, 180
 
+# Focused English discovery queries broaden the source pool, not the age window
+# or admission rule. RSS timestamps and the publisher page remain mandatory.
+EXTRA_NEWS_TOPICS = {
+    'technology': ['IFA 2026 laptop launch price', 'IFA 2026 phone launch price',
+        'IFA 2026 appliance launch', 'new electric vehicle starting price',
+        'new smartphone announced price', 'new camera launch price',
+        'robotics startup raises funding', 'AI startup raises funding',
+        'new headphones launch price', 'new tablet launch price'],
+    'sports': ['US Open tennis September 2026 score', 'MLB baseball September 2026 score',
+        'WNBA September 2026 score', 'Formula 1 Monza qualifying 2026 time',
+        'Nations League September 2026 score', 'cricket September 2026 runs',
+        'cycling Vuelta September 2026 stage', 'golf September 2026 tournament score'],
+    'business': ['company quarterly results revenue September 2026',
+        'company acquisition deal billion September 2026',
+        'retailer September 2026 new store opening', 'company announces investment September 2026'],
+    'science': ['NASA September 2026 mission launch', 'space September 2026 launch satellite',
+        'September 2026 new scientific discovery measurement'],
+    'culture': ['September 2026 film box office opening', 'September 2026 announced premiere date',
+        'September 2026 music tour tickets announced'],
+}
+
+if os.environ.get('LSVQA_EXPANDED_DISCOVERY') == '1':
+    from urllib.parse import quote_plus
+    FEEDS.extend(('bing-news', category,
+        'https://www.bing.com/news/search?q=' + quote_plus(topic) + '&format=rss&count=50', 'en')
+        for category, topics in EXTRA_NEWS_TOPICS.items() for topic in topics)
+
 
 def _get_one(sess, url, timeout=15, binary=False):
     r = sess.get(url, headers={"User-Agent": UA}, timeout=timeout,
@@ -478,7 +505,7 @@ def process_item(item):
     img_path, (w, h) = res
     item.update({
         "id": item_id,
-        "text": text[:4000],
+        "text": text[:12000],
         "image": img_path,
         "image_url": img_url,
         "image_size": [w, h],
@@ -491,7 +518,7 @@ def _fresh_article(article):
     try:
         dt = datetime.fromisoformat(article.get("pub_date") or "")
         age = datetime.now(timezone.utc) - dt.astimezone(timezone.utc)
-        return -timedelta(hours=6) <= age <= timedelta(hours=MAX_AGE_HOURS)
+        return timedelta(0) <= age <= timedelta(hours=MAX_AGE_HOURS)
     except Exception:
         return False
 
@@ -508,7 +535,8 @@ def crawl(max_articles=1400):
     all_items = []
     with ThreadPoolExecutor(max_workers=24) as ex:
         futs = [ex.submit(fetch_feed, s, c, u, lang)
-                for s, c, u, lang in FEEDS]
+                for s, c, u, lang in FEEDS
+                if lang == "en" or os.environ.get("LSVQA_ENGLISH_ONLY", "1") != "1"]
         for f in as_completed(futs):
             for it in f.result():
                 key = it["title"][:30]

@@ -194,33 +194,32 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <div class="hero"><div class="wrap">
   <div class="live"><span class="dot"></span>LIVE &middot; REFRESHED ON DEMAND &middot; BUILD <span id="hero-build">2026-08-18</span></div>
   <h1>Live<span class="g">Search</span>VQA</h1>
-  <div class="tag">An on-demand VQA benchmark for diagnosing <b>when</b>, <b>what</b>, and <b>how</b> web-search agents fail — built from news published within the last 48 hours, independently audited for image–question alignment, and certified <i>search-necessary</i> and <i>well-posed</i> item by item.</div>
-  <div class="zh">仅按明确指令手动刷新 · 图文强匹配门槛 · 英文数字型事件优先 · 3 模型多采样逐条认证「不搜必错、给证必对」</div>
+  <div class="tag">Identify the visual referent. Search for a newly reported fact. Select the right evidence. Explore dated VQA snapshots with source excerpts and construction-panel responses.</div>
+  <div class="zh">仅按明确指令手动刷新 · 48 小时窗口以构建/发布时间为准 · P1/P2 只针对当次评审团，不是对所有模型的保证</div>
   <div class="cta">
     <a class="btn btn-p" href="#challenge">Try the Challenge &rarr;</a>
     <a class="btn btn-o" id="browse-link" href="#explorer">Browse 200 Questions</a>
     <a class="btn btn-o" href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">GitHub</a>
+    <a class="btn btn-o" href="docs/manuscript.pdf">Working paper</a>
+    <a class="btn btn-o" id="download-split" href="data/benchmark_v2.json" download>Download JSON + traces</a>
+    <a class="btn btn-o" href="#archive">Switch date</a>
   </div>
   <div class="stats">
     <div class="stat"><b id="stat-items" data-n="200">0</b><span>QUESTIONS IN SPLIT</span></div>
     <div class="stat"><b id="stat-cats" data-n="6">0</b><span>NEWS CATEGORIES</span></div>
     <div class="stat"><b id="stat-english" data-n="86" data-suf="%">0</b><span>ENGLISH SOURCES</span></div>
     <div class="stat"><b id="stat-quant" data-n="78" data-suf="%">0</b><span>NUMERIC / TEMPORAL</span></div>
-    <div class="stat"><b data-n="48" data-suf="h">0</b><span>MAX EVENT AGE</span></div>
+    <div class="stat"><b>48h</b><span>PUBLICATION WINDOW AT BUILD</span></div>
   </div>
 </div></div>
 
 <!-- ===================== PIPELINE ===================== -->
-<section><div class="wrap">
-  <h2>On-demand certified construction pipeline</h2>
+<section id="construction"><div class="wrap">
+  <h2>How the data is built</h2>
   <div class="accent"></div>
-  <div class="pipe">
-    <div class="stage"><i>L0</i><b>Evidence-first draft</b><p>lock a fresh event fact first; same-call closed-book self-check</p><div class="n keep">cost &asymp; 0</div></div>
-    <div class="stage"><i>L1</i><b>Alignment gate</b><p>independent image↔article and image↔question audit; reject image-only prompts</p><div class="n drop">4 scores &ge; 3/4</div></div>
-    <div class="stage"><i>L1–L2</i><b>Cascade + early stop</b><p>cheap vision screen, then OR-logic closed-book / AND-logic oracle stopping</p><div class="n keep">fewer panel calls</div></div>
-    <div class="stage"><i>L3</i><b>Full certification</b><p>3-model-x-4 panel: every CB sample fails and every oracle sample succeeds</p><div class="n keep">P1 + P2 intact</div></div>
-    <div class="stage"><i>PUBLISH</i><b>Hard composition gates</b><p>pHash/question dedup, &ge;85% English, &ge;65% numeric or temporal</p><div class="n keep"><span id="publish-count">200</span> items/build</div></div>
-  </div>
+  <picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/construction-poster.png"><img src="assets/construction.gif" width="1280" height="660" style="width:100%;height:auto;border-radius:12px" alt="Illustrated construction: collect a timestamped source, generate an evidence-first question, check visual grounding, require all 12 no-web failures and 12 gold-evidence successes, then validate and freeze a release."></picture>
+  <p class="sub" style="margin-top:18px">Illustrated process, not a live run recording. <a href="assets/construction-poster.png">Static version</a> · <a href="https://github.com/HangerAmber/LiveSearchVQA/blob/main/docs/PROTOCOL.md">Detailed protocol</a>. The selected published snapshot contains <span id="publish-count">200</span> items.</p>
+  <div class="formula">Research status: the September 2026 working paper contains <b>synthetic numerical demonstrations</b>, not a measured model leaderboard. Live construction records are separate. Human review and held-out transfer are not established by these panel certificates. Older archived splits retain their original audit schema.</div>
 </div></section>
 
 <!-- ===================== PROTOCOL ===================== -->
@@ -228,18 +227,18 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <h2>Three-way diagnostic protocol</h2>
   <div class="accent"></div>
   <div class="trio">
-    <div class="cond cb"><b>Closed-book</b><p>Image + question only, no tools. Certified &asymp; 0% by construction.</p><div class="res" style="color:var(--dim)">P1: search is necessary</div></div>
-    <div class="cond ws"><b>With-search</b><p>Agent searches the live web; every retrieval logged for automatic error attribution.</p><div class="res" style="color:var(--blue)">end-to-end capability</div></div>
-    <div class="cond or"><b>Oracle</b><p>Gold evidence as the sole context. Certified &asymp; ceiling by construction.</p><div class="res" style="color:var(--green)">P2: well-posed upper bound</div></div>
+    <div class="cond cb"><b>Closed-book</b><p>Image + question only, no tools. P1 requires all construction-panel samples to be incorrect.</p><div class="res" style="color:var(--dim)">Control memory shortcuts</div></div>
+    <div class="cond ws"><b>With-search</b><p>Evaluate an agent in a new run. Record the actual evidence shown to it before diagnosing a failure.</p><div class="res" style="color:var(--blue)">Measure end-to-end search</div></div>
+    <div class="cond or"><b>Oracle</b><p>Image + question + declared title + gold excerpt. P2 requires all construction-panel samples to be correct.</p><div class="res" style="color:var(--green)">Check evidence sufficiency</div></div>
   </div>
-  <div class="formula">Search Realization Ratio&nbsp;&nbsp;<code>&rho; = (Acc<sub>WS</sub> &minus; Acc<sub>CB</sub>) / (Acc<sub>OR</sub> &minus; Acc<sub>CB</sub>)</code>&nbsp;&nbsp;— the fraction of certified headroom an agent's own search realizes. Every miss is auto-attributed to <span style="color:var(--blue)">retrieval</span>, <span style="color:var(--red)">evidence contradiction</span>, or <span style="color:var(--gold)">distraction</span>.</div>
+  <div class="formula">Generator: Doubao Seed 2.0 Pro. Panel: Qwen3.5 Flash, Qwen3-VL Plus, and Doubao Seed 2.0 Pro, four samples each. Two providers, with a shared generator member—not three independent families. Construction admission is separate from held-out evaluation.</div>
 </div></section>
 
 <!-- ===================== REPRESENTATIVE CASES ===================== -->
 <section id="showcase"><div class="wrap">
   <div class="showcase-head">
     <div>
-      <h2>10 representative certified cases</h2>
+      <h2>10 representative archived cases</h2>
       <div class="accent"></div>
     </div>
     <div class="sub">A curated cross-section of markets, AI, FIFA governance, medicine, mobility, public health, climate, consumer technology, humanitarian response, and culture. Click any case to inspect its evidence and panel certificate.</div>
@@ -249,8 +248,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <!-- ===================== CHALLENGE ===================== -->
 <section id="challenge"><div class="wrap">
-  <h2>Can you beat the agents?</h2>
-  <div class="sub">Try the ten representative cases above. The closed-book panel already tried and failed; guess first, then reveal the evidence-backed answer.</div>
+  <h2>Try a question from the selected date</h2>
+  <div class="sub">Identify the visual referent, then find the fresh fact. Reveal the answer to inspect the archived panel responses.</div>
   <div class="arena">
     <img id="c-img" src="" alt="news image">
     <div class="qbox">
@@ -327,7 +326,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <footer><div class="wrap">
   <div>LiveSearchVQA &middot; build <span id="footer-build">2026-08-18</span> &middot; refreshed only on explicit command</div>
-  <div><a href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">Code &amp; data</a> &middot; <a href="index_v2.html">Full table view</a></div>
+  <div><a href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">Code &amp; data</a> &middot; <a href="data/benchmark_v2.json">Current JSON</a> · Source images belong to their respective owners</div>
 </div></footer>
 
 <!-- ===================== MODAL ===================== -->
@@ -377,10 +376,14 @@ const io = new IntersectionObserver(es=>es.forEach(e=>{
     if(p<1) requestAnimationFrame(step); };
   requestAnimationFrame(step); io.unobserve(el);
 }),{threshold:.6});
-document.querySelectorAll(".stat b").forEach(el=>io.observe(el));
+document.querySelectorAll(".stat b[data-n]").forEach(el=>io.observe(el));
 
 /* ---------- helpers ---------- */
-const esc = s => (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const esc = s => String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+function safeUrl(value){
+  try { const u=new URL(value,location.href); return /^https?:$/.test(u.protocol) ? esc(u.href) : '#'; }
+  catch { return '#'; }
+}
 function normalizeItem(it){
   if(Object.prototype.hasOwnProperty.call(it,"img")) return it;
   let image = it.image || "";
@@ -434,7 +437,7 @@ function loadQ(it){
   document.getElementById("c-cert").innerHTML =
     `&#10003; alignment audit passed &nbsp;&middot;&nbsp; &#10003; ${esc(it.profile)} P1/P2 certification`;
   document.getElementById("c-src").innerHTML =
-    `Source: <a href="${it.url}" target="_blank">${esc(it.title||it.src)}</a>`;
+    `Source: <a href="${safeUrl(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.title||it.src)}</a>`;
   document.getElementById("c-ans").style.display = "none";
   document.getElementById("c-reveal").style.display = "inline-block";
 }
@@ -443,12 +446,12 @@ function revealAns(){
   document.getElementById("c-reveal").style.display = "none";
 }
 function resetChallenge(){
-  order = [...SHOWCASE_DATA.keys()].sort(()=>Math.random()-.5); oi = 0;
-  if(order.length) loadQ(SHOWCASE_DATA[order[0]]);
+  order = [...DATA.keys()].sort(()=>Math.random()-.5); oi = 0;
+  if(order.length) loadQ(DATA[order[0]]);
 }
 function nextQ(){
   if(!order.length) return;
-  oi = (oi+1)%order.length; loadQ(SHOWCASE_DATA[order[oi]]);
+  oi = (oi+1)%order.length; loadQ(DATA[order[oi]]);
 }
 
 /* ---------- explorer ---------- */
@@ -496,7 +499,7 @@ function openItem(it){
   document.getElementById("m-cb").innerHTML = chips(it.cb, it.a, false);
   document.getElementById("m-or").innerHTML = chips(it.orp, it.a, true);
   document.getElementById("m-src").innerHTML =
-    `Source: <a href="${it.url}" target="_blank">${esc(it.title||it.src)}</a>`;
+    `Source: <a href="${safeUrl(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.title||it.src)}</a>`;
   document.getElementById("modal").classList.add("open");
 }
 function openModal(i){ openItem(DATA[i]); }
@@ -563,6 +566,7 @@ function updateOverview(date){
   document.getElementById("browse-link").textContent = `Browse ${DATA.length} Questions`;
   document.getElementById("publish-count").textContent = DATA.length;
   document.getElementById("archive-status").textContent = `Viewing ${date} · ${DATA.length} items`;
+  document.getElementById("download-split").href = date===CURRENT_DATE ? 'data/benchmark_v2.json' : `data/archive_v2/${encodeURIComponent(date)}.json`;
 }
 function resetViews(date){
   selectedDate = date;

@@ -10,6 +10,7 @@ import os
 import shutil
 import subprocess
 import sys
+from datetime import datetime, timezone
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(_ROOT, "data")
@@ -114,13 +115,16 @@ def run(script, *args):
 
 def main():
     require_credentials()
+    os.environ.setdefault('LSVQA_RUN_ID', datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ-manual'))
+    os.environ.setdefault('LSVQA_ENGLISH_RATIO', '1.0')
     archive_previous()
     run("crawler.py")
     run("generate_v2.py", "200", "--fresh", "--workers", "8",
         "--output", "benchmark_v2.next.json")
     run("validate_v2.py", "--input", "benchmark_v2.next.json",
         "--target", "200", "--promote")
-    prune_to_published_split()
+    # Preserve private crawl inputs; stage only images referenced by public snapshots.
+    run('seal_release.py')
     run("build_demo.py")
     print("[daily] paper-profile v2 build complete")
 

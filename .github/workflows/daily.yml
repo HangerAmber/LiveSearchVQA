@@ -34,7 +34,7 @@ jobs:
           ARK_REQUEST_TIMEOUT: "60"
           QWEN_REQUEST_TIMEOUT: "60"
           LSVQA_CERT_SAMPLES: "4"
-          LSVQA_ENGLISH_RATIO: "0.85"
+          LSVQA_ENGLISH_RATIO: "1.0"
           LSVQA_QUANT_RATIO: "0.65"
         run: python -u src/daily.py
 
@@ -42,6 +42,7 @@ jobs:
         run: |
           git config user.name "livesearchvqa-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add -A
+          python src/stage_release.py
+          python src/check_secrets.py
           git diff --cached --quiet || git commit -m "daily build $(date -u +%F)"
           git push

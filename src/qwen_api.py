@@ -13,6 +13,7 @@ import threading
 import time
 
 import requests
+import run_audit
 
 QWEN_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
 TEXT_MODEL = os.environ.get("QWEN_TEXT_MODEL", "qwen-plus")
@@ -38,7 +39,7 @@ def _load_key() -> str:
 
 
 QWEN_KEY = _load_key()
-CURL_BIN = "curl.exe" if os.name == "nt" else "curl"
+CURL_BIN = os.path.join(os.environ.get('SystemRoot', 'C:/Windows'), 'System32/curl.exe') if os.name == 'nt' else 'curl'
 _requests_broken = False
 _lock = threading.Lock()
 _max_concurrency = max(1, int(os.environ.get("QWEN_MAX_CONCURRENCY", "2")))
@@ -53,6 +54,7 @@ def _b64_file(path: str) -> str:
 
 
 def _post_requests(body: dict) -> dict:
+    started = time.monotonic()
     response = requests.post(
         QWEN_URL,
         headers={
@@ -62,11 +64,14 @@ def _post_requests(body: dict) -> dict:
         json=body,
         timeout=_request_timeout,
     )
+    data = response.json()
+    run_audit.api('qwen', body, data, time.monotonic() - started)
     response.raise_for_status()
-    return response.json()
+    return data
 
 
 def _post_curl(body: dict) -> dict:
+    started = time.monotonic()
     fd, tmp = tempfile.mkstemp(suffix=".json")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
@@ -81,7 +86,9 @@ def _post_curl(body: dict) -> dict:
             capture_output=True,
             timeout=_curl_timeout + 20,
         )
-        return json.loads(result.stdout.decode("utf-8", errors="replace"))
+        data = json.loads(result.stdout.decode("utf-8", errors="replace"))
+        run_audit.api('qwen', body, data, time.monotonic() - started)
+        return data
     finally:
         if os.path.exists(tmp):
             os.unlink(tmp)
@@ -112,6 +119,7 @@ def _call_inner(messages, model: str, temperature=0.1, max_tokens=1024,
         "model": model,
         "messages": messages,
         "temperature": temperature,
+        "top_p": 0.95,
         "max_tokens": max_tokens,
         "enable_thinking": False,
     }
@@ -120,16 +128,12 @@ def _call_inner(messages, model: str, temperature=0.1, max_tokens=1024,
     last_err = None
     for attempt in range(retries):
         try:
-            if _requests_broken:
+            try:
+                data = _post_requests(body)
+            except (requests.exceptions.SSLError, requests.exceptions.ConnectionError) as exc:
+                run_audit.append('transport_error', provider='qwen', model=model,
+                                 error_type=type(exc).__name__, attempt=attempt + 1)
                 data = _post_curl(body)
-            else:
-                try:
-                    data = _post_requests(body)
-                except (requests.exceptions.SSLError,
-                        requests.exceptions.ConnectionError):
-                    with _lock:
-                        _requests_broken = True
-                    data = _post_curl(body)
             if data.get("error"):
                 last_err = data["error"]
             else:
@@ -138,6 +142,8 @@ def _call_inner(messages, model: str, temperature=0.1, max_tokens=1024,
                     return text
         except Exception as exc:
             last_err = exc
+            run_audit.append('transport_error', provider='qwen', model=model,
+                             error_type=type(exc).__name__, attempt=attempt + 1)
         time.sleep(2.0 * (attempt + 1))
     print("[qwen api fail]", str(last_err)[:240])
     return ""

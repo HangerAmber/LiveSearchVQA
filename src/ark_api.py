@@ -12,6 +12,7 @@ import time
 import subprocess
 import tempfile
 import threading
+import run_audit
 
 ARK_URL = "https://ark.cn-beijing.volces.com/api/v3/responses"
 MODEL = "doubao-seed-2-0-pro-260215"
@@ -59,19 +60,23 @@ def _extract_text(d: dict) -> str:
 
 def _post_requests(body: dict) -> dict:
     import requests
+    started = time.monotonic()
     r = requests.post(
         ARK_URL,
         headers={"Authorization": f"Bearer {ARK_KEY}",
                  "Content-Type": "application/json"},
         json=body, timeout=_request_timeout,
     )
-    return r.json()
+    data = r.json()
+    run_audit.api('ark', body, data, time.monotonic() - started)
+    return data
 
 
-CURL_BIN = "curl.exe" if os.name == "nt" else "curl"
+CURL_BIN = os.path.join(os.environ.get('SystemRoot', 'C:/Windows'), 'System32/curl.exe') if os.name == 'nt' else 'curl'
 
 
 def _post_curl(body: dict) -> dict:
+    started = time.monotonic()
     fd, tmp = tempfile.mkstemp(suffix=".json")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
@@ -84,7 +89,9 @@ def _post_curl(body: dict) -> dict:
              "-d", f"@{tmp}"],
             capture_output=True, timeout=_curl_timeout + 20,
         )
-        return json.loads(r.stdout.decode("utf-8", errors="replace"))
+        data = json.loads(r.stdout.decode("utf-8", errors="replace"))
+        run_audit.api('ark', body, data, time.monotonic() - started)
+        return data
     finally:
         os.unlink(tmp)
 
@@ -95,21 +102,20 @@ def _call_inner(content, temperature=0.1, max_tokens=1024, retries=3) -> str:
         "model": MODEL,
         "input": [{"role": "user", "type": "message", "content": content}],
         "temperature": temperature,
+        "top_p": 0.95,
         "max_output_tokens": max_tokens,
         "thinking": {"type": "disabled"},
     }
     last_err = None
     for i in range(retries):
         try:
-            if _requests_broken:
+            try:
+                d = _post_requests(body)
+            except Exception as exc:
+                run_audit.append('transport_error', provider='ark', model=MODEL,
+                                 error_type=type(exc).__name__, attempt=i + 1)
+                # A transient failure must not permanently poison all later requests.
                 d = _post_curl(body)
-            else:
-                try:
-                    d = _post_requests(body)
-                except Exception:
-                    with _lock:
-                        _requests_broken = True
-                    d = _post_curl(body)
             if "error" in d:
                 last_err = d["error"]
                 # rate limit -> wait longer
@@ -120,6 +126,8 @@ def _call_inner(content, temperature=0.1, max_tokens=1024, retries=3) -> str:
                 return txt
         except Exception as e:
             last_err = e
+            run_audit.append('transport_error', provider='ark', model=MODEL,
+                             error_type=type(e).__name__, attempt=i + 1)
         time.sleep(1.5 * (i + 1))
     print("[api fail]", str(last_err)[:200])
     return ""

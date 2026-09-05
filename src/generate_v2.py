@@ -4,7 +4,7 @@
 The implementation keeps the paper's item-level guarantees while moving
 rejections upstream:
 
-L0  evidence-first generation + same-call closed-book self-check;
+L0  evidence-first generation + evidence-aware proposal heuristic;
 L1  independent image/article/question alignment gate and one cheap CB sample;
 L2  three-model, multi-sample CB/OR panel with logical early stopping;
 L3  deduplication and hard English/quantitative composition constraints.
@@ -24,12 +24,15 @@ import string
 import sys
 import threading
 import time
+import hashlib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ark_api  # noqa: E402
 import qwen_api  # noqa: E402
+import run_audit
+from answer_equivalence import fast_match, VERSION as EQ_VERSION
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(_ROOT, "data")
@@ -49,9 +52,9 @@ CATEGORY_MAP = {
 }
 
 FRESH_HOURS = int(os.environ.get("LSVQA_FRESH_HOURS", "46"))
-FUTURE_TOLERANCE_HOURS = 6
+FUTURE_TOLERANCE_HOURS = 0
 CERT_SAMPLES = max(1, int(os.environ.get("LSVQA_CERT_SAMPLES", "4")))
-TARGET_ENGLISH_RATIO = float(os.environ.get("LSVQA_ENGLISH_RATIO", "0.85"))
+TARGET_ENGLISH_RATIO = float(os.environ.get("LSVQA_ENGLISH_RATIO", "1.0"))
 TARGET_QUANT_RATIO = float(os.environ.get("LSVQA_QUANT_RATIO", "0.65"))
 BUILD_DATE = os.environ.get("LSVQA_BUILD_DATE", "").strip() or \
     time.strftime("%Y-%m-%d")
@@ -88,7 +91,7 @@ Follow this evidence-first procedure inside this same response:
    logos, stock art, generic scenery, unrelated thumbnails, and images whose
    connection to this article/event is weak. Classify visual_anchor_type as
    event_scene, person, object, venue, or document.
-2. BEFORE writing the question, locate one minimal VERBATIM sentence in the
+2. BEFORE writing the question, locate one minimal VERBATIM span (at most 25 words) in the
    article containing the CENTRAL NEW FACT that triggered this article. Strongly
    prefer numbers:
    score, amount, percentage, count, date/time, vote, price, distance, ranking,
@@ -112,8 +115,9 @@ Follow this evidence-first procedure inside this same response:
    be the shortest EXACT SUBSTRING of the evidence sentence that answers the
    question (preserve its number, unit, date, and wording). Set answer_type to
    numeric, temporal, location, outcome, or entity; prefer numeric/temporal.
-6. SAME-CALL SELF-CHECK: without using the article sentence, try to answer from
-   the image and old world knowledge. Put that attempt in closed_book_self_answer
+6. EVIDENCE-AWARE HEURISTIC: flag questions likely answerable from pixels or
+   stable knowledge. You have already seen the evidence, so this is NOT an
+   independent closed-book test. Put any likely shortcut answer in closed_book_self_answer
    (exactly UNKNOWN if not confidently answerable). Mark requires_web_search and
    image_article_match truthfully.
 
@@ -209,12 +213,12 @@ Return strict JSON only:
   "omitted_subject": "...", "grounding_reason": "<= 25 words"}}"""
 
 CB_PROMPT = """Answer the question using only the attached image and your
-pre-existing knowledge. You have no web search and no article. Return only a
-short answer. If the event-specific answer is not known with high confidence,
-return exactly UNKNOWN. Do not guess.\nQuestion: {question}"""
+pre-existing knowledge. You have no web search and no article.
+Return only a short English answer. If you cannot determine the answer, return UNKNOWN.
+Question: {question}"""
 
-OR_PROMPT = """Use ONLY the verbatim evidence and attached image to answer the
-question. Return only a short English answer, with no explanation.
+OR_PROMPT = """Use ONLY the declared source title, verbatim evidence and attached image.
+Return only a short English answer. If you cannot determine the answer, return UNKNOWN.
 Article title: {title}
 Evidence: {evidence}
 Question: {question}"""
@@ -264,6 +268,8 @@ _BAD_AUDIT_NOTE_RE = re.compile(
 def _bump(stats, key, amount=1):
     with _stats_lock:
         stats[key] = stats.get(key, 0) + amount
+    if key.startswith('drop_'):
+        run_audit.append('rejection', reason=key, amount=amount)
 
 
 def _norm(value):
@@ -278,51 +284,46 @@ def _nums(value):
 
 def _fast_match(gold, pred):
     """Return True/False for clear cases and None for semantic judging."""
-    g, p = _norm(gold), _norm(pred)
-    if not p or p in {"unknown", "n/a", "cannot determine"}:
-        return False
-    if g == p:
-        return True
-    gn, pn = _nums(gold), _nums(pred)
-    if gn or pn:
-        if set(gn) != set(pn):
-            return False
-        scale = {"hundred", "thousand", "million", "billion", "trillion", "%",
-                 "percent", "km", "kg", "miles", "dollars", "euros", "yuan"}
-        gs, ps = set(g.split()) & scale, set(p.split()) & scale
-        if gs != ps:
-            return None
-    if len(g) >= 4 and (g in p or p in g):
-        return True
-    return None
+    return fast_match(gold, pred)
 
 
 def _judge(question, gold, pred):
     prompt = JUDGE_PROMPT.format(question=question, gold=gold, pred=pred)
+    prompt += '\nDeclared evidence: ' + getattr(run_audit._state, 'evidence', '')
+    prompt += '\nIncompatible alternatives are INCORRECT. If undecidable, output UNRESOLVED.'
     out = qwen_api.call_text(prompt, model=qwen_api.TEXT_MODEL,
                              temperature=0.0, max_tokens=8)
     if not out:
         out = ark_api.call_text(prompt, temperature=0.0, max_tokens=8)
     if not out:
         raise RuntimeError("semantic judge unavailable")
-    upper = out.upper()
-    return "CORRECT" in upper and "INCORRECT" not in upper
+    upper = out.strip().upper().rstrip('.')
+    if upper not in {'CORRECT', 'INCORRECT'}:
+        raise RuntimeError('Eq unresolved; candidate requires human escalation')
+    return upper == 'CORRECT'
 
 
 def _is_correct(question, gold, pred):
     fast = _fast_match(gold, pred)
-    return fast if fast is not None else _judge(question, gold, pred)
+    verdict = fast if fast is not None else _judge(question, gold, pred)
+    run_audit.append('grade', question=question, gold=gold, prediction=pred,
+                     correct=verdict, method='deterministic' if fast is not None else 'semantic',
+                     grader_version=EQ_VERSION)
+    return verdict
 
 
 def _call_member(member, image_path, prompt, temperature, max_tokens=48):
     if member["provider"] == "qwen":
-        return qwen_api.call_image(
+        pred = qwen_api.call_image(
             image_path, prompt, model=member["model"],
             temperature=temperature, max_tokens=max_tokens,
         ).strip()
-    return ark_api.call_image(
-        image_path, prompt, temperature=temperature, max_tokens=max_tokens
-    ).strip()
+    else:
+        pred = ark_api.call_image(
+            image_path, prompt, temperature=temperature, max_tokens=max_tokens
+        ).strip()
+    run_audit.mark_prediction()
+    return pred
 
 
 def _parse_json(text):
@@ -343,7 +344,9 @@ def _verbatim_evidence(article_text, evidence):
 def _recover_verbatim(article_text, evidence):
     """Map a near-verbatim model quote back to the exact source sentence."""
     if _verbatim_evidence(article_text, evidence):
-        return _clean_ws(evidence)
+        pattern = r'\s+'.join(re.escape(p) for p in _clean_ws(evidence).split())
+        found = re.search(pattern, article_text, re.I)
+        return found.group(0) if found else None
     target = _clean_ws(evidence)
     sentences = [s.strip() for s in re.split(
         r"(?<=[.!?。！？])\s+|\n+", article_text
@@ -354,7 +357,18 @@ def _recover_verbatim(article_text, evidence):
                                        _clean_ws(sentence).lower()).ratio(), sentence)
               for sentence in sentences]
     score, sentence = max(scored, key=lambda pair: pair[0])
-    return _clean_ws(sentence) if score >= 0.78 else None
+    return sentence if score >= 0.78 else None
+
+
+def _short_excerpt(evidence, answer, limit=25):
+    """Select a verbatim answer-centered window BEFORE all verification gates."""
+    words = list(re.finditer(r'\S+', evidence))
+    answer_at = evidence.casefold().find(str(answer).casefold())
+    if len(words) <= limit or answer_at < 0:
+        return evidence
+    center = next((i for i, w in enumerate(words) if w.end() > answer_at), 0)
+    start = max(0, min(center - 10, len(words) - limit))
+    return evidence[words[start].start():words[start + limit - 1].end()]
 
 
 def _looks_english(text):
@@ -388,6 +402,8 @@ def _sanity(candidate, article):
         return False, "historical_background"
     if len(answer.split()) > 8 or len(answer) > 80:
         return False, "answer_length"
+    if len(str(candidate['evidence']).split()) > 25:
+        return False, 'evidence_excerpt_length'
     words = question.split()
     if len(words) < 10 or len(words) > 48 or not question.endswith("?"):
         return False, "question_form"
@@ -419,6 +435,8 @@ def _sanity(candidate, article):
         return False, "self_image_mismatch"
     if not _verbatim_evidence(article["text"], candidate["evidence"]):
         return False, "non_verbatim_evidence"
+    if _clean_ws(answer).casefold() not in _clean_ws(candidate['evidence']).casefold():
+        return False, 'answer_not_exact_span'
     answer_numbers = re.findall(r"\d+(?:\.\d+)?", answer)
     evidence_numbers = re.findall(
         r"\d+(?:\.\d+)?", str(candidate["evidence"])
@@ -475,9 +493,11 @@ def _grounding_audit(article, candidate):
         visual_anchor=candidate["visual_anchor"],
     )
     samples = []
-    for _ in range(2):
+    for trial_index in range(2):
+        trial_prompt = prompt if trial_index == 0 else (
+            'Independently challenge whether a unique search target can be identified without the image.\n' + prompt)
         raw = qwen_api.call_text(
-            prompt, model=qwen_api.TEXT_MODEL, temperature=0.0,
+            trial_prompt, model=qwen_api.TEXT_MODEL, temperature=0.0,
             max_tokens=400, json_object=True,
         )
         audit = _parse_json(raw)
@@ -490,6 +510,8 @@ def _grounding_audit(article, candidate):
         if not str(audit.get("omitted_subject", "")).strip():
             return None
         samples.append(audit)
+    if _norm(samples[0]['omitted_subject']) != _norm(samples[1]['omitted_subject']):
+        return None
     return {
         "profile": "qwen-plus-all-2",
         "image_resolves_omitted_subject": True,
@@ -503,14 +525,17 @@ def _certify_closed_book(image_path, question, answer, first_pred, stats):
     """P1: pass only when every model/sample fails. Stop at first success."""
     audit = {member["id"]: [] for member in PANEL}
     if first_pred:
-        audit[PANEL[0]["id"]].append(first_pred[:100])
-        if _is_correct(question, answer, first_pred):
+        audit[PANEL[0]["id"]].append(first_pred)
+        correct = _is_correct(question, answer, first_pred)
+        run_audit.trial('closed_book', PANEL[0]['id'], first_pred, correct,
+                        CB_PROMPT.format(question=question), 0.7)
+        if correct:
             _bump(stats, "drop_l1_closed_book")
             return None
     for member_index, member in enumerate(PANEL):
         start = 1 if member_index == 0 and first_pred else 0
         for sample_index in range(start, CERT_SAMPLES):
-            temperature = 0.25 + 0.15 * (sample_index % 3)
+            temperature = 0.7
             pred = _call_member(
                 member, image_path, CB_PROMPT.format(question=question),
                 temperature=temperature,
@@ -518,9 +543,12 @@ def _certify_closed_book(image_path, question, answer, first_pred, stats):
             if not pred:
                 _bump(stats, "drop_cb_api_failure")
                 return None
-            audit[member["id"]].append(pred[:100])
+            audit[member["id"]].append(pred)
             _bump(stats, "cb_panel_calls")
-            if _is_correct(question, answer, pred):
+            correct = _is_correct(question, answer, pred)
+            run_audit.trial('closed_book', member['id'], pred, correct,
+                            CB_PROMPT.format(question=question), temperature)
+            if correct:
                 _bump(stats, "drop_closed_book")
                 _bump(stats, "cb_early_stops")
                 return None
@@ -533,13 +561,18 @@ def _certify_oracle(image_path, title, question, answer, evidence, stats):
     prompt = OR_PROMPT.format(title=title, evidence=evidence, question=question)
     for member in PANEL:
         for sample_index in range(CERT_SAMPLES):
-            temperature = 0.0 if sample_index == 0 else 0.05 * sample_index
+            temperature = 0.2
             pred = _call_member(
                 member, image_path, prompt, temperature=temperature
             )
-            audit[member["id"]].append(pred[:100])
+            if not pred:
+                _bump(stats, 'drop_oracle_api_failure')
+                return None
+            audit[member["id"]].append(pred)
             _bump(stats, "oracle_panel_calls")
-            if not _is_correct(question, answer, pred):
+            correct = _is_correct(question, answer, pred)
+            run_audit.trial('oracle', member['id'], pred, correct, prompt, temperature)
+            if not correct:
                 _bump(stats, "drop_oracle")
                 _bump(stats, "drop_oracle_" + member["id"])
                 _bump(stats, "oracle_early_stops")
@@ -553,6 +586,7 @@ def _flat_preds(audit):
 
 
 def process_article(article, stats):
+    run_audit.begin_item(article['id'])
     image_path = os.path.join(DATA_DIR, article["image"])
     if not os.path.exists(image_path):
         return None
@@ -572,6 +606,15 @@ def process_article(article, stats):
         recovered = _recover_verbatim(article["text"], candidate["evidence"])
         if recovered:
             candidate["evidence"] = recovered
+        before = candidate['evidence']
+        candidate['evidence'] = _short_excerpt(before, candidate.get('answer', ''))
+        if candidate['evidence'] != before:
+            run_audit.append('proposal_excerpt_trim', before=before, after=candidate['evidence'])
+        # Freeze reference time in the question before any P0/P1/P2 checks.
+        question = str(candidate.get('question', '')).strip()
+        date_anchor = str(article.get('pub_date', ''))[:10]
+        candidate['question'] = f'As reported on {date_anchor}, ' + question[:1].lower() + question[1:]
+        run_audit._state.evidence = candidate['evidence']
     _bump(stats, "articles_generated")
     ok, reason = _sanity(candidate, article)
     if not ok:
@@ -596,11 +639,12 @@ def process_article(article, stats):
     if grounding_audit is None:
         _bump(stats, "drop_referent_not_image_grounded")
         return None
+    _bump(stats, 'p0_passed')
 
     # L1 cheap n=1 screen; this prediction becomes sample 1 of the panel.
     first_pred = _call_member(
         PANEL[0], image_path, CB_PROMPT.format(question=question),
-        temperature=0.2,
+        temperature=0.7,
     )
     _bump(stats, "l1_calls")
     cb_audit = _certify_closed_book(
@@ -608,17 +652,30 @@ def process_article(article, stats):
     )
     if cb_audit is None:
         return None
+    _bump(stats, 'p1_passed')
     or_audit = _certify_oracle(
         image_path, article["title"], question, answer,
         candidate["evidence"].strip(), stats,
     )
     if or_audit is None:
         return None
+    _bump(stats, 'p2_passed')
 
     _bump(stats, "certified")
     language = article.get("source_language") or (
         "en" if _looks_english(article.get("title", "")) else "other"
     )
+    source_text = article['text']
+    evidence = candidate['evidence'].strip()
+    evidence_start = source_text.find(evidence)
+    if evidence_start < 0:
+        _bump(stats, 'drop_exact_evidence_offset')
+        return None
+    content_hash = hashlib.sha256(source_text.encode('utf-8')).hexdigest()
+    event_id = hashlib.sha256((str(article['pub_date'])[:10] + '|' + _norm(candidate['visual_anchor']) + '|' + _norm(candidate['event_fact'])).encode()).hexdigest()[:20]
+    record_version = hashlib.sha256((question + '\n' + answer + '\n' + evidence).encode()).hexdigest()
+    run_audit.append('source_snapshot', url=article['url'], pub_date=article['pub_date'],
+                     text=source_text, sha256=content_hash, image_url=article.get('image_url'))
     return {
         "id": f"{article['id']}-0",
         "article_id": article["id"],
@@ -637,6 +694,17 @@ def process_article(article, stats):
         "pub_date": article.get("pub_date"),
         "crawl_time": article["crawl_time"],
         "build_date": BUILD_DATE,
+        "build_timestamp": datetime.now(timezone.utc).isoformat(),
+        "item_version": record_version,
+        "event_id": event_id,
+        "event_grouping": "publication-day+normalized-referent+fact hash; heuristic, not expert-validated",
+        "reference_date": str(article['pub_date'])[:10],
+        "reference_date_type": "report-publication-date, not event date",
+        "source_sha256": content_hash,
+        "source_archive_access": "private research ledger; full article not redistributed",
+        "evidence_offsets": [evidence_start, evidence_start + len(evidence)],
+        "image_url": article.get('image_url'),
+        "human_review_status": "not_yet_audited",
         "image_summary": candidate["image_summary"],
         "visual_anchor": candidate["visual_anchor"],
         "visual_anchor_type": candidate["visual_anchor_type"],
@@ -654,6 +722,14 @@ def process_article(article, stats):
             "oracle_logic": "all samples must be correct",
             "closed_book": cb_audit,
             "oracle": or_audit,
+            "trials": run_audit.trials(),
+            "model_configuration": PANEL,
+            "grader_version": EQ_VERSION,
+            "cb_temperature": 0.7,
+            "or_temperature": 0.2,
+            "top_p": 0.95,
+            "oracle_context_fields": ['image', 'question', 'article_title', 'evidence'],
+            "run_id": os.environ.get('LSVQA_RUN_ID'),
         },
     }
 
@@ -694,6 +770,8 @@ def _fresh_articles(all_articles):
     output = []
     for article in all_articles:
         if not _within_freshness_window(article, now=now):
+            continue
+        if TARGET_ENGLISH_RATIO == 1 and article.get('source_language') != 'en':
             continue
         article = dict(article)
         article["canonical_category"] = CATEGORY_MAP.get(

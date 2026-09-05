@@ -1,89 +1,103 @@
 # LiveSearchVQA
 
-**An on-demand, generate--verify benchmark for diagnosing the web-search
-capability of multimodal agents.**
+**Fresh visual questions. Auditable construction. Diagnosable search.**
 
-[Public demo](https://hangeramber.github.io/LiveSearchVQA/demo.html)
+[**Open the interactive demo →**](https://hangeramber.github.io/LiveSearchVQA/)
+ · [Download the current split](data/benchmark_v2.json)
+ · [Construction protocol](docs/PROTOCOL.md)
+ · [Current manuscript](docs/manuscript.pdf)
 
-The homepage includes a fixed set of ten representative certified cases under
-**10 representative certified cases**. Each card opens its evidence, source,
-and complete 12-run closed-book plus 12-run oracle certificate.
+[![How a news article becomes a certified visual question](assets/construction.gif)](https://hangeramber.github.io/LiveSearchVQA/#construction)
 
-## What is released
+Identify the visual referent, search for a newly reported fact, and select the
+right evidence. The demo includes image–question cases, source excerpts,
+per-model responses, topic and answer-type distributions, and a dated-snapshot
+selector. **Refreshes run only on explicit owner instruction—never on a schedule.**
 
-The current v3 release contains 200 open-ended VQA items built from
-image-bearing news published within 48 hours. Each record includes a short
-answer, verbatim evidence, source provenance, image-alignment audits, and the
-complete closed-book/oracle certification trace.
+## What the release means
 
-Measured properties of the 2026-08-18 build:
+The target is **200 items per requested build**, from English news published
+within **48 hours of construction and release**, with at least **65% numeric or
+temporal answers**. A target is not a guarantee of yield: a shortfall must not be
+filled with old items or weaker certification.
 
-- 200 items, 200 unique images, and 200 unique questions;
-- 171/200 (85.5%) English-language sources;
-- 155/200 (77.5%) numeric or temporal questions;
-- 29 source domains and six broad categories;
-- image--article match at least 4/4 and question--image grounding at least 2/4;
-- three certification models, four samples per condition;
-- offline validator: PASS with zero errors and zero warnings.
+| Gate | Required for a new release |
+| --- | --- |
+| P0 · Visual grounding | Image–source match, a meaningful omitted referent, explicit event question, no pixel-only answer |
+| P1 · No-web screening | All 12 construction-panel attempts are graded incorrect |
+| P2 · Evidence sufficiency | All 12 gold-evidence attempts are graded correct |
+| Release audit | Exact source offsets and hashes, recorded trial verdicts, freshness, duplicate and composition checks |
 
-The primary release is **data/benchmark_v2.json**; **data/benchmark.json** is
-the legacy v1 multiple-choice split.
+The current live profile uses Doubao Seed 2.0 Pro for generation and
+Qwen3.5 Flash, Qwen3-VL Plus, and Doubao Seed 2.0 Pro for certification, four
+samples per condition. This is a **two-provider panel with a shared generator
+member**, not three independent model families. P1/P2 are **finite,
+panel-relative observations**, not guarantees about every future model.
 
-Every replaced v2 release is preserved under **data/archive_v2/YYYY-MM-DD.json**.
-The public demo exposes a dated-snapshot selector and loads the selected
-200-item split together with its original images and certification traces.
+The September 5, 2026 manuscript is a **working draft with synthetic numerical
+demonstrations**. Those experiment tables are not live model measurements.
+API-backed construction records in this repository are a separate artifact;
+they do not establish held-out transfer, expert agreement, causal distraction
+effects, or a real 30-day evaluation. New items are marked `not_yet_audited`
+until independent human ratings exist. Archived August builds retain their
+original, older provenance schema and are not retroactively certified under
+the new audit implementation.
 
-## Two-module pipeline
+## Repository map
 
-### Generator module
+| Path | Purpose |
+| --- | --- |
+| `src/crawler.py` | English-first RSS collection, article extraction and image deduplication |
+| `src/generate_v2.py` | Evidence-first proposals, P0, and complete P1/P2 certification |
+| `src/answer_equivalence.py` | Conservative deterministic answer comparison |
+| `src/run_audit.py` | Private, credential-redacted request/response ledger |
+| `src/validate_v2.py` | Offline invariants and promotion gate |
+| `src/daily.py` | **Manually invoked** orchestration; historical filename only |
+| `src/build_demo.py` | Reproducibly builds both the project homepage and demo |
+| `src/build_construction_gif.py` | Rebuilds the illustrated construction animation |
+| `data/benchmark_v2.json` | Current published open-ended split |
+| `data/archive_v2/` | Frozen dated snapshots |
+| `data/releases/` | Public release manifests and audit summaries |
+| `docs/manuscript.pdf` | User-supplied current manuscript (September 5, 2026) |
+| `paper/` | Earlier LaTeX draft; retained for provenance, not the current manuscript |
+| `tests/` | Offline regression tests; no model calls |
 
-1. Crawl recent English-first RSS/news sources and obtain article text plus a
-   genuine content image.
-2. Select a new, event-specific evidence sentence before writing the question.
-3. Construct an image-dependent English question, preferring numeric or
-   temporal facts.
-4. Perform a same-call closed-book self-check and reject obvious violations.
+`data/benchmark.json`, `src/generate.py`, and the old table pages are legacy v1
+artifacts. Use the v2 paths above for current construction.
 
-### Quality module
+## Run a build explicitly
 
-1. Validate freshness, exact evidence, answer span, language, and question form.
-2. Audit image--article match and whether the image resolves the omitted
-   referent in the question.
-3. Certify P1 (all closed-book attempts fail) and P2 (all oracle attempts
-   succeed) with a three-model x four-sample panel.
-4. Deduplicate, enforce composition constraints, validate atomically, then
-   promote the build and regenerate the demo.
+Python 3.10 or newer:
 
-Closed-book certification uses OR rejection and stops on the first correct
-answer. Oracle certification uses AND admission and stops on the first failure.
-Early stopping reduces work on rejected candidates but every released item
-still carries the complete P1/P2 certificate.
+```bash
+pip install -r requirements.txt
+# Copy .env.example to .env locally and fill in your own credentials.
+python -m unittest discover -s tests -v
+python src/daily.py
+```
 
-## Run locally
+`daily.py` stages candidates, validates the full target, archives the previous
+split, and only then promotes a release. A failure leaves the published split
+unchanged. Do not bypass the validator to hit the target.
 
-Create a repository-local **.env** file with ARK_API_KEY and QWEN_API_KEY, then
-run:
+For offline page rebuilds (no paid API calls):
 
-    python src/crawler.py
-    python src/generate_v2.py 200
-    python src/validate_v2.py --input benchmark_v2.next.json --target 200 --promote
-    python src/build_demo.py
+```bash
+python src/build_construction_gif.py
+python src/build_demo.py
+python -m http.server 8000 --bind 127.0.0.1
+```
 
-Or execute the safe on-demand orchestration:
+## Credentials, provenance, and reuse
 
-    python src/daily.py
-
-The workflow runs only when explicitly invoked, stages output first, validates
-all release invariants, and only then replaces the public split. The GitHub
-Actions workflow is manual-only (`workflow_dispatch`) and has no schedule.
-
-## Paper
-
-The ICLR-style draft is in **paper/main.tex**. It now presents the benchmark as
-a cooperative generator--quality system and includes four vector figures in
-**paper/figures/**.
-
-Experimental results explicitly marked in blue are simulated draft
-placeholders. The current-build audit table is measured from the released JSON
-and validation report. Replace all placeholders with reproducible evaluation
-logs before submission.
+- Set `ARK_API_KEY` and `QWEN_API_KEY` in the environment or a local ignored
+  `.env`. GitHub Actions uses repository Secrets; never paste keys into code.
+- `.runs/` contains private sanitized API logs and source snapshots. Do not
+  upload it. Public records contain short evidence excerpts, provenance hashes,
+  decoding settings, and certification outcomes—not authorization headers.
+- Actual billed dollars require provider billing records; token counts alone
+  are not an invoice. Missing billing information is reported as unknown.
+- News images remain owned by their respective sources. Source links are
+  retained; inclusion here is not a blanket license to redistribute them.
+- The rebuild workflow is `workflow_dispatch` only. Updating the static
+  GitHub Pages site does not trigger generation or paid model calls.
