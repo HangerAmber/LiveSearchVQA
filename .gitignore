@@ -4,6 +4,7 @@
 .runs/
 *.log
 *.tmp
+*.zip
 data/articles.json
 data/image_hashes.json
 data/quality_report_v2.next.json

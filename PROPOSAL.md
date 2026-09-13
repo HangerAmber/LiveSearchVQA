@@ -1,5 +1,9 @@
 # LiveSearchVQA: A Daily Self-Refreshing VQA Benchmark for Diagnosing the Web-Search Capability of Multimodal Agents
 
+This historical proposal is retained for context, not as a statement of current
+guarantees or observed throughput. The current protocol is in `docs/PROTOCOL.md`;
+review-artifact counts and limitations are in `docs/ANONYMOUS_REVIEW.md`.
+
 ## 1. Motivation & gap
 
 Web search is now a core capability of VLM agents, yet no benchmark measures

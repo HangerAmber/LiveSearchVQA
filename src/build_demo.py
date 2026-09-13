@@ -3,7 +3,7 @@
 
 Reads data/benchmark_v2.json + data/stats_v2.json and emits a single
 self-contained HTML file at the repo root (images referenced relatively,
-so it works both locally and on GitHub Pages).
+so it works locally and on an anonymous static host).
 """
 import json, os, datetime, argparse
 
@@ -57,9 +57,19 @@ if os.path.isdir(archive_dir):
         if name.endswith(".json")
     ]
 snapshot_dates = sorted(set(archive_dates + [build_date] + ([preview_date] if preview_date else [])), reverse=True)
+snapshot_meta = {}
+for date in snapshot_dates:
+    path = current_json if date == build_date else (
+        f'data/previews/{date}.json' if date == preview_date else f'data/archive_v2/{date}.json')
+    with open(os.path.join(ROOT, path), encoding='utf-8') as handle:
+        records = json.load(handle)
+    count = len(records)
+    label = 'incomplete preview' if date == preview_date else (
+        'English-only legacy subset' if count != 200 else 'archived snapshot')
+    snapshot_meta[date] = {'path': path, 'count': count, 'label': label}
 date_options = "".join(
     f'<option value="{date}"{(" selected" if date == build_date else "")}>'
-    f'{date}{(" (incomplete preview)" if date == preview_date else (" (published)" if date == build_date else ""))}</option>'
+    f'{date} - {snapshot_meta[date]["count"]} items ({snapshot_meta[date]["label"]})</option>'
     for date in snapshot_dates
 )
 
@@ -101,7 +111,10 @@ PAGE = r"""<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LiveSearchVQA — Live Demo</title>
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'none'">
+<title>LiveSearchVQA - Anonymous Research Demo</title>
 <style>
 :root{
   --bg:#0b1120; --bg2:#0f172a; --card:#141d33; --card2:#1a2540;
@@ -112,7 +125,7 @@ PAGE = r"""<!DOCTYPE html>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--txt);
-  font-family:"Segoe UI","Microsoft YaHei",system-ui,-apple-system,sans-serif;line-height:1.55}
+  font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.55}
 a{color:var(--blue);text-decoration:none}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 
@@ -293,11 +306,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="live"><span class="dot"></span>LIVE &middot; REFRESHED ON DEMAND &middot; BUILD <span id="hero-build">__BUILD__</span></div>
   <h1>Live<span class="g">Search</span>VQA</h1>
   <div class="tag">Identify the visual referent. Search for a newly reported fact. Select the right evidence. Explore dated VQA snapshots with source excerpts and construction-panel responses.</div>
-  <div class="zh">仅按明确指令手动刷新 · 48 小时窗口以构建/发布时间为准 · P1/P2 只针对当次评审团，不是对所有模型的保证</div>
+  <div class="zh">Anonymous review artifact · Manual builds only · Freshness is measured at construction · P1/P2 are panel-relative</div>
   <div class="cta">
     <a class="btn btn-p" href="#challenge">Try the Challenge &rarr;</a>
     <a class="btn btn-o" id="browse-link" href="#explorer">Browse __N__ Questions</a>
-    <a class="btn btn-o" href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">GitHub</a>
+    <a class="btn btn-o" href="https://anonymous.4open.science/r/LiveSearchVQA/README.md" target="_blank" rel="noopener noreferrer">Anonymous repository</a>
     <a class="btn btn-o" href="docs/manuscript.pdf">Working paper</a>
     <a class="btn btn-o" id="download-split" href="data/benchmark_v2.json" download>Download JSON + traces</a>
     <a class="btn btn-o" href="#archive">Switch date</a>
@@ -316,7 +329,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <h2>How the data is built</h2>
   <div class="accent"></div>
   <picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/construction-poster.png"><img src="assets/construction.gif" width="1280" height="660" style="width:100%;height:auto;border-radius:12px" alt="Illustrated construction: collect a timestamped source, generate an evidence-first question, check visual grounding, require all 12 no-web failures and 12 gold-evidence successes, then validate and freeze a release."></picture>
-  <p class="sub" style="margin-top:18px">Illustrated process, not a live run recording. <a href="assets/construction-poster.png">Static version</a> · <a href="https://github.com/HangerAmber/LiveSearchVQA/blob/main/docs/PROTOCOL.md">Detailed protocol</a>. The selected snapshot contains <span id="publish-count">__N__</span> items.</p>
+  <p class="sub" style="margin-top:18px">Illustrated process, not a live run recording. <a href="assets/construction-poster.png">Static version</a> · <a href="https://anonymous.4open.science/r/LiveSearchVQA/docs/PROTOCOL.md">Detailed protocol</a>. The selected snapshot contains <span id="publish-count">__N__</span> items.</p>
   <div class="formula">Research status: the September 2026 working paper contains <b>synthetic numerical demonstrations</b>, not a measured model leaderboard. Live construction records are separate. Human review and held-out transfer are not established by these panel certificates. Older archived splits retain their original audit schema.</div>
 </div></section>
 
@@ -419,13 +432,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <select id="build-select" onchange="switchBuild(this.value)">__DATE_OPTIONS__</select>
       <span id="archive-status">Viewing __BUILD__ · __N__ items</span>
     </div>
-    <div class="archive-note">Published snapshots contain 200 items. An explicitly labeled incomplete preview is work in progress, not a completed release. The selected date updates questions, answers, downloads, and charts.</div>
+    <div class="archive-note">Counts describe the supplied files: 200 items in the August 15 archive, 171 in the English-only August 18 subset, and 121 in the September 5 incomplete preview. Subsetting does not create a new certificate or a complete release. Selecting a date updates questions, answers, downloads, and charts.</div>
   </div>
 </div></section>
 
 <footer><div class="wrap">
   <div>LiveSearchVQA &middot; build <span id="footer-build">__BUILD__</span> &middot; refreshed only on explicit command</div>
-  <div><a href="https://github.com/HangerAmber/LiveSearchVQA" target="_blank">Code &amp; data</a> &middot; <a id="footer-json" href="__CURRENT_JSON__">Selected JSON</a> · Source images belong to their respective owners</div>
+  <div><a href="https://anonymous.4open.science/r/LiveSearchVQA/README.md" target="_blank" rel="noopener noreferrer">Code &amp; data</a> &middot; <a id="footer-json" href="__CURRENT_JSON__">Selected JSON</a> · Source images belong to their respective owners</div>
 </div></footer>
 
 <!-- ===================== MODAL ===================== -->
@@ -462,6 +475,7 @@ const CURRENT_JSON = "__CURRENT_JSON__";
 const IS_PREVIEW = __IS_PREVIEW__;
 const PREVIEW_DATE = "__PREVIEW_DATE__";
 const SNAPSHOT_DATES = __SNAPSHOTS__;
+const SNAPSHOT_META = __SNAPSHOT_META__;
 const DEFAULT_PROFILE = "__PROFILE__";
 const TYPES = __TYPES__;
 let DATA = CURRENT_DATA;
@@ -672,8 +686,8 @@ function updateOverview(date){
   document.getElementById("footer-build").textContent = date;
   document.getElementById("browse-link").textContent = `Browse ${DATA.length} Questions`;
   document.getElementById("publish-count").textContent = DATA.length;
-  document.getElementById("archive-status").textContent = `Viewing ${date} · ${DATA.length} items`;
-  document.getElementById("download-split").href = date===CURRENT_DATE ? CURRENT_JSON : `data/archive_v2/${encodeURIComponent(date)}.json`;
+  document.getElementById("archive-status").textContent = `Viewing ${date} · ${DATA.length} items · ${SNAPSHOT_META[date].label}`;
+  document.getElementById("download-split").href = SNAPSHOT_META[date].path;
   document.getElementById('footer-json').href = document.getElementById('download-split').href;
 }
 function resetViews(date){
@@ -694,12 +708,13 @@ async function switchBuild(date, updateUrl=true){
   try{
     let raw = CURRENT_DATA;
     if(date!==CURRENT_DATE){
-      const response = await fetch(`data/archive_v2/${encodeURIComponent(date)}.json`,{cache:"no-store"});
+      const response = await fetch(SNAPSHOT_META[date].path,{cache:"no-store"});
       if(!response.ok) throw new Error(`HTTP ${response.status}`);
       raw = await response.json();
       if(!Array.isArray(raw)) raw = raw.items || raw.questions || [];
     }
-    if(raw.length!==200 && !(IS_PREVIEW && date===CURRENT_DATE)) throw new Error(`expected 200 published items, received ${raw.length}`);
+    // Display validation only; the separate construction gate still requires 200.
+    if(raw.length!==SNAPSHOT_META[date].count) throw new Error(`snapshot count mismatch: ${raw.length}`);
     DATA = raw.map(normalizeItem);
     resetViews(date);
     select.value = date;
@@ -730,6 +745,7 @@ if(params.has("reveal")) revealAns();
 """
 
 html = (PAGE
+        .replace('__SNAPSHOT_META__', json.dumps(snapshot_meta))
         .replace('__ATTEMPT_BANNER__', attempt_banner)
         .replace('__CURRENT_JSON__', current_json)
         .replace('__IS_PREVIEW__', 'true' if preview_mode else 'false')
@@ -747,7 +763,7 @@ html = (PAGE
         .replace("__PROFILE__", cert_profile)
         .replace("__N__", str(n_items)))
 
-for name in (('preview.html',) if preview_mode else ('demo.html', 'index.html')):
+for name in (('preview.html',) if preview_mode else ('demo.html', 'index.html', 'index_v2.html')):
     out = os.path.join(ROOT, name)
     with open(out, "w", encoding="utf-8", newline="\n") as f:
         f.write(html)

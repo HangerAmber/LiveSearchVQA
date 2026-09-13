@@ -2,19 +2,30 @@
 
 **Fresh visual questions. Auditable construction. Diagnosable search.**
 
-[**Open the interactive demo →**](https://hangeramber.github.io/LiveSearchVQA/)
+[**Open the interactive demo →**](https://anonymous.4open.science/w/LiveSearchVQA/)
  · [Download the current split](data/benchmark_v2.json)
  · [Construction protocol](docs/PROTOCOL.md)
  · [Current manuscript](docs/manuscript.pdf)
  · [Latest build attempt](data/releases/latest_attempt.json)
- · [New-item preview](https://hangeramber.github.io/LiveSearchVQA/preview.html)
+ · [New-item preview](https://anonymous.4open.science/w/LiveSearchVQA/preview.html)
 
-[![How a news article becomes a certified visual question](assets/construction.gif)](https://hangeramber.github.io/LiveSearchVQA/#construction)
+[![How a news article becomes a certified visual question](assets/construction.gif)](https://anonymous.4open.science/w/LiveSearchVQA/#construction)
 
 Identify the visual referent, search for a newly reported fact, and select the
 right evidence. The demo includes image–question cases, source excerpts,
 per-model responses, topic and answer-type distributions, and a dated-snapshot
 selector. **Refreshes run only on explicit owner instruction—never on a schedule.**
+
+## Anonymous review edition
+
+Project links use the anonymous repository or anonymous website, never an
+author's account. If anonymous website hosting is not enabled, download the
+artifact and run the offline server below. See [the checklist](docs/ANONYMOUS_REVIEW.md).
+
+The August 18 data are now a **171-item English-only subset**. The 29 excluded
+records had non-English source content; retained records are not translated or
+recertified. The August 15 archive retains 200 items, and the September 5 preview
+retains 121 items. This is an artifact-language revision, not a new data build.
 
 ## What the release means
 
@@ -26,8 +37,8 @@ filled with old items or weaker certification.
 The [September 5 build report](docs/BUILD_2026-09-05.md) records **121/200 items**
 and a shortfall of 79, with machine-readable audits under `data/releases/`.
 When its target is not met, newly constructed items appear only in a clearly
-labeled **incomplete preview**. The previous complete 200-item release stays
-the default. The preview is not a claim of stable 200-item/day throughput.
+labeled **incomplete preview**. Neither the preview nor the English-only legacy
+subset is a claim of stable 200-item/day throughput.
 
 | Gate | Required for a new release |
 | --- | --- |
@@ -64,15 +75,16 @@ the new audit implementation.
 | `src/build_demo.py` | Reproducibly builds both the project homepage and demo |
 | `src/build_construction_gif.py` | Rebuilds the illustrated construction animation |
 | `src/supplement_v2.py` | Explicit bounded alternatives or exact-source formatting repair; no automatic promotion |
-| `data/benchmark_v2.json` | Current published open-ended split |
+| `data/benchmark_v2.json` | 171-item English-only projection of the August 18 split |
 | `data/archive_v2/` | Frozen dated snapshots |
 | `data/releases/` | Public release manifests and audit summaries |
 | `docs/manuscript.pdf` | User-supplied current manuscript (September 5, 2026) |
 | `paper/` | Earlier LaTeX draft; retained for provenance, not the current manuscript |
 | `tests/` | Offline regression tests; no model calls |
 
-`data/benchmark.json`, `src/generate.py`, and the old table pages are legacy v1
-artifacts. Use the v2 paths above for current construction.
+Non-English legacy v1 data are excluded from this review edition. Legacy HTML
+entry points open the anonymous English demo. `src/generate.py` is retained only
+as legacy code; use the v2 paths above for current construction.
 
 ## Run a build explicitly
 
@@ -94,6 +106,7 @@ For offline page rebuilds (no paid API calls):
 ```bash
 python src/build_construction_gif.py
 python src/build_demo.py
+python src/build_demo.py --preview data/previews/2026-09-05.json
 python -m http.server 8000 --bind 127.0.0.1
 ```
 
@@ -109,4 +122,7 @@ python -m http.server 8000 --bind 127.0.0.1
 - News images remain owned by their respective sources. Source links are
   retained; inclusion here is not a blanket license to redistribute them.
 - The rebuild workflow is `workflow_dispatch` only. Updating the static
-  GitHub Pages site does not trigger generation or paid model calls.
+  site does not trigger generation or paid model calls.
+- Before publishing, run `python src/check_anonymity.py`. Create a history-free
+  artifact with `python src/package_anonymous.py --output anonymous-review.zip`.
+  Never submit `.git`, local credentials, or private logs.

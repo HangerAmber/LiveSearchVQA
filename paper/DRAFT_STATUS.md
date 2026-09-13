@@ -1,5 +1,9 @@
 # Paper draft status
 
+Historical planning notes for the earlier LaTeX draft. These are not the
+current review-artifact statistics. See `../docs/ANONYMOUS_REVIEW.md` for the
+English-only snapshot inventory and `../docs/manuscript.pdf` for the current PDF.
+
 ## Current story
 
 The paper is organized around one claim: trustworthy automatic benchmark

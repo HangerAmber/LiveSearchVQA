@@ -121,7 +121,7 @@ def _letter(txt):
         return None
     up = txt.strip().upper()
     # first standalone A-D not followed by another latin letter
-    # (\b fails around CJK chars, e.g. "答案是C")
+    # Word boundaries do not reliably separate adjacent CJK characters.
     m = re.search(r"(?<![A-Z])([ABCD])(?![A-Z])", up)
     return m.group(1) if m else None
 
