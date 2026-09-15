@@ -13,6 +13,18 @@ async function test(name){
    URL,URLSearchParams,location:{href:'http://localhost/'+name,search:''},history:{replaceState(){}},
    fetch:async url=>({ok:true,json:async()=>JSON.parse(fs.readFileSync(path.join(root,url),'utf8'))}),console});
  vm.runInContext(script,context,{timeout:5000});
+ const news='https://www.nasa.gov/news/';
+ assert.equal(vm.runInContext(`safeUrl(${JSON.stringify(news)})`,context),news);
+ for(const host of ['github.com','api.github.com','example-user.github.io','raw.githubusercontent.com']){
+   for(const prefix of ['https://','//']){
+     const value=prefix+host+'/project';
+     assert.equal(vm.runInContext(`safeUrl(${JSON.stringify(value)})`,context),'#');
+   }
+ }
+ for(const value of ['https://'+'%67ithub.com/project','https://'+'github.com./project',
+                     'javascript:alert(1)','https://name:password@example.invalid/']){
+   assert.equal(vm.runInContext(`safeUrl(${JSON.stringify(value)})`,context),'#');
+ }
  const initial=vm.runInContext('({n:DATA.length,date:selectedDate,preview:IS_PREVIEW})',context);
  assert.equal(initial.n,initial.preview?121:171);
  vm.runInContext('revealAns()',context);
@@ -33,7 +45,7 @@ async function test(name){
    await vm.runInContext("switchBuild('2026-09-05')",context);
    assert.equal(context.location.href,'preview.html');
  }
- console.log(name+': English snapshots, exact counts, panel display, and same-artifact downloads PASS');
+ console.log(name+': source-link privacy, snapshots, panel display, and local downloads PASS');
 }
 (async()=>{for(const name of ['index.html','index_v2.html','demo.html','preview.html'])await test(name)})()
  .catch(e=>{console.error(e);process.exitCode=1});

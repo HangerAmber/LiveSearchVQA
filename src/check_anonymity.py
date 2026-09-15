@@ -1,15 +1,16 @@
 """Offline checks of the public review tree; no network or model calls."""
 import argparse
+import html
 import json
 import os
 import re
 import subprocess
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
 HAN=re.compile(r'[\u3400-\u9fff]')
-URL=re.compile(r'https?://[^\s<>"\x27)\]}]+',re.I)
+URL=re.compile(r'(?:https?:)?//[^\s<>"\x27)\]}]+',re.I)
 LOCAL=re.compile(r'[A-Z]:[\\/](?:Users|Documents and Settings)[\\/][^\s"\x27]+',re.I)
 SECRET=re.compile(r'sk-[A-Za-z0-9]{24,}|(?:ARK_API_KEY|QWEN_API_KEY)\s*=\s*[\x22\x27]?[A-Za-z0-9_-]{24,}')
 TEXT_EXT={'.md','.py','.html','.json','.yml','.yaml','.toml','.txt','.tex','.bib','.sty','.bst','.svg','.js','.cjs','.css'}
@@ -30,9 +31,14 @@ def text_issues(text,private_tokens=()):
     if LOCAL.search(text):found.append('local user-directory path')
     if SECRET.search(text):found.append('possible credential')
     if any(t and t.casefold() in text.casefold() for t in private_tokens):found.append('private identifier')
-    for match in URL.finditer(text):
-        host=(urlsplit(match.group(0)).hostname or '').lower()
-        if host in {'github.com','www.github.com','raw.githubusercontent.com','api.github.com','codeload.github.com'} or host.endswith('.github.io'):
+    normalized=text.replace(r'\/', '/')
+    normalized=re.sub(r'\\u([0-9a-fA-F]{4})',lambda m:chr(int(m[1],16)),normalized)
+    for _ in range(2):normalized=html.unescape(unquote(normalized))
+    for match in URL.finditer(normalized):
+        try:host=(urlsplit(match.group(0)).hostname or '').lower().rstrip('.')
+        except ValueError:continue
+        if any(host==domain or host.endswith('.'+domain) for domain in
+               ('github.com','github.io','githubusercontent.com')):
             found.append('non-anonymous repository/website URL');break
     return sorted(set(found))
 

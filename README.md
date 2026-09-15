@@ -2,14 +2,15 @@
 
 **Fresh visual questions. Auditable construction. Diagnosable search.**
 
-[**Open the interactive demo →**](https://anonymous.4open.science/w/LiveSearchVQA/)
- · [Download the current split](data/benchmark_v2.json)
+[Download the current split](data/benchmark_v2.json)
  · [Construction protocol](docs/PROTOCOL.md)
  · [Current manuscript](docs/manuscript.pdf)
  · [Latest build attempt](data/releases/latest_attempt.json)
- · [New-item preview](https://anonymous.4open.science/w/LiveSearchVQA/preview.html)
 
-[![How a news article becomes a certified visual question](assets/construction.gif)](https://anonymous.4open.science/w/LiveSearchVQA/#construction)
+![How a news article becomes a certified visual question](assets/construction.gif)
+
+Interactive pages are included as `index.html`, `demo.html`, and `preview.html`.
+Download this artifact and use the offline server below to view them.
 
 Identify the visual referent, search for a newly reported fact, and select the
 right evidence. The demo includes image–question cases, source excerpts,
@@ -18,9 +19,10 @@ selector. **Refreshes run only on explicit owner instruction—never on a schedu
 
 ## Anonymous review edition
 
-Project links use the anonymous repository or anonymous website, never an
-author's account. If anonymous website hosting is not enabled, download the
-artifact and run the offline server below. See [the checklist](docs/ANONYMOUS_REVIEW.md).
+**Navigation audit: 2026-09-15.** Project navigation stays within this artifact.
+There are no repository buttons, external demo links, or linked animation
+wrappers. News-source citations are retained with referrer suppression.
+See [the checklist](docs/ANONYMOUS_REVIEW.md).
 
 The August 18 data are now a **171-item English-only subset**. The 29 excluded
 records had non-English source content; retained records are not translated or

@@ -5,11 +5,13 @@ import json
 import zipfile
 from pathlib import Path
 from check_anonymity import ROOT,check,public_paths
+from check_navigation import check as check_navigation
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=Path('anonymous-review.zip'))
     args=parser.parse_args();report=check()
     if report['status']!='PASS':raise RuntimeError('Anonymity check failed; run check_anonymity.py for details')
+    if check_navigation()['status']!='PASS':raise RuntimeError('Local-navigation check failed')
     referenced=set()
     for pattern in ['data/benchmark_v2.json','data/archive_v2/*.json','data/previews/*.json','data/showcase_cases.json']:
         for p in ROOT.glob(pattern):

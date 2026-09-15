@@ -15,6 +15,13 @@ class AnonymityTests(unittest.TestCase):
     def test_repository_link_rejected(self):
         url='https://'+'github.com/'+'example-user/project'
         self.assertTrue(text_issues(url))
+    def test_encoded_and_protocol_relative_links_rejected(self):
+        from urllib.parse import quote
+        url='https://'+'github.com/'+'example-user/project'
+        for value in (url.replace('https:',''),quote(url,safe=''),
+                      url.replace('/',r'\/'),url.replace('/',r'\u002f'),
+                      url.replace(':','&#58;'),url.replace('.com/','.com./')):
+            self.assertIn('non-anonymous repository/website URL',text_issues(value))
     def test_anonymous_and_news_sources_allowed(self):
         self.assertEqual(text_issues('https://anonymous.4open.science/r/review/README.md https://www.nasa.gov/'),[])
     def test_non_english_text_rejected(self):

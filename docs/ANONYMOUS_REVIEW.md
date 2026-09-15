@@ -7,9 +7,14 @@ copies, search-engine caches, or the source repository's Git history.
 
 ## Included safeguards
 
-- All project navigation uses relative paths or the anonymous artifact domain.
+- Navigation audit: **2026-09-15**. All project navigation uses relative paths.
   No project link points to an author's profile, personal website, source-repo
   commit, issue tracker, or raw owner-hosted download.
+- The README has no external demo/preview link or clickable animation wrapper.
+  HTML pages have no repository button or code-repository footer link, including
+  anonymous-proxy buttons. The page generator preserves these removals.
+- Source-link rendering blocks repository, raw-content and personal static-site
+  domains, including subdomains. Source citations to news publishers remain.
 - All four HTML entry points use English text. The older HTML builder delegates
   to the current builder, preventing stale identity links from being regenerated.
 - Local data and images are served within the artifact. There are no third-party
@@ -44,6 +49,7 @@ This revision does not substantiate new model results or a complete daily run.
 ```bash
 python -m unittest discover -s tests -v
 python src/check_anonymity.py
+python src/check_navigation.py
 python src/check_secrets.py
 python src/package_anonymous.py --output anonymous-review.zip
 ```
@@ -52,6 +58,12 @@ The anonymity scanner supports an optional `ANON_IDENTITY_TOKENS` environment
 variable containing comma-separated private identifiers. Values are never
 printed or written into the report. Do not put such identifiers into a committed
 test fixture, denylist, example command, or configuration file.
+
+The navigation check requires every static HTML link and every README link to
+remain within the artifact, and verifies that its local target exists. Runtime
+source-link filtering has separate JavaScript regression tests. These checks
+cover the distributed files, not a host's own interface or future third-party
+redirects. The dated navigation-audit marker makes stale copies easy to spot.
 
 ## Anonymous-host settings
 
