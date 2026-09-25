@@ -243,7 +243,7 @@ def main():
         'paper_figure':'author-supplied concept illustration; not measured release distribution',
         'outputs':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in OUT.glob('*')
                    if p.name in ['showcase-cover.png','benchmark-overview.png','demo-storyboard.png','live-search-demo.mp4','live-search-demo.gif']}}
-    (OUT/'showcase-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
+    (OUT/'showcase-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8',newline='\n')
     print(json.dumps({'outputs':list(manifest['outputs']),'seconds':36,'model_calls':0}))
 
 
