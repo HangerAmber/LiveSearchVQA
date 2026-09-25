@@ -11,14 +11,17 @@ class NavigationTests(unittest.TestCase):
     def test_whole_artifact_navigation(self):
         report=check(ROOT)
         self.assertEqual(report['findings'],[])
-        self.assertEqual(report['files'],5)
+        self.assertGreaterEqual(report['files'],5)
 
     def test_no_repository_buttons_or_wrapped_animation(self):
         for name in ('index.html','index_v2.html','demo.html','preview.html'):
             text=(ROOT/name).read_text(encoding='utf-8')
             for label in ('>GitHub</a>','>Anonymous repository</a>','>Code &amp; data</a>'):
                 self.assertNotIn(label,text,name)
-            self.assertIn('Navigation audit: 2026-09-15',text)
+            self.assertIn('Navigation audit: 2026-09-25',text)
+            self.assertNotRegex(text,r'<a\b')
+            self.assertNotIn('window.open(',text)
+            self.assertIn('assets/live-search-demo.mp4',text)
         readme=(ROOT/'README.md').read_text(encoding='utf-8')
         self.assertNotIn('[![',readme)
         self.assertNotIn('Open the interactive demo',readme)
@@ -38,6 +41,18 @@ class NavigationTests(unittest.TestCase):
         parser=NavigationParser()
         parser.feed('<base href="/"><meta http-equiv="refresh" content="0;url=elsewhere">')
         self.assertEqual(len(parser.issues),2)
+
+    def test_even_local_hyperlinks_disabled(self):
+        parser=NavigationParser()
+        parser.feed('<a href="docs/PROTOCOL.md">Protocol</a><a href="#case">Case</a>')
+        self.assertEqual(len(parser.issues),2)
+
+    def test_media_manifest_matches(self):
+        import json,hashlib
+        manifest=json.loads((ROOT/'assets/showcase-manifest.json').read_text())
+        self.assertEqual(manifest['new_model_calls'],0)
+        for name,digest in manifest['outputs'].items():
+            self.assertEqual(hashlib.sha256((ROOT/'assets'/name).read_bytes()).hexdigest(),digest)
 
 
 if __name__=='__main__':unittest.main()

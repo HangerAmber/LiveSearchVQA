@@ -7,14 +7,16 @@ copies, search-engine caches, or the source repository's Git history.
 
 ## Included safeguards
 
-- Navigation audit: **2026-09-15**. All project navigation uses relative paths.
+- Navigation audit: **2026-09-25**. All HTML hyperlinks and Markdown text links
+  are removed. Local images/video are embedded, not wrapped in links.
   No project link points to an author's profile, personal website, source-repo
   commit, issue tracker, or raw owner-hosted download.
 - The README has no external demo/preview link or clickable animation wrapper.
   HTML pages have no repository button or code-repository footer link, including
   anonymous-proxy buttons. The page generator preserves these removals.
-- Source-link rendering blocks repository, raw-content and personal static-site
-  domains, including subdomains. Source citations to news publishers remain.
+- Source attributions render as plain text, never clickable anchors. Original
+  provenance URLs remain in JSON, not as links in the demo. Date selection loads
+  the chosen local snapshot in place; it never redirects to a second HTML page.
 - All four HTML entry points use English text. The older HTML builder delegates
   to the current builder, preventing stale identity links from being regenerated.
 - Local data and images are served within the artifact. There are no third-party
@@ -59,11 +61,13 @@ variable containing comma-separated private identifiers. Values are never
 printed or written into the report. Do not put such identifiers into a committed
 test fixture, denylist, example command, or configuration file.
 
-The navigation check requires every static HTML link and every README link to
-remain within the artifact, and verifies that its local target exists. Runtime
-source-link filtering has separate JavaScript regression tests. These checks
-cover the distributed files, not a host's own interface or future third-party
-redirects. The dated navigation-audit marker makes stale copies easy to spot.
+The navigation check rejects HTML hyperlinks and Markdown text links throughout
+the artifact, and verifies that embedded media exist locally. Runtime source
+attribution and date switching have JavaScript regression tests. These checks
+cover the distributed files, not a host's own interface. Source-host account
+buttons and image-viewer wrappers added by a hosting platform cannot be disabled
+by README content. Share only the anonymous mirror for review. The dated
+navigation-audit marker makes stale copies easy to spot.
 
 ## Anonymous-host settings
 

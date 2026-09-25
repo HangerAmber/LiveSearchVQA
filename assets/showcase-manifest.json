@@ -1,0 +1,23 @@
+{
+  "edition": "2026-09-25",
+  "kind": "illustrated walkthrough, not a screen recording",
+  "snapshot": "data/previews/2026-09-05.json",
+  "ids": [
+    "522fc2138b6c-0",
+    "bfcd16fb2c0f-0",
+    "3c95ec7b092e-0",
+    "9bb125a270d4-0"
+  ],
+  "display_prompts": "abridged; exact questions remain in JSON",
+  "duration_seconds": 36,
+  "new_model_calls": 0,
+  "agent_search_trajectories_claimed": false,
+  "paper_figure": "author-supplied concept illustration; not measured release distribution",
+  "outputs": {
+    "benchmark-overview.png": "1d82e75cf0b52e993f133d339eaa09ee4405df996ac0920382b18b955a9307b8",
+    "demo-storyboard.png": "ee8e06afd60ae6923b3e148f4781769cec609c77b7fed28097503e3a9d138564",
+    "live-search-demo.gif": "1dd5b47eae000b9ed2fb199f264fe6ed28bf62637b2c0e1f5f83ca49ed288c33",
+    "live-search-demo.mp4": "77ca118715cd1fc02d74a89ab749b7fff41c8f9838e5942904f0b36f05ceee58",
+    "showcase-cover.png": "a95a07de6c9ea29334f4a742ace88d21725b1d92c4fe01d9842560e948741b1d"
+  }
+}

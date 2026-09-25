@@ -187,6 +187,9 @@ h2{font-size:28px;font-weight:800;margin-bottom:8px}
 #archive-status{font-size:13px;color:var(--teal);font-weight:600}
 .archive-note{max-width:520px;color:var(--mut);font-size:13px}
 
+.media-frame{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;margin:20px 0}
+.media-caption{font-size:14px;color:var(--mut);line-height:1.7}
+button.btn{font-family:inherit;cursor:pointer}
 footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </style>
@@ -200,12 +203,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="tag">Identify the visual referent. Search for a newly reported fact. Select the right evidence. Explore dated VQA snapshots with source excerpts and construction-panel responses.</div>
   <div class="zh">Anonymous review artifact · Manual builds only · Freshness is measured at construction · P1/P2 are panel-relative</div>
   <div class="cta">
-    <a class="btn btn-p" href="#challenge">Try the Challenge &rarr;</a>
-    <a class="btn btn-o" id="browse-link" href="#explorer">Browse 171 Questions</a>
-    <a class="btn btn-o" href="docs/manuscript.pdf">Working paper</a>
-    <a class="btn btn-o" id="download-split" href="data/benchmark_v2.json" download>Download JSON + traces</a>
-    <a class="btn btn-o" href="#archive">Switch date</a>
+    <button class="btn btn-p" type="button" onclick="scrollToSection('film')">Watch the demo</button>
+    <button class="btn btn-o" type="button" id="browse-link" onclick="scrollToSection('explorer')">Browse 171 Questions</button>
+    <button class="btn btn-o" type="button" onclick="scrollToSection('archive')">Switch date</button>
   </div>
+  <img class="media-frame" src="assets/showcase-cover.png" width="1600" height="900" alt="LiveSearchVQA: fresh facts, visual questions, auditable search. Four archived image-question cases.">
   <div class="stats">
     <div class="stat"><b id="stat-items" data-n="171">0</b><span>QUESTIONS IN SPLIT</span></div>
     <div class="stat"><b id="stat-cats" data-n="5">0</b><span>NEWS CATEGORIES</span></div>
@@ -215,12 +217,25 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
 </div></div>
 
+<section id="film"><div class="wrap">
+  <h2>LIVE facts. SEARCH for evidence.</h2>
+  <p class="media-caption">A 36-second illustrated walkthrough using archived demo records. Not a recording of a new crawl or a measured agent search run.</p>
+  <video class="media-frame" controls playsinline preload="none" poster="assets/showcase-cover.png" aria-label="LiveSearchVQA illustrated walkthrough">
+    <source src="assets/live-search-demo.mp4" type="video/mp4">
+    Your browser cannot play this video. The storyboard and case gallery below show the same content.
+  </video>
+  <img class="media-frame" src="assets/demo-storyboard.png" width="1600" height="1040" loading="lazy" alt="Walkthrough storyboard: on-demand dated news, a visual question, dated evidence selection, and P0/P1/P2 admission checks.">
+  <h2>One benchmark. A changing world.</h2>
+  <img class="media-frame" src="assets/benchmark-overview.png" width="2560" loading="lazy" alt="Supplied paper illustration: eight domains, five answer types, and dated facts. Illustrative layout, not the distribution of the downloadable snapshots.">
+  <p class="media-caption">Paper concept illustration supplied by the authors. Its timeline values and balanced sector shares are illustrative, not measured statistics for the archived releases. Actual snapshot counts and distributions appear below.</p>
+</div></section>
+
 <!-- ===================== PIPELINE ===================== -->
 <section id="construction"><div class="wrap">
   <h2>How the data is built</h2>
   <div class="accent"></div>
   <picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/construction-poster.png"><img src="assets/construction.gif" width="1280" height="660" style="width:100%;height:auto;border-radius:12px" alt="Illustrated construction: collect a timestamped source, generate an evidence-first question, check visual grounding, require all 12 no-web failures and 12 gold-evidence successes, then validate and freeze a release."></picture>
-  <p class="sub" style="margin-top:18px">Illustrated process, not a live run recording. <a href="assets/construction-poster.png">Static version</a> · <a href="docs/PROTOCOL.md">Detailed protocol</a>. The selected snapshot contains <span id="publish-count">171</span> items.</p>
+  <p class="sub" style="margin-top:18px">Illustrated process, not a live run recording. Protocol file: docs/PROTOCOL.md. The selected snapshot contains <span id="publish-count">171</span> items.</p>
   <div class="formula">Research status: the September 2026 working paper contains <b>synthetic numerical demonstrations</b>, not a measured model leaderboard. Live construction records are separate. Human review and held-out transfer are not established by these panel certificates. Older archived splits retain their original audit schema.</div>
 </div></section>
 
@@ -245,7 +260,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     </div>
     <div class="sub">A curated cross-section of markets, AI, FIFA governance, medicine, mobility, public health, climate, consumer technology, humanitarian response, and culture. Click any case to inspect its evidence and panel certificate.</div>
   </div>
-  <div class="formula" style="margin-top:24px;border-color:var(--gold)">Latest attempt · 2026-09-05: <b>121/200 items</b>. Incomplete build, not an official 200-item release. <a href="preview.html">Inspect the new-item preview →</a> · <a href="data/releases/latest_attempt.json">Build audit</a></div>
+  <div class="formula" style="margin-top:24px;border-color:var(--gold)">Latest attempt · 2026-09-05: <b>121/200 items</b>. Incomplete build, not an official 200-item release. Use the date selector to inspect this preview in place. Audit: data/releases/latest_attempt.json</div>
   <div class="showcase-grid" id="showcase-grid"></div>
 </div></section>
 
@@ -323,14 +338,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <select id="build-select" onchange="switchBuild(this.value)"><option value="2026-09-05">2026-09-05 - 121 items (incomplete preview)</option><option value="2026-08-18" selected>2026-08-18 - 171 items (English-only legacy subset)</option><option value="2026-08-15">2026-08-15 - 200 items (archived snapshot)</option></select>
       <span id="archive-status">Viewing 2026-08-18 · 171 items</span>
     </div>
-    <div class="archive-note">Counts describe the supplied files: 200 items in the August 15 archive, 171 in the English-only August 18 subset, and 121 in the September 5 incomplete preview. Subsetting does not create a new certificate or a complete release. Selecting a date updates questions, answers, downloads, and charts.</div>
+    <div class="archive-note">Counts describe the supplied files: 200 items in the August 15 archive, 171 in the English-only August 18 subset, and 121 in the September 5 incomplete preview. Subsetting does not create a new certificate or a complete release. Selecting a date updates questions, answers, and charts without leaving this page.</div>
   </div>
 </div></section>
 
 <footer><div class="wrap">
   <div>LiveSearchVQA &middot; build <span id="footer-build">2026-08-18</span> &middot; refreshed only on explicit command</div>
-  <div><a id="footer-json" href="data/benchmark_v2.json">Selected JSON</a> · Source images belong to their respective owners</div>
-  <div>Navigation audit: 2026-09-15 · No external project navigation</div>
+  <div>Source file: <span id="snapshot-file">data/benchmark_v2.json</span> · Source images belong to their respective owners</div>
+  <div>Navigation audit: 2026-09-25 · No hyperlink navigation; all controls work in place</div>
 </div></footer>
 
 <!-- ===================== MODAL ===================== -->
@@ -389,15 +404,8 @@ document.querySelectorAll(".stat b[data-n]").forEach(el=>io.observe(el));
 
 /* ---------- helpers ---------- */
 const esc = s => String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
-function safeUrl(value){
-  try {
-    const u=new URL(value,location.href), host=u.hostname.toLowerCase().replace(/\.$/,'');
-    const blocked=['github.com','github.io','githubusercontent.com'];
-    if(!/^https?:$/.test(u.protocol) || u.username || u.password ||
-       blocked.some(domain=>host===domain || host.endsWith('.'+domain))) return '#';
-    return esc(u.href);
-  }
-  catch { return '#'; }
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
 }
 function normalizeItem(it){
   if(Object.prototype.hasOwnProperty.call(it,"img")) return it;
@@ -453,8 +461,7 @@ function loadQ(it){
   document.getElementById("c-cert").textContent = it.traced ?
     '24 recorded panel verdicts · Human review: '+it.human :
     'Legacy audit snapshot · Not re-certified under the September 2026 trace schema';
-  document.getElementById("c-src").innerHTML =
-    `Source: <a href="${safeUrl(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.title||it.src)}</a>`;
+  document.getElementById("c-src").textContent = `Source: ${it.src} — ${it.title||''}`;
   document.getElementById("c-ans").style.display = "none";
   document.getElementById("c-reveal").style.display = "inline-block";
 }
@@ -515,8 +522,7 @@ function openItem(it){
   document.getElementById("m-ev").innerHTML = "<b>Gold evidence:</b> " + esc(it.ev);
   document.getElementById("m-cb").innerHTML = chips(it.cb, it.a, false);
   document.getElementById("m-or").innerHTML = chips(it.orp, it.a, true);
-  document.getElementById("m-src").innerHTML =
-    `Source: <a href="${safeUrl(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.title||it.src)}</a>`;
+  document.getElementById("m-src").textContent = `Source: ${it.src} — ${it.title||''}`;
   document.getElementById('m-audit-status').textContent = it.traced ?
     '24 recorded panel verdicts · Human review: '+it.human : 'Legacy audit schema; not retroactively re-certified.';
   document.getElementById("modal").classList.add("open");
@@ -585,8 +591,7 @@ function updateOverview(date){
   document.getElementById("browse-link").textContent = `Browse ${DATA.length} Questions`;
   document.getElementById("publish-count").textContent = DATA.length;
   document.getElementById("archive-status").textContent = `Viewing ${date} · ${DATA.length} items · ${SNAPSHOT_META[date].label}`;
-  document.getElementById("download-split").href = SNAPSHOT_META[date].path;
-  document.getElementById('footer-json').href = document.getElementById('download-split').href;
+  document.getElementById('snapshot-file').textContent = SNAPSHOT_META[date].path;
 }
 function resetViews(date){
   selectedDate = date;
@@ -597,7 +602,6 @@ function resetViews(date){
   closeModal(); resetChallenge(); render(); updateBars(); updateOverview(date);
 }
 async function switchBuild(date, updateUrl=true){
-  if(!IS_PREVIEW && PREVIEW_DATE && date===PREVIEW_DATE){ location.href='preview.html'; return; }
   if(!SNAPSHOT_DATES.includes(date) || date===selectedDate) return;
   const select = document.getElementById("build-select");
   const previous = selectedDate;
@@ -616,11 +620,6 @@ async function switchBuild(date, updateUrl=true){
     DATA = raw.map(normalizeItem);
     resetViews(date);
     select.value = date;
-    if(updateUrl){
-      const u = new URL(location.href);
-      date===CURRENT_DATE ? u.searchParams.delete("date") : u.searchParams.set("date",date);
-      history.replaceState({},"",u);
-    }
   }catch(error){
     select.value = previous;
     document.getElementById("archive-status").textContent = `Could not load ${date}: ${error.message}`;

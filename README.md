@@ -1,16 +1,42 @@
 # LiveSearchVQA
 
-**Fresh visual questions. Auditable construction. Diagnosable search.**
+**LIVE facts. SEARCH for evidence.**
 
-[Download the current split](data/benchmark_v2.json)
- · [Construction protocol](docs/PROTOCOL.md)
- · [Current manuscript](docs/manuscript.pdf)
- · [Latest build attempt](data/releases/latest_attempt.json)
+![LiveSearchVQA: four archived visual questions and answers](assets/showcase-cover.png)
 
-![How a news article becomes a certified visual question](assets/construction.gif)
+A picture tells you what. The web tells you what changed.
+We build dated visual questions whose answers require fresh, answer-bearing
+evidence, then record item-level no-web and gold-evidence checks.
 
-Interactive pages are included as `index.html`, `demo.html`, and `preview.html`.
-Download this artifact and use the offline server below to view them.
+## Watch the walkthrough — no navigation needed
+
+![36-second illustrated walkthrough: dated news, visual question, evidence selection, and P0/P1/P2 checks](assets/live-search-demo.gif)
+
+**LIVE:** time-stamped sources and on-demand construction.
+**SEARCH:** resolve the visual clue, locate the right fact, distinguish nearby numbers.
+**VERIFY:** retain the recorded P0/P1/P2 admission checks.
+
+The animation uses the **September 5 archived preview**. It is an illustrated
+walkthrough, not a recording of a new crawl or a measured agent search run.
+Prompts and long answers on the cover are abridged; original records are unchanged.
+The 36-second MP4 is included as `assets/live-search-demo.mp4` and plays in place
+inside the HTML pages. The GIF above works directly in this README.
+
+## One benchmark. A changing world.
+
+![Paper concept illustration: eight domains, five answer types, and dated facts](assets/benchmark-overview.png)
+
+*Author-supplied paper illustration. Timeline values and balanced sector shares
+are illustrative, not measured distributions of the downloadable snapshots.*
+
+## Explore the artifact
+
+Interactive pages are included as `index.html`, `index_v2.html`, `demo.html`,
+and `preview.html`. Use the local server below to view them. Case inspection,
+answer reveal, filtering, video playback, and date switching work **in place**.
+No project-authored hyperlinks, repository buttons, downloads, or source links
+take the reader away from the page. Image viewers and repository navigation
+added by a hosting platform itself are outside this artifact's control.
 
 Identify the visual referent, search for a newly reported fact, and select the
 right evidence. The demo includes image–question cases, source excerpts,
@@ -19,10 +45,9 @@ selector. **Refreshes run only on explicit owner instruction—never on a schedu
 
 ## Anonymous review edition
 
-**Navigation audit: 2026-09-15.** Project navigation stays within this artifact.
-There are no repository buttons, external demo links, or linked animation
-wrappers. News-source citations are retained with referrer suppression.
-See [the checklist](docs/ANONYMOUS_REVIEW.md).
+**Navigation audit: 2026-09-25.** Markdown text links and all HTML hyperlinks
+are disabled. News-source names remain as plain text; original provenance URLs
+remain in the data for reproducibility. Checklist: `docs/ANONYMOUS_REVIEW.md`.
 
 The August 18 data are now a **171-item English-only subset**. The 29 excluded
 records had non-English source content; retained records are not translated or
@@ -36,7 +61,7 @@ within **48 hours of construction and release**, with at least **65% numeric or
 temporal answers**. A target is not a guarantee of yield: a shortfall must not be
 filled with old items or weaker certification.
 
-The [September 5 build report](docs/BUILD_2026-09-05.md) records **121/200 items**
+The September 5 build report (`docs/BUILD_2026-09-05.md`) records **121/200 items**
 and a shortfall of 79, with machine-readable audits under `data/releases/`.
 When its target is not met, newly constructed items appear only in a clearly
 labeled **incomplete preview**. Neither the preview nor the English-only legacy
@@ -76,6 +101,8 @@ the new audit implementation.
 | `src/daily.py` | **Manually invoked** orchestration; historical filename only |
 | `src/build_demo.py` | Reproducibly builds both the project homepage and demo |
 | `src/build_construction_gif.py` | Rebuilds the illustrated construction animation |
+| `src/build_showcase_media.py` | Rebuilds the cover, GIF, MP4, and storyboard without API calls |
+| `assets/showcase-manifest.json` | Media provenance, archived item IDs, and file hashes |
 | `src/supplement_v2.py` | Explicit bounded alternatives or exact-source formatting repair; no automatic promotion |
 | `data/benchmark_v2.json` | 171-item English-only projection of the August 18 split |
 | `data/archive_v2/` | Frozen dated snapshots |
@@ -107,6 +134,8 @@ For offline page rebuilds (no paid API calls):
 
 ```bash
 python src/build_construction_gif.py
+# Optional: requires ffmpeg on PATH; no model calls.
+python src/build_showcase_media.py
 python src/build_demo.py
 python src/build_demo.py --preview data/previews/2026-09-05.json
 python -m http.server 8000 --bind 127.0.0.1
@@ -121,8 +150,8 @@ python -m http.server 8000 --bind 127.0.0.1
   decoding settings, and certification outcomes—not authorization headers.
 - Actual billed dollars require provider billing records; token counts alone
   are not an invoice. Missing billing information is reported as unknown.
-- News images remain owned by their respective sources. Source links are
-  retained; inclusion here is not a blanket license to redistribute them.
+- News images remain owned by their respective sources. Attribution names and
+  data provenance are retained; inclusion is not a blanket redistribution license.
 - The rebuild workflow is `workflow_dispatch` only. Updating the static
   site does not trigger generation or paid model calls.
 - Before publishing, run `python src/check_anonymity.py`. Create a history-free
