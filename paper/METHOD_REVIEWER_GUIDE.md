@@ -67,7 +67,9 @@ held-out transfer, retrieval traces and controlled distraction then address
 search capability. Generation/certification ablations, visual interventions,
 cost and cross-date checks explain the instrument's properties and limitations.
 
-The working manuscript contains explicitly identified synthetic demonstrations.
+The archived September 5, 2026 manuscript contains explicitly identified synthetic demonstrations.
 They remain distinct from the real construction records. The September 5 attempt
 yielded 121 items, not 200; human review and held-out evaluation remain pending.
 The English-only August 18 artifact is a subset, not a new construction run.
+These are version-specific historical statements, not an assessment of a later
+manuscript. See `docs/RELEASE_STATUS.md` for current public-release scope.

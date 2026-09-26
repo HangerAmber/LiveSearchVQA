@@ -8,6 +8,19 @@ A picture tells you what. The web tells you what changed.
 We build dated visual questions whose answers require fresh, answer-bearing
 evidence, then record item-level no-web and gold-evidence checks.
 
+## Data availability — partial public release
+
+This repository currently provides a **partial public release** of
+LiveSearchVQA, including selected dated snapshots, the interactive showcase,
+and construction code. We plan to publicly release the complete benchmark
+data, evaluation code, and supporting validation records in a subsequent
+release, following completion and verification. News-image reuse remains
+subject to the original sources' rights.
+
+The files currently available are listed below. They should not be interpreted
+as the complete evaluation package for a later manuscript. Release scope and
+version-specific evidence status: `docs/RELEASE_STATUS.md`.
+
 ## Watch the walkthrough — no navigation needed
 
 ![36-second illustrated walkthrough: dated news, visual question, evidence selection, and P0/P1/P2 checks](assets/live-search-demo.gif)
@@ -80,14 +93,11 @@ samples per condition. This is a **two-provider panel with a shared generator
 member**, not three independent model families. P1/P2 are **finite,
 panel-relative observations**, not guarantees about every future model.
 
-The September 5, 2026 manuscript is a **working draft with synthetic numerical
-demonstrations**. Those experiment tables are not live model measurements.
-API-backed construction records in this repository are a separate artifact;
-they do not establish held-out transfer, expert agreement, causal distraction
-effects, or a real 30-day evaluation. New items are marked `not_yet_audited`
-until independent human ratings exist. Archived August builds retain their
-original, older provenance schema and are not retroactively certified under
-the new audit implementation.
+**Version note:** the bundled **September 5, 2026 draft** contains illustrative,
+unmeasured experiment numbers. This notice concerns that archived version, not
+an assessment of a later manuscript. The public construction records and their
+review status are documented separately in `docs/RELEASE_STATUS.md`; full-paper
+empirical results require corresponding evaluation records.
 
 ## Repository map
 
@@ -107,8 +117,9 @@ the new audit implementation.
 | `data/benchmark_v2.json` | 171-item English-only projection of the August 18 split |
 | `data/archive_v2/` | Frozen dated snapshots |
 | `data/releases/` | Public release manifests and audit summaries |
-| `docs/manuscript.pdf` | User-supplied current manuscript (September 5, 2026) |
-| `paper/` | Earlier LaTeX draft; retained for provenance, not the current manuscript |
+| `docs/manuscript.pdf` | Archived working manuscript dated September 5, 2026 |
+| `docs/RELEASE_STATUS.md` | Partial-release scope, future release plan, and version-specific evidence status |
+| `paper/` | Earlier LaTeX draft retained for provenance |
 | `tests/` | Offline regression tests; no model calls |
 
 Non-English legacy v1 data are excluded from this review edition. Legacy HTML
