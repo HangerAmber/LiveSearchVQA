@@ -34,7 +34,7 @@ class NavigationTests(unittest.TestCase):
             self.assertIsNotNone(local_target_issue(value,ROOT/'index.html',ROOT))
 
     def test_local_links_resolve(self):
-        for value in ('#explorer','docs/PROTOCOL.md','preview.html','data/benchmark_v2.json'):
+        for value in ('#explorer','README.md','preview.html','data/benchmark_v2.json'):
             self.assertIsNone(local_target_issue(value,ROOT/'index.html',ROOT))
 
     def test_hidden_redirects(self):
@@ -44,7 +44,7 @@ class NavigationTests(unittest.TestCase):
 
     def test_even_local_hyperlinks_disabled(self):
         parser=NavigationParser()
-        parser.feed('<a href="docs/PROTOCOL.md">Protocol</a><a href="#case">Case</a>')
+        parser.feed('<a href="README.md">Readme</a><a href="#case">Case</a>')
         self.assertEqual(len(parser.issues),2)
 
     def test_media_manifest_matches(self):

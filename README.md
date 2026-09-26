@@ -12,14 +12,14 @@ evidence, then record item-level no-web and gold-evidence checks.
 
 This repository currently provides a **partial public release** of
 LiveSearchVQA, including selected dated snapshots, the interactive showcase,
-and construction code. We plan to publicly release the complete benchmark
-data, evaluation code, and supporting validation records in a subsequent
-release, following completion and verification. News-image reuse remains
-subject to the original sources' rights.
+and construction code. A complete benchmark evaluation package is not included
+in this snapshot. Additional data, evaluation code, and validation records are
+planned for a later release. News-image reuse remains subject to the original
+sources' rights.
 
-The files currently available are listed below. They should not be interpreted
-as the complete evaluation package for a later manuscript. Release scope and
-version-specific evidence status: `docs/RELEASE_STATUS.md`.
+The available files and snapshot counts are listed below. Construction-audit
+summaries are in `data/releases/`. Construction-panel admission records do not
+by themselves validate manuscript-level experimental results.
 
 ## Watch the walkthrough — no navigation needed
 
@@ -60,7 +60,8 @@ selector. **Refreshes run only on explicit owner instruction—never on a schedu
 
 **Navigation audit: 2026-09-25.** Markdown text links and all HTML hyperlinks
 are disabled. News-source names remain as plain text; original provenance URLs
-remain in the data for reproducibility. Checklist: `docs/ANONYMOUS_REVIEW.md`.
+remain in the data for reproducibility. Run `src/check_anonymity.py` and
+`src/check_navigation.py` to check the current artifact.
 
 The August 18 data are now a **171-item English-only subset**. The 29 excluded
 records had non-English source content; retained records are not translated or
@@ -74,8 +75,9 @@ within **48 hours of construction and release**, with at least **65% numeric or
 temporal answers**. A target is not a guarantee of yield: a shortfall must not be
 filled with old items or weaker certification.
 
-The September 5 build report (`docs/BUILD_2026-09-05.md`) records **121/200 items**
-and a shortfall of 79, with machine-readable audits under `data/releases/`.
+The September 5 construction record (`data/releases/latest_attempt.json`)
+reports **121/200 items** and a shortfall of 79, with machine-readable audits
+under `data/releases/`.
 When its target is not met, newly constructed items appear only in a clearly
 labeled **incomplete preview**. Neither the preview nor the English-only legacy
 subset is a claim of stable 200-item/day throughput.
@@ -92,12 +94,6 @@ Qwen3.5 Flash, Qwen3-VL Plus, and Doubao Seed 2.0 Pro for certification, four
 samples per condition. This is a **two-provider panel with a shared generator
 member**, not three independent model families. P1/P2 are **finite,
 panel-relative observations**, not guarantees about every future model.
-
-**Version note:** the bundled **September 5, 2026 draft** contains illustrative,
-unmeasured experiment numbers. This notice concerns that archived version, not
-an assessment of a later manuscript. The public construction records and their
-review status are documented separately in `docs/RELEASE_STATUS.md`; full-paper
-empirical results require corresponding evaluation records.
 
 ## Repository map
 
@@ -117,9 +113,6 @@ empirical results require corresponding evaluation records.
 | `data/benchmark_v2.json` | 171-item English-only projection of the August 18 split |
 | `data/archive_v2/` | Frozen dated snapshots |
 | `data/releases/` | Public release manifests and audit summaries |
-| `docs/manuscript.pdf` | Archived working manuscript dated September 5, 2026 |
-| `docs/RELEASE_STATUS.md` | Partial-release scope, future release plan, and version-specific evidence status |
-| `paper/` | Earlier LaTeX draft retained for provenance |
 | `tests/` | Offline regression tests; no model calls |
 
 Non-English legacy v1 data are excluded from this review edition. Legacy HTML

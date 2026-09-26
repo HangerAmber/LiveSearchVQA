@@ -1,9 +1,9 @@
 name: Offline checks (no model API calls)
 on:
   push:
-    paths: ['src/**', 'tests/**', 'assets/**', 'docs/**', 'paper/**', 'data/**', '*.md', '*.html', 'requirements.txt', '.github/workflows/offline-tests.yml']
+    paths: ['src/**', 'tests/**', 'assets/**', 'data/**', '*.md', '*.html', 'requirements.txt', '.github/workflows/offline-tests.yml']
   pull_request:
-    paths: ['src/**', 'tests/**', 'assets/**', 'docs/**', 'paper/**', 'data/**', '*.md', '*.html', 'requirements.txt']
+    paths: ['src/**', 'tests/**', 'assets/**', 'data/**', '*.md', '*.html', 'requirements.txt']
 permissions:
   contents: read
 jobs:
